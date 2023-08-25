@@ -169,7 +169,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 				<div class="sections prod-slider-small outer-top-small">
 				<?php
 				$ictr = 1;
-				$res=mysqli_query($con,"select * from subcategory where categoryid=4");
+				$res=mysqli_query($con,"select * from subcategory ORDER BY categoryid ASC");
 				while ($row1=mysqli_fetch_array($res)) 
 				{
 					if($ictr%2!=0)

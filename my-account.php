@@ -240,7 +240,7 @@ while($row=mysqli_fetch_array($query))
 			<?php include('includes/myaccount-sidebar.php');?>
 			</div><!-- /.row -->
 		</div><!-- /.checkout-box -->
-	<?php include('includes/brands-slider.php');?>
+	
 
 </div>
 </div>

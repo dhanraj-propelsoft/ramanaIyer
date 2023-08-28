@@ -116,7 +116,7 @@ while($row=mysqli_fetch_array($query))
 					<td><?php echo $cnt;?></td>
 					<td class="cart-image">
 						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['pname'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
+						    <img src="admin/productimages/<?php echo $row['opid'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
 						</a>
 					</td>
 					<td class="cart-product-name-info">
@@ -150,7 +150,7 @@ while($row=mysqli_fetch_array($query))
 		</div> <!-- /.row -->
 		</form>
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-<?php echo include('includes/brands-slider.php');?>
+
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div><!-- /.body-content -->
 <?php include('includes/footer.php');?>

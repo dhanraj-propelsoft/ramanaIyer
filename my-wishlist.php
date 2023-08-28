@@ -167,7 +167,7 @@ $num=mysqli_num_rows($rt);
 	</div>
 </div>			</div><!-- /.row -->
 		</div><!-- /.sigin-in-->
-	<?php include('includes/brands-slider.php');?>
+	
 </div>
 </div>
 <?php include('includes/footer.php');?>

@@ -248,7 +248,7 @@ echo htmlentities($_SESSION['errmsg']="");
 </div>	
 <!-- create a new account -->			</div><!-- /.row -->
 		</div>
-<?php include('includes/brands-slider.php');?>
+
 </div>
 </div>
 <?php include('includes/footer.php');?>

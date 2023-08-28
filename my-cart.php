@@ -400,7 +400,7 @@ echo "Your shopping Cart is empty";
 </div>			</div>
 		</div> 
 		</form>
-<?php echo include('includes/brands-slider.php');?>
+
 </div>
 </div>
 <?php include('includes/footer.php');?>

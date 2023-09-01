@@ -1,27 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
-if (isset($_GET['action']) && $_GET['action'] == "add") {
-	$id = intval($_GET['id']);
-	if (isset($_SESSION['cart'][$id])) {
-		$_SESSION['cart'][$id]['quantity']++;
-	} else {
-		$sql_p = "SELECT * FROM products WHERE id={$id}";
-		$query_p = mysqli_query($con, $sql_p);
-		if (mysqli_num_rows($query_p) != 0) {
-			$row_p = mysqli_fetch_array($query_p);
-			$_SESSION['cart'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['productPrice']);
-		} else {
-			$message = "Product ID is invalid";
-		}
-	}
-	echo "<script>alert('Product has been added to the cart')</script>";
-	echo "<script type='text/javascript'> document.location ='my-cart.php'; </script>";
-}
-
-
-?>
+include('includes/config.php');?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +15,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 	<meta name="keywords" content="MediaCenter, Template, eCommerce">
 	<meta name="robots" content="all">
 
-	<title>Shopping Portal Home Page</title>
+	<title>Ramana Iyer Home Page</title>
 
 	<!-- Bootstrap Core CSS -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -50,7 +30,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 	<link rel="stylesheet" href="assets/css/animate.min.css">
 	<link rel="stylesheet" href="assets/css/rateit.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
-
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 	<!-- Demo Purpose Only. Should be removed in production -->
 	<link rel="stylesheet" href="assets/css/config.css">
 
@@ -65,7 +45,11 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="assets/images/favicon.ico">
 
+
+    <!-- Other meta tags, styles, and scripts -->
+	<?php include('userStyle.php');?>
 </head>
+
 
 <body class="cnt-home">
 
@@ -172,7 +156,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 					$res = mysqli_query($con, "select subcategory.id,subcategory.subcategory,subcategory.categoryid from subcategory LEFT JOIN category ON subcategory.categoryid = category.id WHERE category.id IS NOT NULL ORDER BY categoryid ASC");
 				
 					while ($row1 = mysqli_fetch_array($res)) {
-						print_r($row1['id']);
+					
 						if ($ictr % 2 != 0)
 							echo "<div class='row'>";
 					?>
@@ -276,3 +260,39 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 </body>
 
 </html>
+<?php
+session_start();
+error_reporting(0);
+include('includes/config.php');
+if (isset($_GET['action']) && $_GET['action'] == "add") {
+	$id = intval($_GET['id']);
+	if (isset($_SESSION['cart'][$id])) {
+		$_SESSION['cart'][$id]['quantity']++;
+	} else {
+		$sql_p = "SELECT * FROM products WHERE id={$id}";
+		$query_p = mysqli_query($con, $sql_p);
+		if (mysqli_num_rows($query_p) != 0) {
+			$row_p = mysqli_fetch_array($query_p);
+			$_SESSION['cart'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['productPrice']);
+		} else {
+			$message = "Product ID is invalid";
+		}
+	}
+	echo "<script>
+	Swal.fire({
+		title: 'Product Added!',
+		text: 'Product has been added to the cart.',
+		icon: 'success',
+		showCancelButton: true,
+		confirmButtonText: 'Go to Cart',
+		cancelButtonText: 'Continue Shopping'
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = 'my-cart.php';
+		}
+	});
+</script>";
+}
+
+
+?>

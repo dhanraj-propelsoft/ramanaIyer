@@ -27,10 +27,21 @@ $query=mysqli_query($con,"SELECT * FROM users WHERE email='$email' and password=
 $num=mysqli_fetch_array($query);
 if($num>0)
 {
-$extra="my-cart.php";
+$extra="index.php";
 $_SESSION['login']=$_POST['email'];
 $_SESSION['id']=$num['id'];
 $_SESSION['username']=$num['name'];
+
+if(empty($_SESSION['cart'])){
+	$sql_p="SELECT * FROM cart WHERE userId={$_SESSION['id']}";
+	$query_p=mysqli_query($con,$sql_p);
+	if(mysqli_num_rows($query_p)!=0){
+		while($row_p=mysqli_fetch_array($query_p)){
+			//print_r($row_p);exit();
+			$_SESSION['cart'][$row_p['pId']]=array("quantity" => $row_p['pQty'], "price" => $row_p['pPrice']);
+		}
+	}
+}
 $uip=$_SERVER['REMOTE_ADDR'];
 $status=1;
 $log=mysqli_query($con,"insert into userlog(userEmail,userip,status) values('".$_SESSION['login']."','$uip','$status')");
@@ -38,6 +49,19 @@ $host=$_SERVER['HTTP_HOST'];
 $uri=rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
 header("location:http://$host$uri/$extra");
 exit();
+// echo "<script>
+// 	Swal.fire({
+// 		title: 'Logged In!',
+// 		text: 'You are successfully register',
+// 		icon: 'success',
+// 		showCancelButton: true,
+// 		confirmButtonText: 'Go to Home'
+// 	}).then((result) => {
+// 		if (result.isConfirmed) {
+// 			window.location.href = 'index.php';
+// 		}
+// 	});
+// </script>";
 }
 else
 {
@@ -85,7 +109,8 @@ exit();
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
-
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+	
 		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
 

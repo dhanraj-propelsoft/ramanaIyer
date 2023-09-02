@@ -172,13 +172,13 @@ include('includes/config.php');?>
 										<div class="item item-carousel">
 											<div class="products">
 												<div class="product">
-													<div class="product-image">
-														<div class="image">
-															<a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img src="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" width="180" height="300"></a>
+													<div class="product-image" style="width: 260px; height: 300px; display: table;">
+														<div class="image" style="display: table-cell; vertical-align: middle;">
+															<a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img src="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"  style="width:auto; height: auto; max-width: 260px; max-height: 300px;"></a>
 														</div><!-- /.image -->
 													</div><!-- /.product-image -->
 													<div class="product-info text-left">
-														<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['productName']); ?></a></h3>
+														<h3 class="name" style="overflow: hidden; max-width: 278px; text-overflow: ellipsis; white-space: nowrap;"><a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['productName']); ?></a></h3>
 														<div class="rating rateit-small"></div>
 														<div class="description"></div>
 
@@ -266,8 +266,22 @@ error_reporting(0);
 include('includes/config.php');
 if (isset($_GET['action']) && $_GET['action'] == "add") {
 	$id = intval($_GET['id']);
-	if (isset($_SESSION['cart'][$id])) {
-		$_SESSION['cart'][$id]['quantity']++;
+	if (isset($_SESSION['cart'][$id])) {?>
+		<script>
+			Swal.fire({
+				title: 'Product Already in Cart!',
+				text: 'Do you want to proceed?',
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonText: 'Yes'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					<?php $_SESSION['cart'][$id]['quantity']++; ?>
+					window.location.href = 'my-cart.php';
+				}
+			});
+		</script>
+		<?php 	
 	} else {
 		$sql_p = "SELECT * FROM products WHERE id={$id}";
 		$query_p = mysqli_query($con, $sql_p);
@@ -277,21 +291,23 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 		} else {
 			$message = "Product ID is invalid";
 		}
+
+		echo "<script>
+			Swal.fire({
+				title: 'Product Added!',
+				text: 'Product has been added to the cart.',
+				icon: 'success',
+				showCancelButton: true,
+				confirmButtonText: 'Go to Cart',
+				cancelButtonText: 'Continue Shopping'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = 'my-cart.php';
+				}
+			});
+		</script>";
 	}
-	echo "<script>
-	Swal.fire({
-		title: 'Product Added!',
-		text: 'Product has been added to the cart.',
-		icon: 'success',
-		showCancelButton: true,
-		confirmButtonText: 'Go to Cart',
-		cancelButtonText: 'Continue Shopping'
-	}).then((result) => {
-		if (result.isConfirmed) {
-			window.location.href = 'my-cart.php';
-		}
-	});
-</script>";
+	
 }
 
 

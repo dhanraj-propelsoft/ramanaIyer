@@ -10,6 +10,7 @@ else{
 	if (isset($_POST['submit'])) {
 
 		mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
+		mysqli_query($con,"DELETE FROM cart WHERE userId='".$_SESSION['id']."'");
 		unset($_SESSION['cart']);
 		header('location:order-history.php');
 

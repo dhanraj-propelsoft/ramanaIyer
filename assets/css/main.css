@@ -3146,6 +3146,10 @@ a {
   letter-spacing: -1px;
   text-transform: uppercase;
   color: #666666;
+  overflow: hidden;
+  max-width: 650px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .category-carousel .item .owl-controls {
   display: inline-block;
@@ -5195,4 +5199,8 @@ a {
 }
 .body-content .sign-in-page .register-form .form-group {
   margin-bottom: 25px;
+}
+.menu-item{
+  overflow: auto; 
+  max-height: 287px;
 }

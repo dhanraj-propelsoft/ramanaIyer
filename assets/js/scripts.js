@@ -376,7 +376,7 @@ $('.quant-input .plus').click(function() {
 });
 $('.quant-input .minus').click(function() {
     var val = $(this).parent().next().val();
-    if (val > 0) {
+    if (val > 1) {
         val = parseInt(val) - 1;
         $(this).parent().next().val(val);
     }

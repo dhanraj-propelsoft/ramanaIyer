@@ -252,7 +252,7 @@ $num=mysqli_num_rows($rt);
 				                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 				                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 				                </div>
-				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]">
+				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]"  onkeypress="return isNumber(event)">
 				             
 			              </div>
 		            </td>
@@ -439,6 +439,15 @@ echo "Your shopping Cart is empty";
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
+
+		function isNumber(evt) {
+			evt = (evt) ? evt : window.event;
+			var charCode = (evt.which) ? evt.which : evt.keyCode;
+			if (charCode > 31 && (charCode < 49 || charCode > 57)) {
+				return false;
+			}
+			return true;
+		}
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 </body>

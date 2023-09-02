@@ -64,13 +64,14 @@ if(!empty($_SESSION['cart'])){
 		</a>
 		<ul class="dropdown-menu">
 		
-		 <?php
-    $sql = "SELECT * FROM products WHERE id IN(";
+		 <?php 
+		 	$sql = "SELECT * FROM products WHERE id IN(";
 			foreach($_SESSION['cart'] as $id => $value){
 			$sql .=$id. ",";
 			}
 			$sql=substr($sql,0,-1) . ") ORDER BY id ASC";
-			$query = mysqli_query($con,$sql);
+			$query = mysqli_query($con, $sql);
+			
 			$totalprice=0;
 			$totalqunty=0;
 			if(!empty($query)){

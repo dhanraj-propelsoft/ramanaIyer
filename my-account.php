@@ -1,45 +1,4 @@
-<?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-if(strlen($_SESSION['login'])==0)
-    {   
-header('location:login.php');
-}
-else{
-	if(isset($_POST['update']))
-	{
-		$name=$_POST['name'];
-		$_SESSION['username'] = $name;
-		$contactno=$_POST['contactno'];
-		$query=mysqli_query($con,"update users set name='$name',contactno='$contactno' where id='".$_SESSION['id']."'");
-		if($query)
-		{
-echo "<script>alert('Your info has been updated');</script>";
-		}
-	}
 
-
-date_default_timezone_set('Asia/Kolkata');// change according timezone
-$currentTime = date( 'd-m-Y h:i:s A', time () );
-
-
-if(isset($_POST['submit']))
-{
-$sql=mysqli_query($con,"SELECT password FROM  users where password='".md5($_POST['cpass'])."' && id='".$_SESSION['id']."'");
-$num=mysqli_fetch_array($sql);
-if($num>0)
-{
- $con=mysqli_query($con,"update users set password='".md5($_POST['newpass'])."', updationDate='$currentTime' where id='".$_SESSION['id']."'");
-echo "<script>alert('Password Changed Successfully !!');</script>";
-}
-else
-{
-	echo "<script>alert('Current Password not match !!');</script>";
-}
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -67,6 +26,7 @@ else
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
 		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
@@ -79,30 +39,51 @@ else
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		<?php include('userStyle.php');?>
 <script type="text/javascript">
 function valid()
 {
 if(document.chngpwd.cpass.value=="")
 {
-alert("Current Password Filed is Empty !!");
+Swal.fire({
+	title: 'Error!',
+	text: 'Current Password Filed is Empty!',
+	icon: 'error',
+	confirmButtonText: 'OK'
+});
 document.chngpwd.cpass.focus();
 return false;
 }
 else if(document.chngpwd.newpass.value=="")
 {
-alert("New Password Filed is Empty !!");
+Swal.fire({
+	title: 'Error!',
+	text: 'New Password Filed is Empty!',
+	icon: 'error',
+	confirmButtonText: 'OK'
+});
 document.chngpwd.newpass.focus();
 return false;
 }
 else if(document.chngpwd.cnfpass.value=="")
 {
-alert("Confirm Password Filed is Empty !!");
+Swal.fire({
+	title: 'Error!',
+	text: 'Confirm Password Filed is Empty!',
+	icon: 'error',
+	confirmButtonText: 'OK'
+});
 document.chngpwd.cnfpass.focus();
 return false;
 }
 else if(document.chngpwd.newpass.value!= document.chngpwd.cnfpass.value)
 {
-alert("Password and Confirm Password Field do not match  !!");
+Swal.fire({
+	title: 'Error!',
+	text: 'Password and Confirm Password Field do not match!',
+	icon: 'error',
+	confirmButtonText: 'OK'
+});
 document.chngpwd.cnfpass.focus();
 return false;
 }
@@ -112,6 +93,69 @@ return true;
 
 	</head>
     <body class="cnt-home">
+	<?php
+session_start();
+//error_reporting(0);
+include('includes/config.php');
+if(strlen($_SESSION['login'])==0)
+    {   
+header('location:login.php');
+}
+else{
+	if(isset($_POST['update']))
+	{
+		$name=$_POST['name'];
+		$_SESSION['username'] = $name;
+		$contactno=$_POST['contactno'];
+		$query=mysqli_query($con,"update users set name='$name',contactno='$contactno' where id='".$_SESSION['id']."'");
+		if($query)
+		{
+		echo "<script>
+		Swal.fire({
+			title: 'Success!',
+			text: 'Your info has been updated!',
+			icon: 'success',
+			confirmButtonText: 'OK'
+		});
+		</script>";
+		}
+	}
+
+
+date_default_timezone_set('Asia/Kolkata');// change according timezone
+$currentTime = date( 'd-m-Y h:i:s A', time () );
+
+
+if(isset($_POST['submit']))
+{
+$sql=mysqli_query($con,"SELECT password FROM  users where password='".md5($_POST['cpass'])."' && id='".$_SESSION['id']."'");
+$num=mysqli_fetch_array($sql);
+if($num>0)
+{
+ mysqli_query($con,"update users set password='".md5($_POST['newpass'])."', updationDate='$currentTime' where id='".$_SESSION['id']."'");
+echo "<script>
+Swal.fire({
+	title: 'Success!',
+	text: 'Password Changed Successfully!',
+	icon: 'success',
+	confirmButtonText: 'OK'
+});
+</script>";
+}
+else
+{
+	echo "<script>
+	Swal.fire({
+		title: 'Error!',
+		text: 'Current Password not match!',
+		icon: 'error',
+		confirmButtonText: 'OK'
+	});
+	</script>";
+}
+}
+
+?>
 <header class="header-style-1">
 
 	<!-- ============================================== TOP MENU ============================================== -->

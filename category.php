@@ -163,7 +163,7 @@ while($row=mysqli_fetch_array($sql))
 	<div class="widget-header m-t-20">
 		<h4 class="widget-title">Category</h4>
 	</div>
-	<div class="sidebar-widget-body m-t-10">
+	<div class="sidebar-widget-body m-t-10" style="max-height:215px;overflow:auto">
 	         <?php $sql=mysqli_query($con,"select id,categoryName  from category");
 while($row=mysqli_fetch_array($sql))
 {

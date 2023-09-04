@@ -143,7 +143,7 @@ if (isset($_POST['submit'])) {
 						<!-- ==============================================CATEGORY============================================== -->
 						<div class="sidebar-widget outer-bottom-xs wow fadeInUp">
 							<h3 class="section-title">Category</h3>
-							<div class="sidebar-widget-body m-t-10">
+							<div class="sidebar-widget-body m-t-10" style="max-height:215px;overflow:auto">
 								<div class="accordion">
 
 									<?php $sql = mysqli_query($con, "select id,categoryName  from category");

@@ -276,8 +276,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 				confirmButtonText: 'Yes'
 			}).then((result) => {
 				if (result.isConfirmed) {
-					<?php $_SESSION['cart'][$id]['quantity']++; ?>
-					window.location.href = 'my-cart.php';
+					window.location.href = 'my-cart.php?qi_id=<?php echo $id; ?>';
 				}
 			});
 		</script>

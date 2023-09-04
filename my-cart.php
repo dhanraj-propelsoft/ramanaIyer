@@ -54,8 +54,14 @@
     <body class="cnt-home">
 <?php 
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
+if(isset($_GET['qi_id']))
+{
+	$qi_id = intval($_GET['qi_id']);
+	$_SESSION['cart'][$qi_id]['quantity']++;
+}
+
 if(isset($_POST['submit']))
 {
 	if(!empty($_SESSION['cart']))

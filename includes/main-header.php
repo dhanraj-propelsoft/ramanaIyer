@@ -46,22 +46,6 @@
 if(!empty($_SESSION['cart'])){
 	?>
 	<div class="dropdown dropdown-cart">
-		<a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-			<div class="items-cart-inner">
-				<div class="total-price-basket">
-					<span class="lbl">cart -</span>
-					<span class="total-price">
-						<span class="sign">Rs.</span>
-						<span class="value"><?php echo $_SESSION['tp']; ?></span>
-					</span>
-				</div>
-				<div class="basket">
-					<i class="glyphicon glyphicon-shopping-cart"></i>
-				</div>
-				<div class="basket-item-count"><span class="count"><?php echo $_SESSION['qnty'];?></span></div>
-			
-		    </div>
-		</a>
 		<ul class="dropdown-menu">
 		
 		 <?php 
@@ -120,6 +104,23 @@ if(!empty($_SESSION['cart'])){
 				
 		</li>
 		</ul><!-- /.dropdown-menu-->
+		<a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
+			<div class="items-cart-inner">
+				<div class="total-price-basket">
+					<span class="lbl">cart -</span>
+					<span class="total-price">
+						<span class="sign">Rs.</span>
+						<span class="value"><?php echo $_SESSION['tp']; ?></span>
+					</span>
+				</div>
+				<div class="basket">
+					<i class="glyphicon glyphicon-shopping-cart"></i>
+				</div>
+				<div class="basket-item-count"><span class="count"><?php echo $_SESSION['qnty'];?></span></div>
+			
+		    </div>
+		</a>
+		
 	</div><!-- /.dropdown-cart -->
 <?php } else { ?>
 <div class="dropdown dropdown-cart">

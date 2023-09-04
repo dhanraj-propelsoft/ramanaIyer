@@ -29,7 +29,7 @@ header('location:login.php');
 else
 {
 mysqli_query($con,"insert into wishlist(userId,productId) values('".$_SESSION['id']."','".$_GET['pid']."')");
-echo "<script>alert('Product aaded in wishlist');</script>";
+echo "<script>alert('Product added in wishlist');</script>";
 header('location:my-wishlist.php');
 
 }
@@ -176,16 +176,20 @@ while($row=mysqli_fetch_array($sql))
 				<div class="search-result-container">
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane active " id="grid-container">
-							<div class="category-product  inner-top-vs">
-								<div class="row">									
+							<div class="category-product  inner-top-vs">		
 			<?php
 $ret=mysqli_query($con,"select * from products where subCategory='$cid'");
 $num=mysqli_num_rows($ret);
 if($num>0)
 {
+$ictr = 0;
 while ($row=mysqli_fetch_array($ret)) 
-{?>							
-		<div class="col-sm-6 col-md-4 wow fadeInUp">
+{
+	if ($ictr == 0)
+		echo "<div class='row'>";
+	else if($ictr % 3 == 0)
+		echo "</div><div class='row'>"; ?>							
+		<div class="col-sm-4 col-md-4 wow fadeInUp">
 			<div class="products">				
 	<div class="product">		
 		<div class="product-image">
@@ -236,8 +240,15 @@ while ($row=mysqli_fetch_array($ret))
 			</div><!-- /.cart -->
 			</div>
 			</div>
-		</div>
-	  <?php } } else {?>
+	  <?php 
+		if ($num == $ictr+1) {
+			echo "</div>
+			</div>";
+		}
+		else
+			echo "</div>";
+		$ictr++;
+	} } else {?>
 	
 		<div class="col-sm-6 col-md-4 wow fadeInUp"> <h3>No Product Found</h3>
 		</div>

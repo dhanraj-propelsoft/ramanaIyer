@@ -16,7 +16,7 @@
     </div><!-- /.footer-logo -->
 
      <div class="module-body m-t-20">
-        <p class="about-us"> Nam libero tempore, cum soluta nobis est ses  eligendi optio cumque cum soluta nobis est ses  eligendi optio cumque.</p>
+        <p class="about-us"> Ramana Iyer is prominent for its traditional recipes by maintaining the best taste in all the products for over five generations. We are the manufacturers of traditional and preferred sweets and savories and are considered as one of the oldest sweet shops in the Tiruchirappalli district.</p>
     
         <div class="social-icons">
             
@@ -70,7 +70,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>New Delhi, Delhi</p>
+                    <p>No.4/1026, West Agraharam, Biksandar Kovil, No.1 Tolgate, Trichy – 621 216, Tamilnadu, India</p>
                 </div>
             </li>
 
@@ -82,7 +82,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>(011) 000000000000<br>(011) 000000000000</p>
+                    <p>(+91) 96551 05555</p>
                 </div>
             </li>
 
@@ -94,7 +94,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <span><a href="#">info@phpgurukul.com</a></span>
+                    <span><a href="mailto:ramanaexp@gmail.com">ramanaexp@gmail.com</a></span>
                 </div>
             </li>
               

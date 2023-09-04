@@ -20,11 +20,11 @@
     
         <div class="social-icons">
             
-        <a href="http://facebook.com/transvelo" class='active'><i class="icon fa fa-facebook"></i></a>
-        <a href="#"><i class="icon fa fa-twitter"></i></a>
-        <a href="#"><i class="icon fa fa-linkedin"></i></a>
-        <a href="#"><i class="icon fa fa-rss"></i></a>
-        <a href="#"><i class="icon fa fa-pinterest"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100086171762349" target="blank"><i class="icon fa fa-facebook"></i></a>
+        <a href="https://www.instagram.com/ramana_trichy/" target="blank"><i class="icon fa fa-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCmgDqJymEAzk5Tuz2eOlJyw" target="blank"><i class="icon fa fa-youtube"></i></a>
+        <a href="https://twitter.com/ramanatrichy" target="blank"><i class="icon fa fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/company/85663309/admin/" target="blank"><i class="icon fa fa-linkedin"></i></a>
 
         </div><!-- /.social-icons -->
     </div><!-- /.module-body -->

@@ -234,9 +234,9 @@ if(!empty($_SESSION['cart'])){
 			if(!empty($query)){
 			while($row = mysqli_fetch_array($query)){
 				$quantity=$_SESSION['cart'][$row['id']]['quantity'];
-				$subtotal= $_SESSION['cart'][$row['id']]['quantity']*$row['productPrice']+$row['shippingCharge'];
+				$subtotal= (int)$_SESSION['cart'][$row['id']]['quantity'] * (int)$row['productPrice'] + (int)$row['shippingCharge'];
 				$totalprice += $subtotal;
-				$_SESSION['qnty']=$totalqunty+=$quantity;
+				$_SESSION['qnty'] = $totalqunty += (int)$quantity;
 
 				array_push($pdtid,$row['id']);
 				array_push($pQty,$quantity);
@@ -278,14 +278,14 @@ $num=mysqli_num_rows($rt);
 				                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 				                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 				                </div>
-				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]"  onkeypress="return isNumber(event)">
+				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]" required  onkeypress="return isNumber(event)">
 				             
 			              </div>
 		            </td>
 					<td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "Rs"." ".$row['productPrice']; ?>.00</span></td>
 <td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "Rs"." ".$row['shippingCharge']; ?>.00</span></td>
 
-					<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo ($_SESSION['cart'][$row['id']]['quantity']*$row['productPrice']+$row['shippingCharge']); ?>.00</span></td>
+					<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo ((int)$_SESSION['cart'][$row['id']]['quantity'] * (int)$row['productPrice'] + (int)$row['shippingCharge']); ?>.00</span></td>
 				</tr>
 
 				<?php } }

@@ -106,7 +106,7 @@ $st='Delivered';
       ?>
    
     <tr height="50">
-      <td class="fontkink1">Status & Remark: </td>
+      <td class="fontkink1">&nbsp;</td>
       <td class="fontkink"><span class="fontkink1" >
         <select name="status" class="fontkink" required="required" >
           <option value="">Select Status</option>
@@ -118,7 +118,7 @@ $st='Delivered';
         <textarea cols="100" rows="7" name="remark"  required="required" ></textarea>
         </span></td>
     </tr>
-    <tr><td colspan="3"><input type="submit" name="submit2"  value="Update"   size="40" style="cursor: pointer;" /></td>
+    <tr><td colspan="3"><input type="submit" name="submit2"  value="Update" class="btn" /></td>
 <?php } ?>
    </tbody>
 </table>

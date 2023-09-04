@@ -11,12 +11,13 @@
 
 <?php if(strlen($_SESSION['login']))
     {   ?>
-				<li><a href="#"><i class="icon fa fa-user white-icon"></i>Welcome -<?php echo htmlentities($_SESSION['username']);?></a></li>
+				<li><a href="#"><i class="icon fa fa-user white-icon"></i>Welcome - <?php echo htmlentities($_SESSION['username']);?></a></li>
 				<?php } ?>
 
 					<li><a href="my-account.php"><i class="icon fa fa-user white-icon"></i>My Account</a></li>
 					<li><a href="my-wishlist.php"><i class="icon fa fa-heart white-icon"></i>Wishlist</a></li>
 					<li><a href="my-cart.php"><i class="icon fa fa-shopping-cart white-icon"></i>My Cart</a></li>
+					<li><a href="track-orders.php"><i class="icon fa fa-truck white-icon"></i>Track Order</a></li>
 					<?php if(strlen($_SESSION['login'])==0)
     {   ?>
 <li><a href="login.php"><i class="icon fa fa-sign-in white-icon"></i>Login</a></li>
@@ -29,14 +30,15 @@ else{ ?>
 			</div><!-- /.cnt-account -->
 
 <div class="cnt-block">
-				<ul class="list-unstyled list-inline">
-					<li class="dropdown dropdown-small">
-						<a href="track-orders.php" class="dropdown-toggle" ><span class="key">Track Order</b></a>
-						
-					</li>
-
 				
-				</ul>
+            
+        <a href="https://www.facebook.com/profile.php?id=100086171762349" target="_blank"><i class="icon fa fa-facebook fa-2x white-icon"></i></a>&nbsp;
+        <a href="https://www.instagram.com/ramana_trichy/" target="_blank"><i class="icon fa fa-instagram fa-2x white-icon"></i></a>&nbsp;
+        <a href="https://www.youtube.com/channel/UCmgDqJymEAzk5Tuz2eOlJyw" target="_blank"><i class="icon fa fa-youtube fa-2x white-icon"></i></a>&nbsp;
+        <a href="https://twitter.com/ramanatrichy" target="_blank"><i class="icon fa fa-twitter fa-2x white-icon"></i></a>&nbsp;
+        <a href="https://www.linkedin.com/company/85663309/admin/" target="_blank"><i class="icon fa fa-linkedin fa-2x white-icon"></i></a>
+
+       
 			</div>
 			
 			<div class="clearfix"></div>

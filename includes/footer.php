@@ -18,15 +18,7 @@
      <div class="module-body m-t-20">
         <p class="about-us"> Ramana Iyer is prominent for its traditional recipes by maintaining the best taste in all the products for over five generations. We are the manufacturers of traditional and preferred sweets and savories and are considered as one of the oldest sweet shops in the Tiruchirappalli district.</p>
     
-        <div class="social-icons">
-            
-        <a href="https://www.facebook.com/profile.php?id=100086171762349" target="_blank"><i class="icon fa fa-facebook"></i></a>
-        <a href="https://www.instagram.com/ramana_trichy/" target="_blank"><i class="icon fa fa-instagram"></i></a>
-        <a href="https://www.youtube.com/channel/UCmgDqJymEAzk5Tuz2eOlJyw" target="_blank"><i class="icon fa fa-youtube"></i></a>
-        <a href="https://twitter.com/ramanatrichy" target="_blank"><i class="icon fa fa-twitter"></i></a>
-        <a href="https://www.linkedin.com/company/85663309/admin/" target="_blank"><i class="icon fa fa-linkedin"></i></a>
-
-        </div><!-- /.social-icons -->
+        <!-- /.social-icons -->
     </div><!-- /.module-body -->
 
 </div><!-- /.contact-info -->

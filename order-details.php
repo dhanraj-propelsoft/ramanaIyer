@@ -61,7 +61,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 <header class="header-style-1">
 <?php include('includes/top-header.php');?>
 <?php include('includes/main-header.php');?>
-<?php include('includes/menu-bar.php');?>
+<?php //include('includes/menu-bar.php');?>
 </header>
 <!-- ============================================== HEADER : END ============================================== -->
 <div class="breadcrumb">

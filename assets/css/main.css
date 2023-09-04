@@ -956,7 +956,7 @@ a {
 /*  DARK GREEN Color
 /*===================================================================================*/
 .top-bar {
-  background: #f4f4f4;
+  background: #FF0000;
   padding: 10px 0 9px;
   font-size: 12px;
 }
@@ -977,7 +977,7 @@ a {
   border-right: 1px solid #e2e2e2;
 }
 .top-bar .cnt-account ul > li a {
-  color: #888888;
+  color: #FFFF00;
   padding: 0px;
   font-weight: 400;
   -webkit-transition: all 0.2s linear 0s;
@@ -1011,7 +1011,7 @@ a {
   -moz-transition: all 0.2s linear 0s;
   -o-transition: all 0.2s linear 0s;
   transition: all 0.2s linear 0s;
-  color: #888;
+  color: #FFFF00;
   display: inline-block;
 }
 .top-bar .cnt-block .list-inline > li > a .value {
@@ -5203,4 +5203,7 @@ a {
 .menu-item{
   overflow: auto; 
   max-height: 287px;
+}
+.white-icon {
+  color: #ffffff;
 }

@@ -46,7 +46,7 @@ Swal.fire({
 function f2()
 {
 window.close();
-}ser
+}
 function f3()
 {
 window.print(); 
@@ -63,36 +63,33 @@ window.print();
 
 <div class="module">
             <div class="module-head">
-              <h3>Update Order !</h3>
+              <h3>Order ID => <?php echo $oid;?></h3>
             </div>
             <div class="module-body table">
  <form name="updateticket" id="updateticket" method="post"> 
-<table width="100%" cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive" >
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped	 display table-responsive" >
 
-    <tr height="30">
-      <td  class="fontkink1"><b>Order Id:</b></td>
-      <td  class="fontkink"><?php echo $oid;?></td>
-    </tr>
+    <thead>
+      <tr>
+        <th>At Date</th>
+        <th>Status</th>
+        <th width="300px">Remark</th>      
+      
+      </tr>
+    </thead>
+    
+    <tbody>
     <?php 
 $ret = mysqli_query($con,"SELECT * FROM ordertrackhistory WHERE orderId='$oid'");
      while($row=mysqli_fetch_array($ret))
       {
      ?>
+      <tr>
+        <td><?php echo htmlentities($row['postingDate']);?></td>
+        <td><?php echo htmlentities($row['status']);?></td>
+        <td><?php echo htmlentities($row['remark']);?></td>
+      </tr>
 		
-    
-    
-    <tr height="20">
-      <td class="fontkink1 brdr-top" ><b>At Date:</b></td>
-      <td  class="fontkink"><?php echo $row['postingDate'];?></td>
-    </tr>
-     <tr height="20">
-      <td  class="fontkink1"><b>Status:</b></td>
-      <td  class="fontkink"><?php echo $row['status'];?></td>
-    </tr>
-     <tr height="20">
-      <td  class="fontkink1"><b>Remark:</b></td>
-      <td  class="fontkink"><?php echo $row['remark'];?></td>
-    </tr>
    <?php } ?>
    <?php 
 $st='Delivered';
@@ -103,34 +100,29 @@ $st='Delivered';
    }
      if($st==$currrentSt)
      { ?>
-   <tr><td colspan="2"><b>
+   <tr><td colspan="3"><b>
       Product Delivered </b></td>
    <?php }else  {
       ?>
    
     <tr height="50">
-      <td class="fontkink1">Status: </td>
-      <td  class="fontkink"><span class="fontkink1" >
+      <td class="fontkink1">Status & Remark: </td>
+      <td class="fontkink"><span class="fontkink1" >
         <select name="status" class="fontkink" required="required" >
           <option value="">Select Status</option>
                  <option value="in Process">In Process</option>
                   <option value="Delivered">Delivered</option>
         </select>
         </span></td>
-    </tr>
-
-     <tr style=''>
-      <td class="fontkink1" >Remark:</td>
       <td class="fontkink" align="justify" ><span class="fontkink">
-        <textarea cols="50" rows="7" name="remark"  required="required" ></textarea>
+        <textarea cols="100" rows="7" name="remark"  required="required" ></textarea>
         </span></td>
     </tr>
-    <tr>
-      <td class="fontkink">       </td>
-      <td  class="fontkink"> <input type="submit" name="submit2"  value="Update"   size="40" style="cursor: pointer;" /> &nbsp;&nbsp;   
-    </tr>
+    <tr><td colspan="3"><input type="submit" name="submit2"  value="Update"   size="40" style="cursor: pointer;" /></td>
 <?php } ?>
+   </tbody>
 </table>
+
  </form>
 </div>
 						</div>						

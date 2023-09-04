@@ -73,7 +73,7 @@ if(!empty($_SESSION['cart'])){
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="image">
-								<a href="product-details.php?pid=<?php echo $row['id'];?>"><img  src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" width="35" height="50" alt=""></a>
+								<a href="product-details.php?pid=<?php echo $row['id'];?>"><img  src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" width="35" height="auto" style="max-height: 50px;" alt=""></a>
 							</div>
 						</div>
 						<div class="col-xs-7">

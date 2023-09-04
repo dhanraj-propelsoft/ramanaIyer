@@ -128,7 +128,7 @@ while($row=mysqli_fetch_array($query))
 					<td><?php echo $cnt;?></td>
 					<td class="cart-image">
 						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['c'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="146">
+						    <img src="admin/productimages/<?php echo $row['c'];?>/<?php echo $row['pimg1'];?>" alt="" width="84" height="auto">
 						</a>
 					</td>
 					<td class="cart-product-name-info">

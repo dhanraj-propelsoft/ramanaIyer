@@ -1,3 +1,15 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Update Compliant</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="anuj.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+<?php include('userStyle.php');?>
+</head>
+<body>
 <?php
 session_start();
 
@@ -14,7 +26,14 @@ $remark=$_POST['remark'];//space char
 
 $query=mysqli_query($con,"insert into ordertrackhistory(orderId,status,remark) values('$oid','$status','$remark')");
 $sql=mysqli_query($con,"update orders set orderStatus='$status' where id='$oid'");
-echo "<script>alert('Order updated sucessfully...');</script>";
+echo "<script>
+Swal.fire({
+  title: 'Success!',
+  text: 'Order updated sucessfully...!',
+  icon: 'success',
+  confirmButtonText: 'OK'
+});
+</script>";
 //}
 }
 
@@ -29,16 +48,6 @@ function f3()
 window.print(); 
 }
 </script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Update Compliant</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
-<link href="anuj.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-
 <div style="margin-left:50px;">
  <form name="updateticket" id="updateticket" method="post"> 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">

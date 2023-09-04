@@ -1,44 +1,4 @@
-<?php
-session_start();
-//error_reporting(0);
-include('includes/config.php');
-if(strlen($_SESSION['login'])==0)
-    {   
-header('location:.php');
-}
-else{
-	// code for billing address updation
-	if(isset($_POST['update']))
-	{
-		$baddress=$_POST['billingaddress'];
-		$bstate=$_POST['bilingstate'];
-		$bcity=$_POST['billingcity'];
-		$bpincode=$_POST['billingpincode'];
-		$query=mysqli_query($con,"update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='".$_SESSION['id']."'");
-		if($query)
-		{
-echo "<script>alert('Billing Address has been updated');</script>";
-		}
-	}
 
-
-// code for Shipping address updation
-	if(isset($_POST['shipupdate']))
-	{
-		$saddress=$_POST['shippingaddress'];
-		$sstate=$_POST['shippingstate'];
-		$scity=$_POST['shippingcity'];
-		$spincode=$_POST['shippingpincode'];
-		$query=mysqli_query($con,"update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='".$_SESSION['id']."'");
-		if($query)
-		{
-echo "<script>alert('Shipping Address has been updated');</script>";
-		}
-	}
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -66,6 +26,7 @@ echo "<script>alert('Shipping Address has been updated');</script>";
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
 		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
@@ -78,9 +39,65 @@ echo "<script>alert('Shipping Address has been updated');</script>";
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		<?php include('userStyle.php');?>
 
 	</head>
     <body class="cnt-home">
+	<?php
+session_start();
+//error_reporting(0);
+include('includes/config.php');
+if(strlen($_SESSION['login'])==0)
+    {   
+header('location:.php');
+}
+else{
+	// code for billing address updation
+	if(isset($_POST['update']))
+	{
+		$baddress=$_POST['billingaddress'];
+		$bstate=$_POST['bilingstate'];
+		$bcity=$_POST['billingcity'];
+		$bpincode=$_POST['billingpincode'];
+		$query=mysqli_query($con,"update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='".$_SESSION['id']."'");
+		if($query)
+		{
+echo "<script>
+Swal.fire({
+	title: 'Success!',
+	text: 'Billing Address has been updated!',
+	icon: 'success',
+	confirmButtonText: 'OK'
+});
+</script>";
+		}
+	}
+
+
+// code for Shipping address updation
+	if(isset($_POST['shipupdate']))
+	{
+		$saddress=$_POST['shippingaddress'];
+		$sstate=$_POST['shippingstate'];
+		$scity=$_POST['shippingcity'];
+		$spincode=$_POST['shippingpincode'];
+		$query=mysqli_query($con,"update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='".$_SESSION['id']."'");
+		if($query)
+		{
+echo "<script>
+Swal.fire({
+	title: 'Success!',
+	text: 'Shipping Address has been updated!',
+	icon: 'success',
+	confirmButtonText: 'OK'
+});
+</script>";
+		}
+	}
+
+
+
+?>
 <header class="header-style-1">
 
 	<!-- ============================================== TOP MENU ============================================== -->

@@ -62,7 +62,7 @@ exit();
 		<link rel="stylesheet" href="assets/css/animate.min.css">
 		<link rel="stylesheet" href="assets/css/rateit.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
-
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
 
@@ -82,12 +82,18 @@ exit();
 		
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		<?php include('userStyle.php');?>
 <script type="text/javascript">
 function valid()
 {
  if(document.register.password.value!= document.register.confirmpassword.value)
 {
-alert("Password and Confirm Password Field do not match  !!");
+	Swal.fire({
+		title: 'Error!',
+		text: 'Password and Confirm Password Field do not match!',
+		icon: 'error',
+		confirmButtonText: 'OK'
+	});
 document.register.confirmpassword.focus();
 return false;
 }
@@ -131,7 +137,7 @@ return true;
 				<!-- Sign-in -->			
 <div class="col-md-6 col-sm-6 sign-in">
 	<h4 class="">Forgot password</h4>
-	<form class="register-form outer-top-xs" name="register" method="post">
+	<form class="register-form outer-top-xs" name="register" method="post" onSubmit="return valid();">
 	<span style="color:red;" >
 <?php
 echo htmlentities($_SESSION['errmsg']);

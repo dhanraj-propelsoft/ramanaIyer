@@ -284,7 +284,7 @@ $num=mysqli_num_rows($rt);
 				                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 				                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 				                </div>
-				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]" required onkeypress="return isNumber(event)">
+				             <input type="text" value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>" name="quantity[<?php echo $row['id']; ?>]" required>
 				             
 			              </div>
 		            </td>
@@ -307,6 +307,12 @@ $_SESSION['pQty']=$pQty;
 		
 <form name="checkout" id="checkout" method="post">	
 <div class="col-md-4 col-sm-12 estimate-ship-tax">
+	<?php
+	$query=mysqli_query($con,"select * from users where id='".$_SESSION['id']."'");
+	while($row=mysqli_fetch_array($query))
+	{
+	?>
+
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -319,11 +325,6 @@ $_SESSION['pQty']=$pQty;
 				<tr>
 					<td>
 						<div class="form-group">
-<?php
-$query=mysqli_query($con,"select * from users where id='".$_SESSION['id']."'");
-while($row=mysqli_fetch_array($query))
-{
-?>
 
 <div class="form-group">
 					    <label class="info-title" for="Billing Address">Billing Address<span>*</span></label>
@@ -348,7 +349,7 @@ while($row=mysqli_fetch_array($query))
 
 					  <button type="submit" id="update" name="update" class="btn-upper btn btn-primary checkout-page-button">Update</button>
 			
-					<?php } ?>
+					
 		
 						</div>
 					
@@ -356,9 +357,15 @@ while($row=mysqli_fetch_array($query))
 				</tr>
 		</tbody><!-- /tbody -->
 	</table><!-- /table -->
+	<?php } ?>
 </div>
 
 <div class="col-md-4 col-sm-12 estimate-ship-tax">
+<?php
+$query=mysqli_query($con,"select * from users where id='".$_SESSION['id']."'");
+while($row=mysqli_fetch_array($query))
+{
+?>
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -371,11 +378,6 @@ while($row=mysqli_fetch_array($query))
 				<tr>
 					<td>
 						<div class="form-group">
-		<?php
-$query=mysqli_query($con,"select * from users where id='".$_SESSION['id']."'");
-while($row=mysqli_fetch_array($query))
-{
-?>
 
 <div class="form-group">
 					    <label class="info-title" for="Shipping Address">Shipping Address<span>*</span></label>
@@ -399,15 +401,14 @@ while($row=mysqli_fetch_array($query))
 
 
 					  <button type="submit" id="shipupdate" name="shipupdate" class="btn-upper btn btn-primary checkout-page-button">Update</button>
-					<?php } ?>
-
-		
+					
 						</div>
 					
 					</td>
 				</tr>
 		</tbody><!-- /tbody -->
 	</table><!-- /table -->
+	<?php } ?>
 </div>
 <div class="col-md-4 col-sm-12 cart-shopping-total">
 	<table class="table table-bordered">
@@ -476,20 +477,6 @@ echo "Your shopping Cart is empty";
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
-
-		$('.quant-input > input').change(function() {
-			if (this.value < 1)
-				this.value = 1; // minimum is 1
-		});
-
-		function isNumber(evt) {
-			evt = (evt) ? evt : window.event;
-			var charCode = (evt.which) ? evt.which : evt.keyCode;
-			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-				return false;
-			}
-			return true;
-		}
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 </body>

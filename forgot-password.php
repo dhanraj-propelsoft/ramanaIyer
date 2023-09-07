@@ -152,7 +152,7 @@ echo htmlentities($_SESSION['errmsg']="");
 		</div>
 	  	<div class="form-group">
 		    <label class="info-title" for="exampleInputPassword1">Contact no <span>*</span></label>
-		 <input type="text" name="contact" class="form-control unicase-form-control text-input" id="contact" required>
+		 <input type="text" name="contact" class="form-control unicase-form-control text-input" id="contact" maxlength="10"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
 		</div>
 <div class="form-group">
 	    	<label class="info-title" for="password">Password. <span>*</span></label>

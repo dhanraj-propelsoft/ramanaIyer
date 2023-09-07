@@ -64,8 +64,21 @@ include('includes/config.php');
 $cid=intval($_GET['scid']);
 if(isset($_GET['action']) && $_GET['action']=="add"){
 	$id=intval($_GET['id']);
-	if(isset($_SESSION['cart'][$id])){
-		$_SESSION['cart'][$id]['quantity']++;
+	if(isset($_SESSION['cart'][$id])){?>
+		<script>
+			Swal.fire({
+				title: 'Product Already in Cart!',
+				text: 'Do you want to proceed?',
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonText: 'Yes'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = 'my-cart.php?qi_id=<?php echo $id; ?>';
+				}
+			});
+		</script>
+		<?php 
 	}else{
 		$sql_p="SELECT * FROM products WHERE id={$id}";
 		$query_p=mysqli_query($con,$sql_p);
@@ -77,7 +90,9 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 									title: 'Product Added!',
 									text: 'Product has been added to the cart.',
 									icon: 'success',
-									confirmButtonText: 'Go to Cart'
+									showCancelButton: true,
+									confirmButtonText: 'Go to Cart',
+									cancelButtonText: 'Continue Shopping'
 								}).then((result) => {
 									if (result.isConfirmed) {
 										document.location = 'my-cart.php';
@@ -242,7 +257,7 @@ while ($row=mysqli_fetch_array($ret))
 										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 								<i class="fa fa-shopping-cart"></i>													
 							</button>
-							<a href="category.php?page=product&action=add&id=<?php echo $row['id']; ?>">
+							<a href="sub-category.php?scid=<?php echo $cid; ?>&page=product&action=add&id=<?php echo $row['id']; ?>">
 							<button class="btn btn-primary" type="button">Add to cart</button></a>
 								<?php } else {?>
 							<div class="action" style="color:red">Out of Stock</div>

@@ -68,7 +68,7 @@ return true;
 }
 </script>
     	<script>
-function userAvailability() {
+function emailAvailability() {
 $("#loaderIcon").show();
 jQuery.ajax({
 url: "check_availability.php",
@@ -76,6 +76,19 @@ data:'email='+$("#email").val(),
 type: "POST",
 success:function(data){
 $("#user-availability-status1").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+function contactAvailability() {
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "check_mob_no.php",
+data:'contactno='+$("#contactno").val(),
+type: "POST",
+success:function(data){
+$("#user-availability-status2").html(data);
 $("#loaderIcon").hide();
 },
 error:function (){}
@@ -131,7 +144,8 @@ $_SESSION['login']=$_POST['email'];
 $_SESSION['id']=$num['id'];
 $_SESSION['username']=$num['name'];
 
-if(empty($_SESSION['cart'])){
+//if(empty($_SESSION['cart']))
+{
 	$sql_p="SELECT * FROM cart WHERE userId={$_SESSION['id']}";
 	$query_p=mysqli_query($con,$sql_p);
 	if(mysqli_num_rows($query_p)!=0){
@@ -256,13 +270,14 @@ echo htmlentities($_SESSION['errmsg']="");
 
 		<div class="form-group">
 	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
-	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="userAvailability()" name="emailid" required >
+	    	<input type="email" class="form-control unicase-form-control text-input" id="email" onBlur="emailAvailability()" name="emailid" required >
 	    	       <span id="user-availability-status1" style="font-size:12px;"></span>
 	  	</div>
 
 <div class="form-group">
 	    	<label class="info-title" for="contactno">Contact No. <span>*</span></label>
-	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno" name="contactno" maxlength="10" required >
+	    	<input type="text" class="form-control unicase-form-control text-input" id="contactno"  onkeypress="return event.charCode >= 48 && event.charCode <= 57" onblur="contactAvailability()" name="contactno" maxlength="10" required >
+			<span id="user-availability-status2" style="font-size:12px;"></span>
 	  	</div>
 
 <div class="form-group">

@@ -381,6 +381,18 @@ $('.quant-input .minus').click(function() {
         $(this).parent().next().val(val);
     }
 });
+$('.quant-input > input').change(function() {
+    if (this.value < 1)
+        this.value = 1; // minimum is 1
+});
+$('.quant-input > input').keypress(function(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+});
 
 
 /*===================================================================================*/

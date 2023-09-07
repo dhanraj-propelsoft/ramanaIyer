@@ -66,6 +66,18 @@ else{
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
 
+		<script language="javascript" type="text/javascript">
+		var popUpWin = 0;
+
+		function popUpWindow(URLStr, left, top, width, height) {
+			if (popUpWin) {
+				if (!popUpWin.closed) popUpWin.close();
+			}
+			popUpWin = open(URLStr, 'popUpWin',
+				'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' +
+				600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
+		}
+		</script>
 	</head>
     <body class="cnt-home">
 	
@@ -146,7 +158,8 @@ while($row=mysqli_fetch_array($query))
 					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
 					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
 					
-					<td><a href="pending-orders.php?id=<?php echo $row['oid']; ?> ">Delete</td>
+					<td><a href="javascript:void(0);" onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row['oid']);?>');"
+                                                    title="Track order">View</td>
 				</tr>
 <?php $cnt=$cnt+1;} ?>
 <tr>

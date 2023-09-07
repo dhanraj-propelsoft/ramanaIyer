@@ -29,15 +29,13 @@ else{ ?>
 				</ul>
 			</div><!-- /.cnt-account -->
 
-<div class="cnt-block">
+			<div class="cnt-block">
 				
             
-        <a href="https://www.facebook.com/profile.php?id=100086171762349" target="_blank"><i class="icon fa fa-facebook fa-2x white-icon"></i></a>&nbsp;
-        <a href="https://www.instagram.com/ramana_trichy/" target="_blank"><i class="icon fa fa-instagram fa-2x white-icon"></i></a>&nbsp;
-        <a href="https://www.youtube.com/channel/UCmgDqJymEAzk5Tuz2eOlJyw" target="_blank"><i class="icon fa fa-youtube fa-2x white-icon"></i></a>&nbsp;
-        <a href="https://twitter.com/ramanatrichy" target="_blank"><i class="icon fa fa-twitter fa-2x white-icon"></i></a>&nbsp;
-        <a href="https://www.linkedin.com/company/85663309/admin/" target="_blank"><i class="icon fa fa-linkedin fa-2x white-icon"></i></a>
-
+				<a href="https://www.facebook.com/profile.php?id=100086171762349" target="_blank"><i class="icon fa fa-facebook fa-lg white-icon soc-med-icon"></i></a>&nbsp;
+				<a href="https://www.instagram.com/ramana_trichy/" target="_blank"><i class="icon fa fa-instagram fa-lg white-icon soc-med-icon"></i></a>&nbsp;
+				<a href="https://www.youtube.com/channel/UCmgDqJymEAzk5Tuz2eOlJyw" target="_blank"><i class="icon fa fa-youtube fa-lg white-icon soc-med-icon"></i></a>&nbsp;
+        
        
 			</div>
 			

@@ -5231,3 +5231,6 @@ a {
 .soc-med-icon {
   padding: 9px;
 }
+.owl-item {
+  width: 360px;
+}

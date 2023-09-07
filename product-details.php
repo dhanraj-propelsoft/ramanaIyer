@@ -44,10 +44,10 @@
 <body class="cnt-home">
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 if (isset($_GET['action']) && $_GET['action'] == "add") {
-	$id = intval($_GET['id']);
+	/*$id = intval($_GET['id']);
 	if (isset($_SESSION['cart'][$id])) {?>
 		<script>
 			Swal.fire({
@@ -86,11 +86,11 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 		} else {
 			$message = "Product ID is invalid";
 		}
-	}
+	}*/
 }
 $pid = intval($_GET['pid']);
 if (isset($_GET['action']) && $_GET['action'] == "wishlist") {
-	if (strlen($_SESSION['login']) == 0) {
+	/*if (strlen($_SESSION['login']) == 0) {
 		header('location:login.php');
 	} else {
 		mysqli_query($con, "insert into wishlist(userId,productId) values('" . $_SESSION['id'] . "','$pid')");
@@ -106,7 +106,7 @@ if (isset($_GET['action']) && $_GET['action'] == "wishlist") {
 			}
 		});
 	</script>";
-	}
+	}*/
 }
 if (isset($_POST['submit'])) {
 	$qty = $_POST['quality'];
@@ -199,24 +199,29 @@ if (isset($_POST['submit'])) {
 							<div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
 								<div class="product-item-holder size-big single-product-gallery small-gallery">
 
-									<div id="owl-single-product" class="hidden-xs">
+									<div id="owl-single-product" class="hidden-sm hidden-xs">
 
 										<?php if(!empty($row['productImage1'])) {?>
 										<div class="single-product-gallery-item" id="slide1">
-											<a data-lightbox="image-1" data-title="<?php echo htmlentities($row['productName']); ?>" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>">
-												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" width="370" height="350" />
+											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>">
+												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="max-height:350px; width: auto;" />
+											</a>
+										</div><!-- /.single-product-gallery-item -->
+										<div class="single-product-gallery-item" id="slide1">
+											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>">
+												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="max-height:350px; width: auto;" />
 											</a>
 										</div><!-- /.single-product-gallery-item -->
 										<?php } if(!empty($row['productImage2'])) {?>
 										<div class="single-product-gallery-item" id="slide2">
-											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>">
-												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" width="370" height="350"  />
+											<a data-lightbox="image-2" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>">
+												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="max-height:350px; width: auto;"  />
 											</a>
 										</div><!-- /.single-product-gallery-item -->
 										<?php } if(!empty($row['productImage3'])) {?>
 										<div class="single-product-gallery-item" id="slide3">
-											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>">
-												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" width="370" height="350"  />
+											<a data-lightbox="image-3" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>">
+												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="max-height:350px; width: auto;"  />
 											</a>
 										</div>
 										<?php } ?>
@@ -229,20 +234,20 @@ if (isset($_POST['submit'])) {
 											<?php if(!empty($row['productImage1'])) {?>
 											<div class="item">
 												<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="height: 80px; width: auto;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage2'])) {?>
 											<div class="item">
 												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-													<img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="height: 80px; width: auto;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage3'])) {?>
 											<div class="item">
 
 												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-													<img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="height: 80px; width: auto;" />
 												</a>
 											</div>
 											<?php } ?>
@@ -364,7 +369,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
-													<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="product-details.php?pid=<?php echo htmlentities($row['id']) ?>&action=wishlist">
+													<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" id="WishList" title="Wishlist">
 														<i class="fa fa-heart"></i>
 													</a>
 
@@ -376,7 +381,7 @@ if (isset($_POST['submit'])) {
 									</div><!-- /.price-container -->
 
 
-
+									<div id="ack"></div>
 
 
 
@@ -401,7 +406,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-7 col-xs-6">
 												<?php if ($row['productAvailability'] == 'In Stock') { ?>
-													<a href="product-details.php?pid=<?php echo $pid; ?>&page=product&action=add&id=<?php echo $row['id']; ?>" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+													<a id="CartList" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
 												<?php } else { ?>
 													<div class="action" style="color:red">Out of Stock</div>
 												<?php } ?>
@@ -560,16 +565,25 @@ if (isset($_POST['submit'])) {
 			<?php
 			$qry = mysqli_query($con, "select * from products where subCategory='$subcid' and category='$cid'");
 			while ($rw = mysqli_fetch_array($qry)) {
+				$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
+				$row2 = mysqli_fetch_array($rt);
 
+				$rowCnt = 0;
+				$rating = 0;
+				//echo $row2['idCnt'];
+				if($row2['idCnt'] > 0) {
+					$rowCnt = $row2['idCnt'];
+					$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+				}
 			?>
 
 
 				<div class="item item-carousel">
 					<div class="products">
 						<div class="product">
-							<div class="product-image">
-								<div class="image">
-									<a href="product-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><img src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['productImage1']); ?>" width="150" height="240" alt=""></a>
+							<div class="product-image" style="width: 100%; height: 300px; display: table;">
+								<div class="image" style="display: table-cell; vertical-align: middle;">
+									<a href="product-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><img src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['productImage1']); ?>" style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;" alt=""></a>
 								</div><!-- /.image -->
 
 
@@ -577,9 +591,16 @@ if (isset($_POST['submit'])) {
 
 
 							<div class="product-info text-left">
-								<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['productName']); ?></a></h3>
-								
-								<div class="rating rateit-small"></div>
+								<h3 class="name" style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;"><a href="product-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['productName']); ?></a></h3>
+								<?php 
+								for($jctr = 0; $jctr < 5; $jctr++)
+								{
+									if($jctr < $rating)
+										echo '<span class="fa fa-star rate-checked"></span>';
+									else
+										echo '<span class="fa fa-star"></span>';
+								}
+								?>
 								<div class="description"></div>
 
 								<div class="product-price">
@@ -661,10 +682,57 @@ if (isset($_POST['submit'])) {
 		$(window).bind("load", function() {
 			$('.show-theme-options').delay(2000).trigger('click');
 		});
+		$("#WishList").click(function(){
+			var session_id = <?php echo intval($_SESSION['id']); ?>;
+			var product_id = <?php echo intval($_GET['pid']); ?>;
+
+			if (session_id) {
+
+				jQuery.ajax({
+				url: "add-to-wishlist.php",
+				data: { session_id: session_id, product_id: product_id },
+				type: "POST",
+				success:function(data){
+					Swal.fire({
+						title: 'Product Added!',
+						text: 'Product added in wishlist.',
+						icon: 'success',
+						showCancelButton: true,
+						confirmButtonText: 'Go to Wishlist',
+						cancelButtonText: 'Continue Shopping'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							document.location = 'my-wishlist.php';
+						}
+					});
+				},
+				error:function (){}
+				});
+			} else {
+				document.location = 'login.php';
+			}
+		});
+		$("#CartList").click(function(){
+			var product_id = <?php echo intval($_GET['pid']); ?>;
+
+			jQuery.ajax({
+			url: "add-to-cart.php",
+			data: { product_id: product_id },
+			type: "POST",
+			success:function(data){
+				$("#ack").html(data);
+			},
+			error:function (){}
+			});
+		});		
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 
-
+	<style>
+		.owl-item{
+			width: 360px;
+		}
+	</style>
 
 </body>
 

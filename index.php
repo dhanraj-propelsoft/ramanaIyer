@@ -209,8 +209,9 @@ include('includes/config.php');?>
 															<span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']); ?></span>
 														</div>
 													</div>
+													<div id="ack"></div>
 													<?php if ($row['productAvailability'] == 'In Stock') { ?>
-														<div class="action"><a href="index.php?page=product&action=add&id=<?php echo $row['id']; ?>" class="lnk btn btn-primary">Add to Cart</a></div>
+														<div class="action"><a onclick="CartList('<?php echo $row['id']; ?>')" class="lnk btn btn-primary">Add to Cart</a></div>
 													<?php } else { ?>
 														<div class="action" style="color:red">Out of Stock</div>
 													<?php } ?>
@@ -273,6 +274,18 @@ include('includes/config.php');?>
 				$(window).bind("load", function() {
 					$('.show-theme-options').delay(2000).trigger('click');
 				});
+
+				function CartList(ele){
+					jQuery.ajax({
+					url: "add-to-cart.php",
+					data: { product_id: ele },
+					type: "POST",
+					success:function(data){
+						$("#ack").html(data);
+					},
+					error:function (){}
+					});
+				}
 			</script>
 			<!-- For demo purposes – can be removed on production : End -->
 
@@ -286,7 +299,7 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if (isset($_GET['action']) && $_GET['action'] == "add") {
-	$id = intval($_GET['id']);
+	/*$id = intval($_GET['id']);
 	if (isset($_SESSION['cart'][$id])) {?>
 		<script>
 			Swal.fire({
@@ -326,8 +339,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 				}
 			});
 		</script>";
-	}
-	
+	}*/	
 }
 
 

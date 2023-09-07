@@ -90,14 +90,15 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 	}
 }
 // COde for Wishlist
-if(isset($_GET['pid']) && $_GET['action']=="wishlist" ){
+$pid=intval($_GET['pid']);
+if(isset($_GET['action']) && $_GET['action']=="wishlist" ){
 	if(strlen($_SESSION['login'])==0)
     {   
 header('location:login.php');
 }
 else
 {
-mysqli_query($con,"insert into wishlist(userId,productId) values('".$_SESSION['id']."','".$_GET['pid']."')");
+mysqli_query($con,"insert into wishlist(userId,productId) values('".$_SESSION['id']."','".$pid."')");
 echo "<script>
 Swal.fire({
 	title: 'Product Added!',
@@ -260,7 +261,7 @@ while ($row=mysqli_fetch_array($ret))
 						</li>
 	                   
 		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="category.php?pid=<?php echo htmlentities($row['id'])?>&&action=wishlist" title="Wishlist">
+							<a class="add-to-cart" href="category.php?pid=<?php echo htmlentities($row['id'])?>&action=wishlist" title="Wishlist">
 								 <i class="icon fa fa-heart"></i>
 							</a>
 						</li>

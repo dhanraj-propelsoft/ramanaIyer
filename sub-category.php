@@ -54,7 +54,11 @@
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
 		<?php include('userStyle.php');?>
-
+		<style>
+			.rate-checked {
+				color: orange;
+			}
+		</style>
 	</head>
     <body class="cnt-home">
 	<?php
@@ -105,20 +109,23 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 	}
 }
 // COde for Wishlist
-if(isset($_GET['pid']) && $_GET['action']=="wishlist" ){
+$pid=intval($_GET['pid']);
+if(isset($_GET['action']) && $_GET['action']=="wishlist" ){
 	if(strlen($_SESSION['login'])==0)
     {   
 header('location:login.php');
 }
 else
 {
-mysqli_query($con,"insert into wishlist(userId,productId) values('".$_SESSION['id']."','".$_GET['pid']."')");
+mysqli_query($con,"insert into wishlist(userId,productId) values('".$_SESSION['id']."','".$pid."')");
 echo "<script>
 Swal.fire({
 	title: 'Product Added!',
 	text: 'Product added in wishlist.',
 	icon: 'success',
-	confirmButtonText: 'Go to Wishlist'
+	showCancelButton: true,
+	confirmButtonText: 'Go to Wishlist',
+	cancelButtonText: 'Continue Shopping'
 }).then((result) => {
 	if (result.isConfirmed) {
 		document.location = 'my-wishlist.php';
@@ -222,23 +229,41 @@ if($num>0)
 $ictr = 0;
 while ($row=mysqli_fetch_array($ret)) 
 {
+	$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
+	$row2 = mysqli_fetch_array($rt);
+
+	$rowCnt = 0;
+	$rating = 0;
+	//echo $row2['idCnt'];
+	if($row2['idCnt'] > 0) {
+		$rowCnt = $row2['idCnt'];
+		$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+	}
 	if ($ictr == 0)
 		echo "<div class='row'>";
 	else if($ictr % 3 == 0)
 		echo "</div><div class='row'>"; ?>							
 		<div class="col-sm-4 col-md-4 wow fadeInUp">
 			<div class="products">				
-	<div class="product">		
-		<div class="product-image">
-			<div class="image">
-				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" alt="" width="200" height="300"></a>
+	<div class="product text-center">		
+		<div class="product-image" style="width: 100%; height: 300px; display: table;">
+			<div class="image" style="display: table-cell; vertical-align: middle;">
+				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" alt="" style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
 			</div><!-- /.image -->			                      		   
 		</div><!-- /.product-image -->
 			
 		
-		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
-			<div class="rating rateit-small"></div>
+		<div class="product-info">
+			<h3 class="name" style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<?php 
+			for($jctr = 0; $jctr < 5; $jctr++)
+			{
+				if($jctr < $rating)
+					echo '<span class="fa fa-star rate-checked"></span>';
+				else
+					echo '<span class="fa fa-star"></span>';
+			}
+			?>
 			<div class="description"></div>
 
 			<div class="product-price">	
@@ -266,7 +291,7 @@ while ($row=mysqli_fetch_array($ret))
 						</li>
 	                   
 		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="category.php?pid=<?php echo htmlentities($row['id'])?>&&action=wishlist" title="Wishlist">
+							<a class="add-to-cart" href="sub-category.php?scid=<?php echo $cid; ?>&pid=<?php echo htmlentities($row['id'])?>&action=wishlist" title="Wishlist">
 								 <i class="icon fa fa-heart"></i>
 							</a>
 						</li>

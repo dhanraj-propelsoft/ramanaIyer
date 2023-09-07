@@ -2511,7 +2511,8 @@ a {
   left: 0px;
 }
 .product .cart .action ul li {
-  float: left;
+  /* float: left; */
+  display: inline-block;
 }
 .product .cart .action ul li.add-cart-button .btn.btn-primary.icon {
   border-bottom-right-radius: 0;
@@ -2574,7 +2575,7 @@ a {
   left: 0px;
 }
 .cart .action {
-  float: left;
+  /* float: left; */
 }
 .cart .action .add-cart-button .btn.btn-primary.icon {
   border-bottom-right-radius: 0;

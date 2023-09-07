@@ -324,6 +324,7 @@ $_SESSION['pQty']=$pQty;
 		<tbody>
 				<tr>
 					<td>
+					<form name="billAdrs" id="billAdrs" method="post">
 						<div class="form-group">
 
 <div class="form-group">
@@ -352,7 +353,7 @@ $_SESSION['pQty']=$pQty;
 					
 		
 						</div>
-					
+					</form>
 					</td>
 				</tr>
 		</tbody><!-- /tbody -->
@@ -377,6 +378,7 @@ while($row=mysqli_fetch_array($query))
 		<tbody>
 				<tr>
 					<td>
+					<form name="shipAdrs" id="shipAdrs" method="post">
 						<div class="form-group">
 
 <div class="form-group">
@@ -403,7 +405,7 @@ while($row=mysqli_fetch_array($query))
 					  <button type="submit" id="shipupdate" name="shipupdate" class="btn-upper btn btn-primary checkout-page-button">Update</button>
 					
 						</div>
-					
+					</form>
 					</td>
 				</tr>
 		</tbody><!-- /tbody -->

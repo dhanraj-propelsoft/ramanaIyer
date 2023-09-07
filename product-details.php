@@ -34,12 +34,17 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 	<link rel="shortcut icon" href="assets/images/favicon.ico">
 	<?php include('userStyle.php');?>
+	<style>
+		.rate-checked {
+			color: orange;
+		}
+	</style>
 </head>
 
 <body class="cnt-home">
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('includes/config.php');
 if (isset($_GET['action']) && $_GET['action'] == "add") {
 	$id = intval($_GET['id']);
@@ -84,7 +89,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 	}
 }
 $pid = intval($_GET['pid']);
-if (isset($_GET['pid']) && $_GET['action'] == "wishlist") {
+if (isset($_GET['action']) && $_GET['action'] == "wishlist") {
 	if (strlen($_SESSION['login']) == 0) {
 		header('location:login.php');
 	} else {
@@ -259,22 +264,36 @@ if (isset($_POST['submit'])) {
 							<div class='col-sm-6 col-md-7 product-info-block'>
 								<div class="product-info">
 									<h1 class="name"><?php echo htmlentities($row['productName']); ?></h1>
-									<?php $rt = mysqli_query($con, "select * from productreviews where productId='$pid'");
-									$num = mysqli_num_rows($rt); {
+									<?php $rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='$pid'");
+									$row1 = mysqli_fetch_array($rt);
+
+									$rowCnt = 0;
+									$rating = 0;
+									if($row1['idCnt'] > 0) {
+										$rowCnt = $row1['idCnt'];
+										$rating = intval(intval($row1['qulSum'] / $rowCnt) + intval($row1['priSum'] / $rowCnt) + intval($row1['valSum'] / $rowCnt)) / 3;
+									}
 									?>
-										<div class="rating-reviews m-t-20">
-											<div class="row">
-												<div class="col-sm-3 col-xs-5">
-													<div class="rating rateit-small"></div>
+									<div class="rating-reviews m-t-20">
+										<div class="row">
+											<div class="col-sm-3 col-xs-5">
+												<?php 
+												for($ictr = 0; $ictr < 5; $ictr++)
+												{
+													if($ictr < $rating)
+														echo '<span class="fa fa-star rate-checked"></span>';
+													else
+														echo '<span class="fa fa-star"></span>';
+												}
+												?>
+											</div>
+											<div class="col-sm-9 col-xs-7">
+												<div class="reviews">
+													<a href="#" class="lnk">(<?php echo htmlentities($rowCnt); ?> Reviews)</a>
 												</div>
-												<div class="col-sm-9 col-xs-7">
-													<div class="reviews">
-														<a href="#" class="lnk">(<?php echo htmlentities($num); ?> Reviews)</a>
-													</div>
-												</div>
-											</div><!-- /.row -->
-										</div><!-- /.rating-reviews -->
-									<?php } ?>
+											</div>
+										</div><!-- /.row -->
+									</div><!-- /.rating-reviews -->
 									<div class="stock-container info-container m-t-10">
 										<div class="row">
 											<div class="col-sm-3 col-xs-5">
@@ -345,7 +364,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
-													<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="product-details.php?pid=<?php echo htmlentities($row['id']) ?>&&action=wishlist">
+													<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="product-details.php?pid=<?php echo htmlentities($row['id']) ?>&action=wishlist">
 														<i class="fa fa-heart"></i>
 													</a>
 

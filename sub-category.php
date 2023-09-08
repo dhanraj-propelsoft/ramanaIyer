@@ -111,7 +111,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 // COde for Wishlist
 $pid=intval($_GET['pid']);
 if(isset($_GET['action']) && $_GET['action']=="wishlist" ){
-	if(strlen($_SESSION['login'])==0)
+	/*if(strlen($_SESSION['login'])==0)
     {   
 header('location:login.php');
 }
@@ -133,7 +133,7 @@ Swal.fire({
 });
 </script>";
 
-}
+}*/
 }
 ?>	
 <header class="header-style-1">
@@ -292,7 +292,7 @@ while ($row=mysqli_fetch_array($ret))
 						</li>
 	                   
 		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="sub-category.php?scid=<?php echo $cid; ?>&pid=<?php echo htmlentities($row['id'])?>&action=wishlist" title="Wishlist">
+							<a class="add-to-cart" onclick="WishList('<?php echo $row['id']; ?>')" title="Wishlist">
 								 <i class="icon fa fa-heart"></i>
 							</a>
 						</li>
@@ -375,6 +375,25 @@ while ($row=mysqli_fetch_array($ret))
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
+		
+		function WishList(ele){
+			var session_id = <?php echo intval($_SESSION['id']); ?>;
+
+			if (session_id) {
+
+				jQuery.ajax({
+				url: "add-to-wishlist.php",
+				data: { session_id: session_id, product_id: ele },
+				type: "POST",
+				success:function(data){
+					$("#ack").html(data);
+				},
+				error:function (){}
+				});
+			} else {
+				document.location = 'login.php';
+			}
+		}
 
 		function CartList(ele){
 			jQuery.ajax({

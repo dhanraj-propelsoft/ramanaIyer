@@ -227,9 +227,10 @@ $num=mysqli_num_rows($ret);
 if($num>0)
 {
 $ictr = 0;
+$rating = 0;
 while ($row=mysqli_fetch_array($ret)) 
 {
-	$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
+	/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
 	$row2 = mysqli_fetch_array($rt);
 
 	$rowCnt = 0;
@@ -238,7 +239,8 @@ while ($row=mysqli_fetch_array($ret))
 	if($row2['idCnt'] > 0) {
 		$rowCnt = $row2['idCnt'];
 		$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-	}
+	}*/
+	$rating = $row['productRating'];
 	if ($ictr == 0)
 		echo "<div class='row'>";
 	else if($ictr % 3 == 0)
@@ -280,11 +282,9 @@ while ($row=mysqli_fetch_array($ret))
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
 						<?php if($row['productAvailability']=='In Stock'){?>
-										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
+										
 							<a onclick="CartList('<?php echo $row['id']; ?>')">
-							<button class="btn btn-primary" type="button">Add to cart</button></a>
+							<button class="btn btn-primary" type="button"><i class="fa fa-shopping-cart"></i> &nbsp; Add to cart</button></a>
 								<?php } else {?>
 							<div class="action" style="color:red">Out of Stock</div>
 					<?php } ?>

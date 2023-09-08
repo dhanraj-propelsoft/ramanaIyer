@@ -269,7 +269,7 @@ if (isset($_POST['submit'])) {
 							<div class='col-sm-6 col-md-7 product-info-block'>
 								<div class="product-info">
 									<h1 class="name"><?php echo htmlentities($row['productName']); ?></h1>
-									<?php $rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='$pid'");
+									<?php /*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='$pid'");
 									$row1 = mysqli_fetch_array($rt);
 
 									$rowCnt = 0;
@@ -277,7 +277,8 @@ if (isset($_POST['submit'])) {
 									if($row1['idCnt'] > 0) {
 										$rowCnt = $row1['idCnt'];
 										$rating = intval(intval($row1['qulSum'] / $rowCnt) + intval($row1['priSum'] / $rowCnt) + intval($row1['valSum'] / $rowCnt)) / 3;
-									}
+									}*/
+									$rating = $row['productRating'];
 									?>
 									<div class="rating-reviews m-t-20">
 										<div class="row">
@@ -365,7 +366,7 @@ if (isset($_POST['submit'])) {
 											</div>
 
 
-
+											<div id="ack"></div>
 
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
@@ -406,7 +407,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-7 col-xs-6">
 												<?php if ($row['productAvailability'] == 'In Stock') { ?>
-													<a id="CartList" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+													<a id="CartList" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } else { ?>
 													<div class="action" style="color:red">Out of Stock</div>
 												<?php } ?>
@@ -562,10 +563,11 @@ if (isset($_POST['submit'])) {
 		<h3 class="section-title">Realted Products </h3>
 		<div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
 
-			<?php
+			<?php 
+			$rating = 0;
 			$qry = mysqli_query($con, "select * from products where subCategory='$subcid' and category='$cid'");
 			while ($rw = mysqli_fetch_array($qry)) {
-				$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
+				/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
 				$row2 = mysqli_fetch_array($rt);
 
 				$rowCnt = 0;
@@ -574,7 +576,8 @@ if (isset($_POST['submit'])) {
 				if($row2['idCnt'] > 0) {
 					$rowCnt = $row2['idCnt'];
 					$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-				}
+				}*/
+				$rating = $rw['productRating'];
 			?>
 
 
@@ -596,7 +599,7 @@ if (isset($_POST['submit'])) {
 								for($jctr = 0; $jctr < 5; $jctr++)
 								{
 									if($jctr < $rating)
-										echo '<span class="fa fa-star rate-checked"></span>';
+										echo '<span class="fa fa-star rate-checked $rating"></span>';
 									else
 										echo '<span class="fa fa-star"></span>';
 								}
@@ -682,7 +685,7 @@ if (isset($_POST['submit'])) {
 		$(window).bind("load", function() {
 			$('.show-theme-options').delay(2000).trigger('click');
 		});
-		$("#WishList").click(function(){
+		$("#WishList").click(function() {
 			var session_id = <?php echo intval($_SESSION['id']); ?>;
 			var product_id = <?php echo intval($_GET['pid']); ?>;
 
@@ -693,18 +696,7 @@ if (isset($_POST['submit'])) {
 				data: { session_id: session_id, product_id: product_id },
 				type: "POST",
 				success:function(data){
-					Swal.fire({
-						title: 'Product Added!',
-						text: 'Product added in wishlist.',
-						icon: 'success',
-						showCancelButton: true,
-						confirmButtonText: 'Go to Wishlist',
-						cancelButtonText: 'Continue Shopping'
-					}).then((result) => {
-						if (result.isConfirmed) {
-							document.location = 'my-wishlist.php';
-						}
-					});
+					$("#ack").html(data);
 				},
 				error:function (){}
 				});

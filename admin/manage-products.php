@@ -55,7 +55,7 @@ if(isset($_GET['del']))
 									<br />
 
 							
-								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" style="width:100%;padding:5px;">
 									<thead>
 										<tr>
 											<th>#</th>

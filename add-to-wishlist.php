@@ -5,6 +5,34 @@ if(!empty($_POST["product_id"]))
     $product_id= $_POST["product_id"];
 
 include('includes/config.php');
-mysqli_query($con, "insert into wishlist(userId,productId) values('" . $session_id . "','$product_id')");
 
+$sql_p = "SELECT * FROM wishlist WHERE userId={$session_id} AND product_id={$product_id}";
+$query_p = mysqli_query($con, $sql_p);
+if (mysqli_num_rows($query_p) != 0) {
+    echo "<script>
+        Swal.fire({
+            title: 'Success!',
+            text: 'Product Already in Wishlist!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>";
+} else {
+    mysqli_query($con, "insert into wishlist(userId,productId) values('" . $session_id . "','$product_id')");
+
+    echo "<script>
+        Swal.fire({
+            title: 'Success!',
+            text: 'Product has been added to the Wishlist.',
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Go to Wishlist',
+            cancelButtonText: 'Continue Shopping'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location = 'my-wishlist.php';
+            }
+        });
+    </script>";
+}
 ?>

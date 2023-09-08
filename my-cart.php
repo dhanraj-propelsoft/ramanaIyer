@@ -52,14 +52,17 @@
 		<?php include('userStyle.php');?>
 	</head>
     <body class="cnt-home">
+		
 <?php 
 session_start();
 error_reporting(0);
+//echo "<script>alert(".$_COOKIE['qi_id'].");</script>";
 include('includes/config.php');
-if(isset($_GET['qi_id']))
+if(isset($_COOKIE['qi_id']))
 {
-	$qi_id = intval($_GET['qi_id']);
+	$qi_id = intval($_COOKIE['qi_id']);
 	$_SESSION['cart'][$qi_id]['quantity']++;
+	setcookie("qi_id", "", time() - 3600);
 }
 
 if(isset($_POST['submit']))

@@ -19,6 +19,7 @@ if(isset($_POST['submit']))
 	$productdescription=$_POST['productDescription'];
 	$productscharge=$_POST['productShippingcharge'];
 	$productavailability=$_POST['productAvailability'];
+	$productrating=$_POST['productRating'];
 	$productimage1=$_FILES["productimage1"]["name"];
 	$productimage2=$_FILES["productimage2"]["name"];
 	$productimage3=$_FILES["productimage3"]["name"];
@@ -34,7 +35,7 @@ if(!is_dir($dir)){
 	move_uploaded_file($_FILES["productimage1"]["tmp_name"],"productimages/$productid/".$_FILES["productimage1"]["name"]);
 	move_uploaded_file($_FILES["productimage2"]["tmp_name"],"productimages/$productid/".$_FILES["productimage2"]["name"]);
 	move_uploaded_file($_FILES["productimage3"]["tmp_name"],"productimages/$productid/".$_FILES["productimage3"]["name"]);
-$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productimage1','$productimage2','$productimage3','$productpricebd')");
+$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productimage1','$productimage2','$productimage3','$productpricebd')");
 $_SESSION['msg']="Product Inserted Successfully !!";
 
 }
@@ -185,6 +186,20 @@ while($row=mysqli_fetch_array($query))
 <option value="">Select</option>
 <option value="In Stock">In Stock</option>
 <option value="Out of Stock">Out of Stock</option>
+</select>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Rating</label>
+<div class="controls">
+<select   name="productRating"  id="productRating" class="span8 tip" required>
+<option value="">Select</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
 </select>
 </div>
 </div>

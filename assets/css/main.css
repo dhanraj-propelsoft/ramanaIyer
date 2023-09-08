@@ -4103,15 +4103,18 @@ a {
 /*===================================================================================*/
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
+  .top-bar .cnt-block {
+    float: right;
+  }
   .top-bar .header-top-inner {
-    text-align: center;
+    /* text-align: center; */
   }
   .top-bar .header-top-inner .cnt-account {
     clear: both;
-    display: inline-block;
-    float: none;
+    /* display: inline-block; */
+    float: left;
     margin: auto;
-    text-align: center;
+    /* text-align: center; */
   }
   .top-bar .header-top-inner .cnt-account li {
     margin-bottom: 8px;

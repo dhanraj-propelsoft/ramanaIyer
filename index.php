@@ -169,9 +169,10 @@ include('includes/config.php');?>
 								<h3 class="section-title"><?php echo $row1['subcategory']; ?></h3>
 								<div class="owl-carousel homepage-owl-carousel custom-carousel outer-top-xs owl-theme" data-item="2">
 									<?php
+									$rating = 0;
 									$ret = mysqli_query($con, "select * from products where category='" . $row1['categoryid'] . "' and subCategory='" . $row1['id'] . "'");
 									while ($row = mysqli_fetch_array($ret)) {
-										$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
+										/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
 										$row2 = mysqli_fetch_array($rt);
 
 										$rowCnt = 0;
@@ -180,7 +181,8 @@ include('includes/config.php');?>
 										if($row2['idCnt'] > 0) {
 											$rowCnt = $row2['idCnt'];
 											$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-										}
+										}*/
+										$rating = $row['productRating'];
 									?>
 										<div class="item item-carousel">
 											<div class="products">

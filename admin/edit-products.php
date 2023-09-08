@@ -19,8 +19,9 @@ if(isset($_POST['submit']))
 	$productdescription=$_POST['productDescription'];
 	$productscharge=$_POST['productShippingcharge'];
 	$productavailability=$_POST['productAvailability'];
+	$productrating=$_POST['productRating'];
 	
-$sql=mysqli_query($con,"update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
+$sql=mysqli_query($con,"update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productRating='$productrating',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
 $_SESSION['msg']="Product Updated Successfully !!";
 
 }
@@ -197,6 +198,20 @@ while($rw=mysqli_fetch_array($query))
 </div>
 
 
+
+<div class="control-group">
+<label class="control-label" for="basicinput">Product Rating</label>
+<div class="controls">
+<select name="productRating"  id="productRating" class="span8 tip" required>
+<option value="<?php echo htmlentities($row['productRating']);?>"><?php echo htmlentities($row['productRating']);?></option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+</div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image1</label>

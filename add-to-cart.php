@@ -13,7 +13,9 @@ if (isset($_SESSION['cart'][$id])) {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'my-cart.php?qi_id=".$id."';
+                const expires = new Date(Date.now() + 1000).toUTCString();
+                document.cookie = `qi_id=$id; expires=expires`;
+                window.location.href = 'my-cart.php';
             }
         });
     </script>";
@@ -25,7 +27,7 @@ if (isset($_SESSION['cart'][$id])) {
         $_SESSION['cart'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['productPrice']);
         echo "<script>
         Swal.fire({
-            title: 'Product Added!',
+            title: 'Success!',
             text: 'Product has been added to the cart.',
             icon: 'success',
             showCancelButton: true,

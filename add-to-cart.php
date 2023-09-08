@@ -36,6 +36,8 @@ if (isset($_SESSION['cart'][$id])) {
         }).then((result) => {
             if (result.isConfirmed) {
                 document.location = 'my-cart.php';
+            } else {
+                $('#cartRefreshDiv').load(' #cartRefreshDiv > *');
             }
         });
     </script>";

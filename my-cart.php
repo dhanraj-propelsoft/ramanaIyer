@@ -255,8 +255,8 @@ if(!empty($_SESSION['cart'])){
 				<tr>
 					<td class="romove-item"><input type="checkbox" name="remove_code[]" value="<?php echo htmlentities($row['id']);?>" /></td>
 					<td class="cart-image">
-						<a class="entry-thumbnail" href="detail.html">
-						    <img src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" alt="" width="114" height="auto">
+						<a class="entry-thumbnail" href="product-details.php?pid=<?php echo $row['id'];?>">
+						    <img src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" alt="" style="width: auto; height: 100px; max-width: 130px">
 						</a>
 					</td>
 					<td class="cart-product-name-info">

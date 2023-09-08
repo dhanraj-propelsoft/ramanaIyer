@@ -127,7 +127,7 @@ while ($row=mysqli_fetch_array($ret)) {
 ?>
 
 				<tr>
-					<td class="col-md-2"><img src="admin/productimages/<?php echo htmlentities($row['pid']);?>/<?php echo htmlentities($row['pimage']);?>" alt="<?php echo htmlentities($row['pname']);?>" width="60" height="100"></td>
+					<td class="col-md-2" style="text-align: center;"><a href="product-details.php?pid=<?php echo htmlentities($row['pid']);?>"><img src="admin/productimages/<?php echo htmlentities($row['pid']);?>/<?php echo htmlentities($row['pimage']);?>" alt="<?php echo htmlentities($row['pname']);?>" style="width: auto; height: 100px; max-width: 130px" /></a></td>
 					<td class="col-md-6">
 						<div class="product-name"><a href="product-details.php?pid=<?php echo htmlentities($pd=$row['pid']);?>"><?php echo htmlentities($row['pname']);?></a></div>
 <?php $rt=mysqli_query($con,"select * from productreviews where productId='$pd'");
@@ -150,7 +150,8 @@ $num=mysqli_num_rows($rt);
 						</div>
 					</td>
 					<td class="col-md-2">
-						<a href="my-wishlist.php?page=product&action=add&id=<?php echo $row['pid']; ?>" class="btn-upper btn btn-primary">Add to cart</a>
+						<div id="ack"></div>
+						<a onclick="CartList('<?php echo $row['pid']; ?>')" class="btn-upper btn btn-primary">Add to cart</a>
 					</td>
 					<td class="col-md-2 close-btn">
 						<a href="my-wishlist.php?del=<?php echo htmlentities($row['wid']);?>" onClick="return confirm('Are you sure you want to delete?')" class=""><i class="fa fa-times"></i></a>
@@ -204,6 +205,18 @@ $num=mysqli_num_rows($rt);
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
+
+		function CartList(ele){
+			jQuery.ajax({
+			url: "add-to-cart.php",
+			data: { product_id: ele },
+			type: "POST",
+			success:function(data){
+				$("#ack").html(data);
+			},
+			error:function (){}
+			});
+		}
 	</script>
 </body>
 </html>

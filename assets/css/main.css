@@ -3374,7 +3374,7 @@ a {
 }
 .single-product .product-info .name {
   font-size: 20px;
-  line-height: 18px;
+  /* line-height: 18px; */
   font-family: 'FjallaOneRegular';
   color: #555;
   margin-top: 5px;

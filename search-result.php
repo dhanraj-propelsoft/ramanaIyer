@@ -244,6 +244,7 @@ while ($row=mysqli_fetch_array($ret))
 			</div><!-- /.product-price -->
 			
 		</div><!-- /.product-info -->
+		<div id="ack"></div>
 					<div class="cart clearfix animate-effect">
 				<div class="action">
 					<ul class="list-unstyled">
@@ -252,7 +253,7 @@ while ($row=mysqli_fetch_array($ret))
 										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 								<i class="fa fa-shopping-cart"></i>													
 							</button>
-							<a href="category.php?page=product&action=add&id=<?php echo $row['id']; ?>">
+							<a onclick="CartList('<?php echo $row['id']; ?>')">
 							<button class="btn btn-primary" type="button">Add to cart</button></a>
 								<?php } else {?>
 							<div class="action" style="color:red">Out of Stock</div>
@@ -261,7 +262,7 @@ while ($row=mysqli_fetch_array($ret))
 						</li>
 	                   
 		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="category.php?pid=<?php echo htmlentities($row['id'])?>&action=wishlist" title="Wishlist">
+							<a class="add-to-cart" id="WishList" title="Wishlist">
 								 <i class="icon fa fa-heart"></i>
 							</a>
 						</li>
@@ -336,6 +337,27 @@ while ($row=mysqli_fetch_array($ret))
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
+		});
+
+		
+		$("#WishList").click(function() {
+			var session_id = <?php echo intval($_SESSION['id']); ?>;
+			var product_id = <?php echo intval($_GET['pid']); ?>;
+
+			if (session_id) {
+
+				jQuery.ajax({
+				url: "add-to-wishlist.php",
+				data: { session_id: session_id, product_id: product_id },
+				type: "POST",
+				success:function(data){
+					$("#ack").html(data);
+				},
+				error:function (){}
+				});
+			} else {
+				document.location = 'login.php';
+			}
 		});
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->

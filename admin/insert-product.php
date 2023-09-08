@@ -7,7 +7,8 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-	
+	$productimage2="";
+	$productimage3="";
 if(isset($_POST['submit']))
 {
 	$category=$_POST['category'];
@@ -21,8 +22,10 @@ if(isset($_POST['submit']))
 	$productavailability=$_POST['productAvailability'];
 	$productrating=$_POST['productRating'];
 	$productimage1=$_FILES["productimage1"]["name"];
-	$productimage2=$_FILES["productimage2"]["name"];
-	$productimage3=$_FILES["productimage3"]["name"];
+	if(isset($_FILES["productimage2"]["name"]))
+		$productimage2=$_FILES["productimage2"]["name"];
+	if(isset($_FILES["productimage3"]["name"]))
+		$productimage3=$_FILES["productimage3"]["name"];
 //for getting product id
 $query=mysqli_query($con,"select max(id) as pid from products");
 	$result=mysqli_fetch_array($query);
@@ -31,11 +34,13 @@ $query=mysqli_query($con,"select max(id) as pid from products");
 if(!is_dir($dir)){
 		mkdir("productimages/".$productid);
 	}
-
+	
 	move_uploaded_file($_FILES["productimage1"]["tmp_name"],"productimages/$productid/".$_FILES["productimage1"]["name"]);
-	move_uploaded_file($_FILES["productimage2"]["tmp_name"],"productimages/$productid/".$_FILES["productimage2"]["name"]);
-	move_uploaded_file($_FILES["productimage3"]["tmp_name"],"productimages/$productid/".$_FILES["productimage3"]["name"]);
-$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productimage1','$productimage2','$productimage3','$productpricebd')");
+	if(isset($_FILES["productimage2"]["name"]))
+		move_uploaded_file($_FILES["productimage2"]["tmp_name"],"productimages/$productid/".$_FILES["productimage2"]["name"]);
+	if(isset($_FILES["productimage3"]["name"]))
+		move_uploaded_file($_FILES["productimage3"]["tmp_name"],"productimages/$productid/".$_FILES["productimage3"]["name"]);
+$sql=mysqli_query($con,"insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd')");
 $_SESSION['msg']="Product Inserted Successfully !!";
 
 }
@@ -217,7 +222,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image2</label>
 <div class="controls">
-<input type="file" name="productimage2"  class="span8 tip" required>
+<input type="file" name="productimage2"  class="span8 tip">
 </div>
 </div>
 

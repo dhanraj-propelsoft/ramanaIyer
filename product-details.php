@@ -234,20 +234,20 @@ if (isset($_POST['submit'])) {
 											<?php if(!empty($row['productImage1'])) {?>
 											<div class="item">
 												<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
-													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="height: 80px; width: auto;" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="width: 349px;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage2'])) {?>
 											<div class="item">
 												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
-													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="height: 80px; width: auto;" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="width: 349px;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage3'])) {?>
 											<div class="item">
 
 												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
-													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="height: 80px; width: auto;" />
+													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="width: 349px;" />
 												</a>
 											</div>
 											<?php } ?>
@@ -365,8 +365,7 @@ if (isset($_POST['submit'])) {
 												</div>
 											</div>
 
-
-											<div id="ack"></div>
+											
 
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
@@ -622,7 +621,7 @@ if (isset($_POST['submit'])) {
 											<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 												<i class="fa fa-shopping-cart"></i>
 											</button>
-											<a href="product-details.php?pid=<?php echo $pid; ?>&page=product&action=add&id=<?php echo $rw['id']; ?>" class="lnk btn btn-primary">Add to cart</a>
+											<a onclick="CartList('<?php echo $rw['id']; ?>')" class="lnk btn btn-primary">Add to cart</a>
 
 										</li>
 

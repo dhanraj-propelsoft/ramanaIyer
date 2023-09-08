@@ -5,15 +5,14 @@ if(!empty($_POST["product_id"]))
     $product_id= $_POST["product_id"];
 
 include('includes/config.php');
-
-$sql_p = "SELECT * FROM wishlist WHERE userId={$session_id} AND product_id={$product_id}";
+$sql_p = "SELECT * FROM wishlist WHERE userId={$session_id} AND productId={$product_id}";
 $query_p = mysqli_query($con, $sql_p);
 if (mysqli_num_rows($query_p) != 0) {
     echo "<script>
         Swal.fire({
-            title: 'Success!',
+            title: 'Information',
             text: 'Product Already in Wishlist!',
-            icon: 'success',
+            icon: 'info',
             confirmButtonText: 'OK'
         });
     </script>";

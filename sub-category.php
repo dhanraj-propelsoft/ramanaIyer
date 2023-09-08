@@ -67,7 +67,7 @@ error_reporting(0);
 include('includes/config.php');
 $cid=intval($_GET['scid']);
 if(isset($_GET['action']) && $_GET['action']=="add"){
-	$id=intval($_GET['id']);
+	/*$id=intval($_GET['id']);
 	if(isset($_SESSION['cart'][$id])){?>
 		<script>
 			Swal.fire({
@@ -106,7 +106,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
 		}else{
 			$message="Product ID is invalid";
 		}
-	}
+	}*/
 }
 // COde for Wishlist
 $pid=intval($_GET['pid']);
@@ -274,7 +274,8 @@ while ($row=mysqli_fetch_array($ret))
 			</div><!-- /.product-price -->
 			
 		</div><!-- /.product-info -->
-					<div class="cart clearfix animate-effect">
+					<div id="ack"></div>
+				<div class="cart clearfix animate-effect">
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
@@ -282,7 +283,7 @@ while ($row=mysqli_fetch_array($ret))
 										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 								<i class="fa fa-shopping-cart"></i>													
 							</button>
-							<a href="sub-category.php?scid=<?php echo $cid; ?>&page=product&action=add&id=<?php echo $row['id']; ?>">
+							<a onclick="CartList('<?php echo $row['id']; ?>')">
 							<button class="btn btn-primary" type="button">Add to cart</button></a>
 								<?php } else {?>
 							<div class="action" style="color:red">Out of Stock</div>
@@ -374,6 +375,18 @@ while ($row=mysqli_fetch_array($ret))
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
 		});
+
+		function CartList(ele){
+			jQuery.ajax({
+			url: "add-to-cart.php",
+			data: { product_id: ele },
+			type: "POST",
+			success:function(data){
+				$("#ack").html(data);
+			},
+			error:function (){}
+			});
+		}
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 

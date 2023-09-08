@@ -3,7 +3,7 @@ session_start();
 include('includes/config.php');
 $id = intval($_POST['product_id']);
 if (isset($_SESSION['cart'][$id])) {
-    $_SESSION['cart'][$id]['quantity']++;
+    //$_SESSION['cart'][$id]['quantity']++;
     echo "<script>
         Swal.fire({
             title: 'Product Already in Cart!',
@@ -13,7 +13,7 @@ if (isset($_SESSION['cart'][$id])) {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'my-cart.php';
+                window.location.href = 'my-cart.php?qi_id=".$id."';
             }
         });
     </script>";

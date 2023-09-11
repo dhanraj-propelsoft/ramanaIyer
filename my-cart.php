@@ -41,7 +41,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		
 
 		<!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
 		<!--[if lt IE 9]>
@@ -241,6 +241,7 @@ if(!empty($_SESSION['cart'])){
 			$totalprice=0;
 			$totalqunty=0;
 			if(!empty($query)){
+			$rating = 0;
 			while($row = mysqli_fetch_array($query)){
 				$quantity=$_SESSION['cart'][$row['id']]['quantity'];
 				$subtotal= (int)$_SESSION['cart'][$row['id']]['quantity'] * (int)$row['productPrice'] + (int)$row['shippingCharge'];
@@ -249,6 +250,7 @@ if(!empty($_SESSION['cart'])){
 
 				array_push($pdtid,$row['id']);
 				array_push($pQty,$quantity);
+				$rating = $row['productRating'];
 //print_r($_SESSION['pid'])=$pdtid;exit;
 	?>
 
@@ -266,7 +268,15 @@ $_SESSION['sid']=$pd;
 						 ?></a></h4>
 						<div class="row">
 							<div class="col-sm-4">
-								<div class="rating rateit-small"></div>
+								<?php 
+								for($jctr = 0; $jctr < 5; $jctr++)
+								{
+									if($jctr < $rating)
+										echo '<span class="fa fa-star rate-checked"></span>';
+									else
+										echo '<span class="fa fa-star"></span>';
+								}
+								?>
 							</div>
 							<div class="col-sm-8">
 <?php $rt=mysqli_query($con,"select * from productreviews where productId='$pd'");
@@ -468,10 +478,10 @@ echo "Your shopping Cart is empty";
 
 	<!-- For demo purposes – can be removed on production -->
 	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
 	
 	<script>
-		$(document).ready(function(){ 
+		/*$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
 				$(this).parent().toggleClass('open');
@@ -481,7 +491,7 @@ echo "Your shopping Cart is empty";
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});
+		});*/
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 </body>

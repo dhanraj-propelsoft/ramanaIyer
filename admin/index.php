@@ -57,7 +57,7 @@ exit();
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
 				
-					<ul class="nav pull-right">
+					<!-- <ul class="nav pull-right">
 
 						<li><a href="http://localhost/shopping/">
 						Back to Portal
@@ -67,7 +67,7 @@ exit();
 						
 
 						
-					</ul>
+					</ul> -->
 				</div><!-- /.nav-collapse -->
 			</div>
 		</div><!-- /navbar-inner -->

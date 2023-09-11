@@ -26,22 +26,19 @@
 						</a>
 					</div>		
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 top-search-holder top-search-row">
+				<div class="col-xs-12 col-sm-6 col-md-6 top-search-holder top-search-row">
 					<div class="search-area">
-						<form name="search" method="post" action="search-result.php">
-							<div class="control-group">
-
-								<input class="search-field" placeholder="Search here..." name="product" required="required" />
-
-								<button class="search-button" type="submit" name="search"></button>    
-
+						<form id="searchform" name="search" method="post" action="search-result.php">
+							<div class="input-group">
+								<input id="product" class="form-control" required="required" name="product" placeholder="Search here...">
+								<span onclick="document.forms['search'].submit();" class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
 							</div>
 						</form>
 					</div><!-- /.search-area -->
 				</div>
 <!-- ============================================================= SEARCH AREA : END ============================================================= -->				
 
-				<div id="cartRefreshDiv" class="col-xs-12 col-sm-12 col-md-3 animate-dropdown top-cart-row">
+				<div id="cartRefreshDiv" class="col-xs-12 col-sm-6 col-md-3 animate-dropdown top-cart-row">
 					<!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 <?php
 if(!empty($_SESSION['cart'])){

@@ -5,6 +5,7 @@
 		<!-- Meta -->
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -46,7 +47,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		
 
 		<!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
 		<!--[if lt IE 9]>
@@ -54,11 +55,6 @@
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
 		<?php include('userStyle.php');?>
-		<style>
-			.rate-checked {
-				color: orange;
-			}
-		</style>
 	</head>
     <body class="cnt-home">
 	<?php
@@ -374,10 +370,10 @@ while ($row=mysqli_fetch_array($ret))
 
 	<!-- For demo purposes – can be removed on production -->
 	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
 	
 	<script>
-		$(document).ready(function(){ 
+		/*$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
 				$(this).parent().toggleClass('open');
@@ -387,7 +383,7 @@ while ($row=mysqli_fetch_array($ret))
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});
+		});*/
 
 		
 		function WishList(ele){

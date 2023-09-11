@@ -118,7 +118,8 @@ $st='Delivered';
         <textarea cols="100" rows="7" name="remark"  required="required" ></textarea>
         </span></td>
     </tr>
-    <tr><td colspan="3"><input type="submit" name="submit2"  value="Update" class="btn" /></td>
+    <tr><td colspan="3"><input class="btn btn-primary" type="button" value="Back" onclick="window.history.back()" /> 
+												<input type="submit" name="submit2"  value="Update" class="btn btn-success" /></td>
 <?php } ?>
    </tbody>
 </table>

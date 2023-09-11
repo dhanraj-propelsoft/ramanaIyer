@@ -5,6 +5,7 @@
 		<!-- Meta -->
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -46,7 +47,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		
 
 		<!-- HTML5 elements and media queries Support for IE8 : HTML5 shim and Respond.js -->
 		<!--[if lt IE 9]>
@@ -219,21 +220,31 @@ $ret=mysqli_query($con,"select * from products where productName like '$find'");
 $num=mysqli_num_rows($ret);
 if($num>0)
 {
+$rating = 0;
 while ($row=mysqli_fetch_array($ret)) 
-{?>							
+{
+	$rating = $row['productRating'];?>							
 		<div class="col-sm-6 col-md-4 wow fadeInUp">
 			<div class="products">				
-	<div class="product">		
-		<div class="product-image">
-			<div class="image">
-				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" alt="" width="200" height="300"></a>
+	<div class="product text-center">		
+		<div class="product-image" style="width: 100%; height: 300px; display: table;">
+			<div class="image" style="display: table-cell; vertical-align: middle;">
+				<a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><img  src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']);?>/<?php echo htmlentities($row['productImage1']);?>" alt=""  style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
 			</div><!-- /.image -->			                      		   
 		</div><!-- /.product-image -->
 			
 		
-		<div class="product-info text-left">
-			<h3 class="name"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
-			<div class="rating rateit-small"></div>
+		<div class="product-info">
+			<h3 class="name" style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;"><a href="product-details.php?pid=<?php echo htmlentities($row['id']);?>"><?php echo htmlentities($row['productName']);?></a></h3>
+			<?php 
+			for($jctr = 0; $jctr < 5; $jctr++)
+			{
+				if($jctr < $rating)
+					echo '<span class="fa fa-star rate-checked"></span>';
+				else
+					echo '<span class="fa fa-star"></span>';
+			}
+			?>
 			<div class="description"></div>
 
 			<div class="product-price">	
@@ -250,11 +261,9 @@ while ($row=mysqli_fetch_array($ret))
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
 					<?php if($row['productAvailability']=='In Stock'){?>
-										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
+										
 							<a onclick="CartList('<?php echo $row['id']; ?>')">
-							<button class="btn btn-primary" type="button">Add to cart</button></a>
+							<button class="btn btn-primary" type="button"><i class="fa fa-shopping-cart"></i> &nbsp; Add to cart</button></a>
 								<?php } else {?>
 							<div class="action" style="color:red">Out of Stock</div>
 					<?php } ?>
@@ -324,10 +333,10 @@ while ($row=mysqli_fetch_array($ret))
 
 	<!-- For demo purposes – can be removed on production -->
 	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
 	
 	<script>
-		$(document).ready(function(){ 
+		/*$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
 				$(this).parent().toggleClass('open');
@@ -337,7 +346,7 @@ while ($row=mysqli_fetch_array($ret))
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});
+		});*/
 
 		
 		$("#WishList").click(function() {
@@ -359,6 +368,18 @@ while ($row=mysqli_fetch_array($ret))
 				document.location = 'login.php';
 			}
 		});
+
+		function CartList(ele){
+			jQuery.ajax({
+			url: "add-to-cart.php",
+			data: { product_id: ele },
+			type: "POST",
+			success:function(data){
+				$("#ack").html(data);
+			},
+			error:function (){}
+			});
+		}
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 

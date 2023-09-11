@@ -41,6 +41,7 @@ header('location:my-wishlist.php');
 		<!-- Meta -->
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -77,7 +78,7 @@ header('location:my-wishlist.php');
 
         <!-- Fonts --> 
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		
 	</head>
     <body class="cnt-home">
 <header class="header-style-1">
@@ -118,12 +119,14 @@ header('location:my-wishlist.php');
 			</thead>
 			<tbody>
 <?php
-$ret=mysqli_query($con,"select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='".$_SESSION['id']."'");
+$ret=mysqli_query($con,"select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productRating as prating,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='".$_SESSION['id']."'");
 $num=mysqli_num_rows($ret);
 	if($num>0)
 	{
+		$rating = 0;
 while ($row=mysqli_fetch_array($ret)) {
 
+	$rating = $row['prating'];
 ?>
 
 				<tr>
@@ -135,12 +138,16 @@ $num=mysqli_num_rows($rt);
 {
 ?>
 
-						<div class="rating">
-							<i class="fa fa-star rate"></i>
-							<i class="fa fa-star rate"></i>
-							<i class="fa fa-star rate"></i>
-							<i class="fa fa-star rate"></i>
-							<i class="fa fa-star non-rate"></i>
+						<div class="">
+							<?php 
+							for($jctr = 0; $jctr < 5; $jctr++)
+							{
+								if($jctr < $rating)
+									echo '<span class="fa fa-star rate-checked"></span>';
+								else
+									echo '<span class="fa fa-star"></span>';
+							}
+							?>
 							<span class="review">( <?php echo htmlentities($num);?> Reviews )</span>
 						</div>
 						<?php } ?>
@@ -191,10 +198,10 @@ $num=mysqli_num_rows($rt);
 
 	<!-- For demo purposes – can be removed on production -->
 	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
 	
 	<script>
-		$(document).ready(function(){ 
+		/*$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
 				$(this).parent().toggleClass('open');
@@ -204,7 +211,7 @@ $num=mysqli_num_rows($rt);
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});
+		});*
 
 		function CartList(ele){
 			jQuery.ajax({

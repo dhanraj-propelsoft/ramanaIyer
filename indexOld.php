@@ -41,7 +41,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/images/favicon.ico">
+	
 	<?php include('userStyle.php');?>
 
 </head>
@@ -559,7 +559,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 		<script src="switchstylesheet/switchstylesheet.js"></script>
 
 		<script>
-			$(document).ready(function() {
+			/*$(document).ready(function() {
 				$(".changecolor").switchstylesheet({
 					seperator: "color"
 				});
@@ -571,7 +571,7 @@ if (isset($_GET['action']) && $_GET['action'] == "add") {
 
 			$(window).bind("load", function() {
 				$('.show-theme-options').delay(2000).trigger('click');
-			});
+			});*/
 		</script>
 		<!-- For demo purposes – can be removed on production : End -->
 

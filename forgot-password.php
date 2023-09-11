@@ -41,6 +41,7 @@ exit();
 		<!-- Meta -->
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -81,7 +82,7 @@ exit();
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		
 		<!-- Favicon -->
-		<link rel="shortcut icon" href="assets/images/favicon.ico">
+		
 		<?php include('userStyle.php');?>
 <script type="text/javascript">
 function valid()
@@ -196,10 +197,10 @@ echo htmlentities($_SESSION['errmsg']="");
 
 	<!-- For demo purposes – can be removed on production -->
 	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
+	<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
 	
 	<script>
-		$(document).ready(function(){ 
+		/*$(document).ready(function(){ 
 			$(".changecolor").switchstylesheet( { seperator:"color"} );
 			$('.show-theme-options').click(function(){
 				$(this).parent().toggleClass('open');
@@ -209,7 +210,7 @@ echo htmlentities($_SESSION['errmsg']="");
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});
+		});*/
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 

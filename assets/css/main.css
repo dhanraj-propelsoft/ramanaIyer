@@ -2,10 +2,10 @@
 /*  GENERAL
 /*===================================================================================*/
 .green-text {
-  color: #abd07e !important;
+  color: #c5161d; !important;
 }
 .green-text:hover {
-  background-color: #abd07e !important;
+  background-color: #c5161d; !important;
   color: #fff !important;
 }
 .blue-text {
@@ -609,7 +609,7 @@ a {
   background: #0b816a;
 }
 .tag.sale {
-  background: #abd07e;
+  background: #c5161d;;
 }
 .copyright-bar .copyright a {
   color: #12cca7;
@@ -1504,7 +1504,7 @@ a {
 .sidebar .side-menu nav .nav > li > a:hover,
 .sidebar .side-menu nav .nav > li > a:focus {
   background: #fff;
-  border-left: 5px solid #abd07e;
+  border-left: 5px solid #c5161d;;
 }
 .sidebar .side-menu nav .nav > li > a:hover .icon,
 .sidebar .side-menu nav .nav > li > a:focus .icon {
@@ -4144,7 +4144,7 @@ a {
     border-bottom: 1px solid #e0e0e0;
   }
   .main-header .top-search-holder .search-area .search-button {
-    padding: 12px 19px;
+    padding: 13px 19px;
   }
   .sidebar .side-menu nav .nav > li > .mega-menu {
     left: 0px;
@@ -4566,7 +4566,7 @@ a {
   color: #666666;
   font-size: 13px;
   padding-right: 4px;
-  ont-family: FontAwesome;
+  font-family: FontAwesome;
 }
 .blog-page .blog-post .author:before,
 .blog-page .sidebar .sidebar-module-container .sidebar-widget .blog-post .author:before {
@@ -4776,7 +4776,7 @@ a {
 }
 .shopping-cart .shopping-cart-table table tbody tr .romove-item a:hover,
 .shopping-cart .shopping-cart-table table tbody tr .romove-item a:focus {
-  color: #ff000 !important;
+  color: #ff0000 !important;
 }
 .shopping-cart .shopping-cart-table table tbody tr .cart-image .entry-thumbnail {
   display: block;
@@ -5237,4 +5237,7 @@ a {
 }
 .owl-item {
   width: 360px;
+}
+.rate-checked {
+  color: orange;
 }

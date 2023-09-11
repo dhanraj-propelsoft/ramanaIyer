@@ -26,21 +26,37 @@
 
             	<div class="col-xs-12 col-sm-6 col-md-4">
             		 <!-- ============================================================= CONTACT TIMING============================================================= -->
-<div class="contact-timing">
+<div class="contact-information">
 	<div class="module-heading">
-		<h4 class="module-title">opening time</h4>
+		<h4 class="module-title">Branch Offices</h4>
 	</div><!-- /.module-heading -->
 
 	<div class="module-body outer-top-xs">
-		<div class="table-responsive">
-			<table class="table">
-				<tbody>
-					<tr><td>Monday-Friday:</td><td class="pull-right">08.00 To 18.00</td></tr>
-					<tr><td>Saturday:</td><td class="pull-right">09.00 To 20.00</td></tr>
-					<tr><td>Sunday:</td><td class="pull-right">10.00 To 20.00</td></tr>
-				</tbody>
-			</table>
-		</div><!-- /.table-responsive -->
+        <ul class="toggle-footer" style="">
+            <li class="media">
+                <div class="pull-left">
+                    <a href="https://goo.gl/maps/MNDmYK9fpzMDEzVMA" target="_blank"><span class="icon fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
+                    </span></a>
+                </div>
+                <div class="media-body">
+                    <p>Ramana Iyer Sweets and Snacks, No.96. South Gate, Near Raja Gopuram, Srirangam, Trichy-620006<BR/>Phone: 0431-3557653
+</p>
+                </div>
+            </li>
+            <li class="media">
+                <div class="pull-left">
+                    <a href="https://goo.gl/maps/wHiay7a1U5eyq4BAA" target="_blank"><span class="icon fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
+                    </span></a>
+                </div>
+                <div class="media-body">
+                    <p>Ramana Iyer Sweets and Snacks, Shop No.2. PK Complex, No1. Tolgate, Trichy-621216<BR/>Phone: 9003 558899</p>
+                </div>
+            </li><!-- /.table-responsive -->
+        </ul>
 	</div><!-- /.module-body -->
 </div><!-- /.contact-timing -->
 <!-- ============================================================= CONTACT TIMING : END ============================================================= -->            	</div><!-- /.col -->
@@ -49,17 +65,17 @@
             		 <!-- ============================================================= INFORMATION============================================================= -->
 <div class="contact-information">
 	<div class="module-heading">
-		<h4 class="module-title">information</h4>
+		<h4 class="module-title">Exports and Wholesale</h4>
 	</div><!-- /.module-heading -->
 
 	<div class="module-body outer-top-xs">
         <ul class="toggle-footer" style="">
             <li class="media">
                 <div class="pull-left">
-                     <span class="icon fa-stack fa-lg">
+                    <a href="https://goo.gl/maps/v1EbfeosdVeEzCop6" target="_blank"><span class="icon fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
-                    </span>
+                    </span></a>
                 </div>
                 <div class="media-body">
                     <p>No.4/1026, West Agraharam, Biksandar Kovil, No.1 Tolgate, Trichy – 621 216, Tamilnadu, India</p>
@@ -74,7 +90,7 @@
                     </span>
                 </div>
                 <div class="media-body">
-                    <p>(+91) 96551 05555</p>
+                    <p>(+91) 9655 10 5555</p>
                 </div>
             </li>
 

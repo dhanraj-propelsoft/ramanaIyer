@@ -4,76 +4,37 @@
 			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/aoc.jpg" alt="">
+						<img src="brandsimage/partners-1.png" alt="">
 					</a>	
 				</div><!--/.item-->
 
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/bajaj.jpg" alt="">
+						<img src="brandsimage/partners-2.png" alt="">
 					</a>	
 				</div><!--/.item-->
 
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/blackberry.jpg" alt="">
+						<img src="brandsimage/partners-3.png" alt="">
 					</a>	
 				</div><!--/.item-->
 
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/canon.jpg" alt="">
+						<img src="brandsimage/partners-4.png" alt="">
 					</a>	
 				</div>
 
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/compas.jpg" alt="">
+						<img src="brandsimage/partners-5.png" alt="">
 					</a>	
 				</div>
 
 				<div class="item">
 					<a href="#" class="image">
-						<img src="brandsimage/daikin.jpg" alt="">
-					</a>	
-				</div>
-
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/dell.jpg" alt="">
-					</a>	
-				</div>
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/samsung.jpg" alt="">
-					</a>	
-				</div>
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/hcl.jpg" alt="">
-					</a>	
-				</div>
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/sony.jpg" alt="">
-					</a>	
-				</div>
-
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/voltas.jpg" alt="">
-					</a>	
-				</div>
-
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/lg.jpg" alt="">
-					</a>	
-				</div>
-
-				<div class="item">
-					<a href="#" class="image">
-						<img src="brandsimage/lenovo.jpg" alt="">
+						<img src="brandsimage/partners-6.png" alt="">
 					</a>	
 				</div>
 

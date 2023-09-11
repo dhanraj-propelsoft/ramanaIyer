@@ -2255,9 +2255,10 @@ a {
   width: 100%;
 }
 .homepage-slider3 #owl-main .item {
-  /* height: 368px; */
-  height: auto;
+  max-height: 368px;
+  /* height: auto; */
   width: 100%;
+  object-fit: cover;
 }
 .homepage-slider3 #owl-main .item .caption {
   padding-left: 10%;

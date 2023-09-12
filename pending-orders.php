@@ -95,8 +95,8 @@ else{
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="#">Home</a></li>
-				<li class='active'>Shopping Cart</li>
+				<li><a href="index.php">Home</a></li>
+				<li class='active'>Pending Orders</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -129,7 +129,7 @@ else{
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null");
+<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is null");	//
 $cnt=1;
 $num=mysqli_num_rows($query);
 if($num>0)
@@ -159,8 +159,7 @@ while($row=mysqli_fetch_array($query))
 					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
 					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
 					
-					<td><a href="javascript:void(0);" onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row['oid']);?>');"
-                                                    title="Track order">View</td>
+					<td><a href="payment-method.php" title="Track order">Pay</td>
 				</tr>
 <?php $cnt=$cnt+1;} ?>
 <!-- <tr>

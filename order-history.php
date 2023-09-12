@@ -77,8 +77,8 @@ else{
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li class='active'>Shopping Cart</li>
+                    <li><a href="index.php">Home</a></li>
+                    <li class='active'>Order History</li>
                 </ul>
             </div><!-- /.breadcrumb-inner -->
         </div><!-- /.container -->
@@ -110,9 +110,11 @@ else{
                                     </thead><!-- /thead -->
 
                                     <tbody>
-
                                         <?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null");
 $cnt=1;
+$num=mysqli_num_rows($query);
+if($num>0)
+{
 while($row=mysqli_fetch_array($query))
 {
 ?>
@@ -150,7 +152,12 @@ while($row=mysqli_fetch_array($query))
                                                     Track
                                             </td>
                                         </tr>
-                                        <?php $cnt=$cnt+1;} ?>
+                                        <?php $cnt=$cnt+1;}  
+                                     } else {?>
+<tr>
+<td colspan="10" align="center"><h4>No Result Found</h4></td>
+</tr>
+<?php } ?>
 
                                     </tbody><!-- /tbody -->
                                 </table><!-- /table -->

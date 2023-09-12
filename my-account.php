@@ -96,7 +96,7 @@ return true;
     <body class="cnt-home">
 	<?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 if(strlen($_SESSION['login'])==0)
     {   
@@ -173,7 +173,7 @@ else
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="#">Home</a></li>
+				<li><a href="index.php">Home</a></li>
 				<li class='active'>Checkout</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->

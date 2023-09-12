@@ -1,4 +1,6 @@
 <?php 
+session_start();
+error_reporting(0);
 if(!empty($_POST["session_id"]))
 	$session_id= $_POST["session_id"];
 if(!empty($_POST["product_id"]))

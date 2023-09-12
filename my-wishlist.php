@@ -99,7 +99,7 @@ header('location:my-wishlist.php');
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
 				<li><a href="home.html">Home</a></li>
-				<li class='active'>Wishlish</li>
+				<li class='active'>Wishlist</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->

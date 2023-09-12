@@ -203,20 +203,15 @@ if (isset($_POST['submit'])) {
 												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="max-height:350px; width: auto;" />
 											</a>
 										</div><!-- /.single-product-gallery-item -->
-										<div class="single-product-gallery-item" id="slide1">
-											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>">
-												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="max-height:350px; width: auto;" />
-											</a>
-										</div><!-- /.single-product-gallery-item -->
 										<?php } if(!empty($row['productImage2'])) {?>
 										<div class="single-product-gallery-item" id="slide2">
-											<a data-lightbox="image-2" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>">
+											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>">
 												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="max-height:350px; width: auto;"  />
 											</a>
 										</div><!-- /.single-product-gallery-item -->
 										<?php } if(!empty($row['productImage3'])) {?>
 										<div class="single-product-gallery-item" id="slide3">
-											<a data-lightbox="image-3" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>">
+											<a data-lightbox="image-1" data-title="Gallery" href="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>">
 												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="max-height:350px; width: auto;"  />
 											</a>
 										</div>
@@ -229,20 +224,20 @@ if (isset($_POST['submit'])) {
 										<div id="owl-single-product-thumbnails">
 											<?php if(!empty($row['productImage1'])) {?>
 											<div class="item">
-												<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="1" href="#slide1">
+												<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="0" href="#slide1">
 													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" style="width: 349px;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage2'])) {?>
 											<div class="item">
-												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide2">
+												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="1" href="#slide2">
 													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage2']); ?>" style="width: 349px;" />
 												</a>
 											</div>
 											<?php } if(!empty($row['productImage3'])) {?>
 											<div class="item">
 
-												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="3" href="#slide3">
+												<a class="horizontal-thumb" data-target="#owl-single-product" data-slide="2" href="#slide3">
 													<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage3']); ?>" style="width: 349px;" />
 												</a>
 											</div>

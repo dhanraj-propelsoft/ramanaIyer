@@ -78,7 +78,7 @@ while($row=mysqli_fetch_array($query))
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($row['name']);?></td>
-											<td><?php echo htmlentities($row['email']);?></td>
+											<td style="min-width: 200px;overflow-wrap: anywhere;"><?php echo htmlentities($row['email']);?></td>
 											<td> <?php echo htmlentities($row['contactno']);?></td>
 											<td><?php echo htmlentities($row['shippingAddress'].",".$row['shippingCity'].",".$row['shippingState']."-".$row['shippingPincode']);?></td>
 											<td><?php echo htmlentities($row['billingAddress'].",".$row['billingCity'].",".$row['billingState']."-".$row['billingPincode']);?></td>

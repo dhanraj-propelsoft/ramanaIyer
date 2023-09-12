@@ -67,7 +67,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 										<tr>
 											<th>#</th>
 											<th> Name</th>
-											<th width="50">Email /Contact no</th>
+											<th width="50">Email / Contact no</th>
 											<th>Shipping Address</th>
 											<th>Product </th>
 											<th>Qty </th>
@@ -93,7 +93,7 @@ while($row=mysqli_fetch_array($query))
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($row['username']);?></td>
-											<td><?php echo htmlentities($row['useremail']);?>/<?php echo htmlentities($row['usercontact']);?></td>
+											<td style="min-width: 200px;overflow-wrap: anywhere;"><?php echo htmlentities($row['useremail']);?>/<?php echo htmlentities($row['usercontact']);?></td>
 										
 											<td><?php echo htmlentities($row['shippingaddress'].",".$row['shippingcity'].",".$row['shippingstate']."-".$row['shippingpincode']);?></td>
 											<td><?php echo htmlentities($row['productname']);?></td>

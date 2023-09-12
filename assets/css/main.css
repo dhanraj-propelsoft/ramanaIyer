@@ -2,10 +2,10 @@
 /*  GENERAL
 /*===================================================================================*/
 .green-text {
-  color: #c5161d; !important;
+  color: #c5161d !important;
 }
 .green-text:hover {
-  background-color: #c5161d; !important;
+  background-color: #c5161d !important;
   color: #fff !important;
 }
 .blue-text {
@@ -1115,7 +1115,7 @@ a {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border-radius: 0px;
-  display: inline-block;
+  /* display: inline-block; */
   float: right;
   margin: 0px;
   padding: 13px 21px 13px;
@@ -4735,7 +4735,7 @@ a {
   color: #666;
 }
 .contact-page .contact-info .contact-i {
-  display: inline-block;
+  /* display: inline-block; */
   height: 30px;
   width: 30px;
   text-align: center;

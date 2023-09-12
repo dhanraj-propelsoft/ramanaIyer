@@ -64,6 +64,7 @@ header('location:my-wishlist.php');
 
 		<!-- Demo Purpose Only. Should be removed in production -->
 		<link rel="stylesheet" href="assets/css/config.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
 
 		<link href="assets/css/green.css" rel="alternate stylesheet" title="Green color">
 		<link href="assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
@@ -78,7 +79,7 @@ header('location:my-wishlist.php');
 
         <!-- Fonts --> 
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
-		
+		<?php include('userStyle.php');?>
 	</head>
     <body class="cnt-home">
 <header class="header-style-1">
@@ -119,7 +120,7 @@ header('location:my-wishlist.php');
 			</thead>
 			<tbody>
 <?php
-$ret=mysqli_query($con,"select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productRating as prating,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='".$_SESSION['id']."'");
+$ret=mysqli_query($con,"select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='".$_SESSION['id']."'");
 $num=mysqli_num_rows($ret);
 	if($num>0)
 	{
@@ -153,7 +154,7 @@ $num=mysqli_num_rows($rt);
 						<?php } ?>
 						<div class="price">Rs. 
 							<?php echo htmlentities($row['pprice']);?>.00
-							<span>$900.00</span>
+							<span>Rs. <?php echo htmlentities($row['pdiscount']); ?></span>
 						</div>
 					</td>
 					<td class="col-md-2">
@@ -211,12 +212,12 @@ $num=mysqli_num_rows($rt);
 
 		$(window).bind("load", function() {
 		   $('.show-theme-options').delay(2000).trigger('click');
-		});*
+		});*/
 
 		function CartList(ele){
 			jQuery.ajax({
 			url: "add-to-cart.php",
-			data: { product_id: ele },
+			data: { product_id: ele, page: 'wishlist' },
 			type: "POST",
 			success:function(data){
 				$("#ack").html(data);

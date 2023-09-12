@@ -3,6 +3,14 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 $id = intval($_POST['product_id']);
+
+$page = "";
+if(isset($_POST['page']))
+    $page = trim($_POST['page']);
+
+if($page == 'wishlist')
+	mysqli_query($con,"delete from wishlist where productId='$id'");
+
 if (isset($_SESSION['cart'][$id])) {
     //$_SESSION['cart'][$id]['quantity']++;
     echo "<script>

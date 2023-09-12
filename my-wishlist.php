@@ -15,7 +15,7 @@ $query=mysqli_query($con,"delete from wishlist where id='$wid'");
 }
 
 
-if(isset($_GET['action']) && $_GET['action']=="add"){
+/*if(isset($_GET['action']) && $_GET['action']=="add"){
 	$id=intval($_GET['id']);
 	$query=mysqli_query($con,"delete from wishlist where productId='$id'");
 	if(isset($_SESSION['cart'][$id])){
@@ -32,7 +32,7 @@ header('location:my-wishlist.php');
 			$message="Product ID is invalid";
 		}
 	}
-}
+}*/
 
 ?>
 <!DOCTYPE html>

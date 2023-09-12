@@ -48,7 +48,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Pending Orders</h3>
+								<h3>Today's Orders</h3>
 							</div>
 							<div class="module-body table">
 	<?php if(isset($_GET['del']))

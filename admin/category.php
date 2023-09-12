@@ -15,16 +15,29 @@ if(isset($_POST['submit']))
 {
 	$category=$_POST['category'];
 	$description=$_POST['description'];
-$sql=mysqli_query($con,"insert into category(categoryName,categoryDescription) values('$category','$description')");
-$_SESSION['msg']="Category Created !!";
-
+	$result = mysqli_query($con,"SELECT id from category where categoryName = '".$category."'");
+	$row_cnt = mysqli_num_rows($result);
+	if($row_cnt > 0)
+	{
+		$_SESSION['msg']="<strong>Sorry!</strong> Category has been already in the list !!";
+	} else {
+		mysqli_query($con,"insert into category(categoryName,categoryDescription) values('$category','$description')");
+		$_SESSION['msg']="<strong>Well done!</strong> Category has been Created !!";
+	}
 }
 
 if(isset($_GET['del']))
-		  {
-		          mysqli_query($con,"delete from category where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Category deleted !!";
-		  }
+{
+	$result1 = mysqli_query($con,"SELECT id from products where category = '".$_GET['id']."'");
+	$row_cnt1 = mysqli_num_rows($result1);
+	if($row_cnt1 > 0)
+	{
+		$_SESSION['delmsg']="Could not delete since reference data exist !!";
+	} else {
+		mysqli_query($con,"delete from category where id = '".$_GET['id']."'");
+		$_SESSION['delmsg']="Category deleted !!";
+	}
+}
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +72,7 @@ if(isset($_GET['del']))
 {?>
 									<div class="alert alert-success">
 										<button type="button" class="close" data-dismiss="alert">×</button>
-									<strong>Well done!</strong>	<?php echo htmlentities($_SESSION['msg']);?><?php echo htmlentities($_SESSION['msg']="");?>
+										<?php echo $_SESSION['msg']; ?><?php echo htmlentities($_SESSION['msg']="");?>
 									</div>
 <?php } ?>
 

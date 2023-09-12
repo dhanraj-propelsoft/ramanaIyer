@@ -360,7 +360,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
-													<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" id="WishList" title="Wishlist">
+													<a class="btn btn-primary" data-toggle="tooltip" onclick="WishList('<?php echo $pid; ?>')" data-placement="right" id="WishList" title="Wishlist">
 														<i class="fa fa-heart"></i>
 													</a>
 
@@ -397,7 +397,7 @@ if (isset($_POST['submit'])) {
 
 											<div class="col-sm-7 col-xs-6">
 												<?php if ($row['productAvailability'] == 'In Stock') { ?>
-													<a id="CartList" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
+													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')" class="btn-upper btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } else { ?>
 													<div class="action" style="color:red">Out of Stock</div>
 												<?php } ?>
@@ -609,13 +609,13 @@ if (isset($_POST['submit'])) {
 								<div class="action">
 									<ul class="list-unstyled">
 										<li class="add-cart-button btn-group">
-											<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-												<i class="fa fa-shopping-cart"></i>
-											</button>
-											<a onclick="CartList('<?php echo $rw['id']; ?>')" class="lnk btn btn-primary">Add to cart</a>
-
+											<a onclick="CartList('<?php echo $rw['id']; ?>')" class="lnk btn btn-primary btn-upper"><i class="fa fa-shopping-cart"></i> &nbsp; Add to cart</a>
 										</li>
-
+										<li class="lnk wishlist">
+											<a class="add-to-cart" onclick="WishList('<?php echo $rw['id']; ?>')" title="Wishlist">
+												<i class="icon fa fa-heart"></i>
+											</a>
+										</li>
 
 									</ul>
 								</div><!-- /.action -->
@@ -675,15 +675,14 @@ if (isset($_POST['submit'])) {
 		$(window).bind("load", function() {
 			$('.show-theme-options').delay(2000).trigger('click');
 		});*/
-		$("#WishList").click(function() {
+		function WishList(ele){
 			var session_id = <?php echo intval($_SESSION['id']); ?>;
-			var product_id = <?php echo intval($_GET['pid']); ?>;
 
 			if (session_id) {
 
 				jQuery.ajax({
 				url: "add-to-wishlist.php",
-				data: { session_id: session_id, product_id: product_id },
+				data: { session_id: session_id, product_id: ele },
 				type: "POST",
 				success:function(data){
 					$("#ack").html(data);
@@ -693,20 +692,19 @@ if (isset($_POST['submit'])) {
 			} else {
 				document.location = 'login.php';
 			}
-		});
-		$("#CartList").click(function(){
-			var product_id = <?php echo intval($_GET['pid']); ?>;
+		}
 
+		function CartList(ele){
 			jQuery.ajax({
 			url: "add-to-cart.php",
-			data: { product_id: product_id },
+			data: { product_id: ele },
 			type: "POST",
 			success:function(data){
 				$("#ack").html(data);
 			},
 			error:function (){}
 			});
-		});		
+		}	
 	</script>
 	<!-- For demo purposes – can be removed on production : End -->
 

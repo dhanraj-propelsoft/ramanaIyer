@@ -158,7 +158,7 @@ $num=mysqli_num_rows($rt);
 					</td>
 					<td class="col-md-2">
 						<div id="ack"></div>
-						<a onclick="CartList('<?php echo $row['pid']; ?>')" class="btn-upper btn btn-primary">Add to cart</a>
+						<a onclick="CartList('<?php echo $row['pid']; ?>')" class="btn-upper btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</a>
 					</td>
 					<td class="col-md-2 close-btn">
 						<a href="my-wishlist.php?del=<?php echo htmlentities($row['wid']);?>" onClick="return confirm('Are you sure you want to delete?')" class=""><i class="fa fa-times"></i></a>

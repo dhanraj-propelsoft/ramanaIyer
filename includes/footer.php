@@ -111,6 +111,15 @@
 </div><!-- /.contact-timing -->
 <!-- ============================================================= INFORMATION : END ============================================================= -->            	</div><!-- /.col -->
             </div><!-- /.row -->
+            <HR/>
+            <div class="row">
+            	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" align="center">
+                    <p>Ramana Iyer @ 2023 All Rights Reserved.</p>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" align="center">
+                    <p>Designed & Powered by <a href="http://www.propelsoft.in/" target="_blank" style="color: #8000FF; text-decoration: none;">Propelsoft</a></p>
+                </div>
+            </div>
         </div><!-- /.container -->
     </div><!-- /.links-social -->
 

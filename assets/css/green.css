@@ -97,7 +97,11 @@ a {
 }
 .product .cart .action ul li.lnk a:hover,
 .product .cart .action ul li.lnk a:focus {
-  color: #cf171d;
+  background: #cf171d;
+}
+.product .cart .action ul li.lnk a.icon:hover,
+.product .cart .action ul li.lnk a.icon:focus {
+  background: #cf171d;
 }
 .product .cart .action ul li.add-cart-button .btn-primary:hover,
 .product .cart .action ul li.add-cart-button .btn-primary:focus {
@@ -266,7 +270,7 @@ a {
 }
 .cart .action ul .lnk .add-to-cart:hover,
 .cart .action ul .lnk .add-to-cart:focus {
-  color: #cf171d !important;
+  color: #ffffff !important;
 }
 .cart .action .add-to-cart:hover,
 .cart .action .add-to-cart:focus {

@@ -135,6 +135,7 @@ img[src="assets/images/blank.gif"] {
   border: none;
   font-size: 13px;
   line-height: 22px;
+  font-family: 'FjallaOneRegular';
 }
 .btn-black {
   -webkit-transition: all linear 0.2s;

@@ -110,7 +110,8 @@ $st='Delivered';
       <td class="fontkink"><span class="fontkink1" >
         <select name="status" class="fontkink" required="required" >
           <option value="">Select Status</option>
-                 <option value="in Process">In Process</option>
+                 <option value="In Process">In Process</option>
+                  <option value="Shipped">Shipped</option>
                   <option value="Delivered">Delivered</option>
         </select>
         </span></td>
@@ -118,7 +119,7 @@ $st='Delivered';
         <textarea cols="100" rows="7" name="remark"  required="required" ></textarea>
         </span></td>
     </tr>
-    <tr><td colspan="3"><input class="btn btn-primary" type="button" value="Back" onclick="window.history.back()" /> 
+    <tr><td colspan="3"><input class="btn btn-primary" type="button" value="Back" onclick="window.location.href = 'pending-orders.php'" /> 
 												<input type="submit" name="submit2"  value="Update" class="btn btn-success" /></td>
 <?php } ?>
    </tbody>

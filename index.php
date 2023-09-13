@@ -1,229 +1,186 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');?>
-<!DOCTYPE html>
-<html lang="en">
+include('includes/config.php');
+include('includes/header.php'); ?>
+<div class="body-content outer-top-xs" id="top-banner-and-menu">
+	<div class="container">
+		<div class="furniture-container homepage-container">
+			<div class="row">
 
-<head>
-	<!-- Meta -->
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="keywords" content="MediaCenter, Template, eCommerce">
-	<meta name="robots" content="all">
+				<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
+					<!-- ================================== TOP NAVIGATION ================================== -->
+					<?php include('includes/side-menu.php'); ?>
+					<!-- ================================== TOP NAVIGATION : END ================================== -->
+				</div><!-- /.sidemenu-holder -->
 
-	<title>Ramana Iyer Home Page</title>
+				<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
+					<!-- ========================================== SECTION – HERO ========================================= -->
 
-	<!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+					<div id="hero" class="homepage-slider3">
+						<div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+							<div class="full-width-slider">
+								<img class="item" src="assets/images/sliders/slider1.jpg" />
+								<!-- /.container-fluid -->
+							</div><!-- /.full-width-slider -->
 
-	<!-- Customizable CSS -->
-	<link rel="stylesheet" href="assets/css/main.css">
-	<link rel="stylesheet" href="assets/css/green.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<link rel="stylesheet" href="assets/css/owl.transitions.css">
-	<!--<link rel="stylesheet" href="assets/css/owl.theme.css">-->
-	<link href="assets/css/lightbox.css" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/animate.min.css">
-	<link rel="stylesheet" href="assets/css/rateit.css">
-	<link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-	<!-- Demo Purpose Only. Should be removed in production -->
-	<link rel="stylesheet" href="assets/css/config.css">
+							<div class="full-width-slider">
+								<img class="item full-width-slider" src="assets/images/sliders/slider2.jpg" />
+							</div><!-- /.full-width-slider -->
 
-	<link href="assets/css/green.css" rel="alternate stylesheet" title="Green color">
-	<link href="assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
-	<link href="assets/css/red.css" rel="alternate stylesheet" title="Red color">
-	<link href="assets/css/orange.css" rel="alternate stylesheet" title="Orange color">
-	<link href="assets/css/dark-green.css" rel="alternate stylesheet" title="Darkgreen color">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+						</div><!-- /.owl-carousel -->
+					</div>
 
-	<!-- Favicon -->
-	
-
-
-    <!-- Other meta tags, styles, and scripts -->
-	<?php include('userStyle.php');?>
-</head>
-
-
-<body class="cnt-home">
-
-
-
-	<!-- ============================================== HEADER ============================================== -->
-	<header class="header-style-1">
-		<?php include('includes/top-header.php'); ?>
-		<?php include('includes/main-header.php'); ?>
-		<?php //include('includes/menu-bar.php'); ?>
-	</header>
-
-	<!-- ============================================== HEADER : END ============================================== -->
-	<div class="body-content outer-top-xs" id="top-banner-and-menu">
-		<div class="container">
-			<div class="furniture-container homepage-container">
-				<div class="row">
-
-					<div class="col-xs-12 col-sm-12 col-md-3 sidebar">
-						<!-- ================================== TOP NAVIGATION ================================== -->
-						<?php include('includes/side-menu.php'); ?>
-						<!-- ================================== TOP NAVIGATION : END ================================== -->
-					</div><!-- /.sidemenu-holder -->
-
-					<div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
-						<!-- ========================================== SECTION – HERO ========================================= -->
-
-						<div id="hero" class="homepage-slider3">
-							<div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-								<div class="full-width-slider">
-									<img class="item" src="assets/images/sliders/slider1.jpg" />
-										<!-- /.container-fluid -->
-								</div><!-- /.full-width-slider -->
-
-								<div class="full-width-slider">
-									<img class="item full-width-slider" src="assets/images/sliders/slider2.jpg" />
-								</div><!-- /.full-width-slider -->
-
-							</div><!-- /.owl-carousel -->
-						</div>
-
-						<!-- ========================================= SECTION – HERO : END ========================================= -->
-						<!-- ============================================== INFO BOXES ============================================== -->
-						<div class="info-boxes wow fadeInUp">
-							<div class="info-boxes-inner">
-								<div class="row">
-									<div class="col-md-6 col-sm-4 col-lg-4">
-										<div class="info-box">
-											<div class="row">
-												<div class="col-xs-2">
-													<i class="icon fa fa-dollar"></i>
-												</div>
-												<div class="col-xs-10">
-													<h4 class="info-box-heading green">money back</h4>
-												</div>
+					<!-- ========================================= SECTION – HERO : END ========================================= -->
+					<!-- ============================================== INFO BOXES ============================================== -->
+					<div class="info-boxes wow fadeInUp">
+						<div class="info-boxes-inner">
+							<div class="row">
+								<div class="col-md-6 col-sm-4 col-lg-4">
+									<div class="info-box">
+										<div class="row">
+											<div class="col-xs-2">
+												<i class="icon fa fa-dollar"></i>
 											</div>
-											<h6 class="text">30 Day Money Back Guarantee.</h6>
-										</div>
-									</div><!-- .col -->
-
-									<div class="hidden-md col-sm-4 col-lg-4">
-										<div class="info-box">
-											<div class="row">
-												<div class="col-xs-2">
-													<i class="icon fa fa-truck"></i>
-												</div>
-												<div class="col-xs-10">
-													<h4 class="info-box-heading orange">free shipping</h4>
-												</div>
+											<div class="col-xs-10">
+												<h4 class="info-box-heading green">money back</h4>
 											</div>
-											<h6 class="text">free ship-on oder over Rs. 600.00</h6>
 										</div>
-									</div><!-- .col -->
+										<h6 class="text">30 Day Money Back Guarantee.</h6>
+									</div>
+								</div><!-- .col -->
 
-									<div class="col-md-6 col-sm-4 col-lg-4">
-										<div class="info-box">
-											<div class="row">
-												<div class="col-xs-2">
-													<i class="icon fa fa-gift"></i>
-												</div>
-												<div class="col-xs-10">
-													<h4 class="info-box-heading red">Special Sale</h4>
-												</div>
+								<div class="hidden-md col-sm-4 col-lg-4">
+									<div class="info-box">
+										<div class="row">
+											<div class="col-xs-2">
+												<i class="icon fa fa-truck"></i>
 											</div>
-											<h6 class="text">All items-sale up to 20% off </h6>
+											<div class="col-xs-10">
+												<h4 class="info-box-heading orange">free shipping</h4>
+											</div>
 										</div>
-									</div><!-- .col -->
-								</div><!-- /.row -->
-							</div><!-- /.info-boxes-inner -->
+										<h6 class="text">free ship-on oder over Rs. 600.00</h6>
+									</div>
+								</div><!-- .col -->
 
-						</div><!-- /.info-boxes -->
-						<!-- ============================================== INFO BOXES : END ============================================== -->
-					</div><!-- /.homebanner-holder -->
+								<div class="col-md-6 col-sm-4 col-lg-4">
+									<div class="info-box">
+										<div class="row">
+											<div class="col-xs-2">
+												<i class="icon fa fa-gift"></i>
+											</div>
+											<div class="col-xs-10">
+												<h4 class="info-box-heading red">Special Sale</h4>
+											</div>
+										</div>
+										<h6 class="text">All items-sale up to 20% off </h6>
+									</div>
+								</div><!-- .col -->
+							</div><!-- /.row -->
+						</div><!-- /.info-boxes-inner -->
 
-				</div><!-- /.row -->
+					</div><!-- /.info-boxes -->
+					<!-- ============================================== INFO BOXES : END ============================================== -->
+				</div><!-- /.homebanner-holder -->
+
+			</div><!-- /.row -->
 
 
-				<!-- ============================================== TABS ============================================== -->
-				<div class="sections prod-slider-small outer-top-small">
-					<?php
-					$ictr = 1;
-					$res = mysqli_query($con, "select subcategory.id,subcategory.subcategory,subcategory.categoryid from subcategory LEFT JOIN category ON subcategory.categoryid = category.id WHERE category.id IS NOT NULL ORDER BY categoryid ASC");
-				
-					while ($row1 = mysqli_fetch_array($res)) {
-					
-						if ($ictr % 2 != 0)
-							echo "<div class='row'>";
+			<!-- ============================================== TABS ============================================== -->
+			<div class="sections prod-slider-small outer-top-small">
+				<?php
+				$ictr = 1;
+				$res = mysqli_query($con, "select subcategory.id,subcategory.subcategory,subcategory.categoryid from subcategory LEFT JOIN category ON subcategory.categoryid = category.id WHERE category.id IS NOT NULL ORDER BY categoryid ASC");
+
+				while ($row1 = mysqli_fetch_array($res)) {
+
+					if ($ictr % 2 != 0)
+						echo "<div class='row'>";
 					?>
 
-						<div class="col-md-6">
-							<section class="section">
-								<h3 class="section-title"><?php echo $row1['subcategory']; ?></h3>
-								<div class="owl-carousel homepage-owl-carousel custom-carousel outer-top-xs owl-theme" data-item="2">
-									<?php
-									$rating = 0;
-									$ret = mysqli_query($con, "select * from products where category='" . $row1['categoryid'] . "' and subCategory='" . $row1['id'] . "'");
-									while ($row = mysqli_fetch_array($ret)) {
-										/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
-										$row2 = mysqli_fetch_array($rt);
+					<div class="col-md-6">
+						<section class="section">
+							<h3 class="section-title">
+								<?php echo $row1['subcategory']; ?>
+							</h3>
+							<div class="owl-carousel homepage-owl-carousel custom-carousel outer-top-xs owl-theme"
+								data-item="2">
+								<?php
+								$rating = 0;
+								$ret = mysqli_query($con, "select * from products where category='" . $row1['categoryid'] . "' and subCategory='" . $row1['id'] . "'");
+								while ($row = mysqli_fetch_array($ret)) {
+									/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
+																							 $row2 = mysqli_fetch_array($rt);
 
-										$rowCnt = 0;
-										$rating = 0;
-										//echo $row2['idCnt'];
-										if($row2['idCnt'] > 0) {
-											$rowCnt = $row2['idCnt'];
-											$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-										}*/
-										$rating = $row['productRating'];
+																							 $rowCnt = 0;
+																							 $rating = 0;
+																							 //echo $row2['idCnt'];
+																							 if($row2['idCnt'] > 0) {
+																								 $rowCnt = $row2['idCnt'];
+																								 $rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+																							 }*/
+									$rating = $row['productRating'];
 									?>
-										<div class="item item-carousel">
-											<div class="products">
-												<div class="product text-center">
-													<div class="product-image" style="width: 100%; height: 300px; display: table;">
-														<div class="image" style="display: table-cell; vertical-align: middle;">
-															<a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img src="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>" data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"  style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
-														</div><!-- /.image -->
-													</div><!-- /.product-image -->
-													<div class="product-info">
-														<h3 class="name" style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;"><a href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['productName']); ?></a></h3>
-														<?php 
-														for($jctr = 0; $jctr < 5; $jctr++)
-														{
-															if($jctr < $rating)
-																echo '<span class="fa fa-star rate-checked"></span>';
-															else
-																echo '<span class="fa fa-star"></span>';
-														}
-														?>
-														<div class="description"></div>
+									<div class="item item-carousel">
+										<div class="products">
+											<div class="product text-center">
+												<div class="product-image" style="width: 100%; height: 300px; display: table;">
+													<div class="image" style="display: table-cell; vertical-align: middle;">
+														<a
+															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img
+																src="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
+																data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
+																style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
+													</div><!-- /.image -->
+												</div><!-- /.product-image -->
+												<div class="product-info">
+													<h3 class="name"
+														style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
+														<a
+															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['productName']); ?></a>
+													</h3>
+													<?php
+													for ($jctr = 0; $jctr < 5; $jctr++) {
+														if ($jctr < $rating)
+															echo '<span class="fa fa-star rate-checked"></span>';
+														else
+															echo '<span class="fa fa-star"></span>';
+													}
+													?>
+													<div class="description"></div>
 
-														<div class="product-price">
-															<span class="price">
-																Rs. <?php echo htmlentities($row['productPrice']); ?> </span>
-															<span class="price-before-discount">Rs.<?php echo htmlentities($row['productPriceBeforeDiscount']); ?></span>
-														</div>
+													<div class="product-price">
+														<span class="price">
+															Rs.
+															<?php echo htmlentities($row['productPrice']); ?>
+														</span>
+														<span class="price-before-discount">Rs.
+															<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>
+														</span>
 													</div>
-													<div id="ack"></div>
-													<?php if ($row['productAvailability'] == 'In Stock') { ?>
-														<div class="action">
-															<a onclick="CartList('<?php echo $row['id']; ?>')" class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp; Add to Cart</a> &nbsp; 
-															<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')" data-toggle="tooltip" data-placement="top" id="WishList" title="Wishlist">
-																<i class="fa fa-heart"></i>
-															</a>
-														</div>
-													<?php } else { ?>
-														<div class="action" style="color:red">Out of Stock</div>
-													<?php } ?>
 												</div>
+												<div id="ack"></div>
+												<?php if ($row['productAvailability'] == 'In Stock') { ?>
+													<div class="action">
+														<a onclick="CartList('<?php echo $row['id']; ?>')"
+															class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+															Add to Cart</a> &nbsp;
+														<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')"
+															data-toggle="tooltip" data-placement="top" id="WishList"
+															title="Wishlist">
+															<i class="fa fa-heart"></i>
+														</a>
+													</div>
+												<?php } else { ?>
+													<div class="action" style="color:red">Out of Stock</div>
+												<?php } ?>
 											</div>
 										</div>
-									<?php } ?>
-								</div>
-							</section>
+									</div>
+								<?php } ?>
+							</div>
+						</section>
 						<?php
 						if ($ictr % 2 != 0)
 							echo "</div>";
@@ -231,138 +188,14 @@ include('includes/config.php');?>
 							echo "</div>
 					</div>";
 						$ictr++;
-					} ?>
-						</div>
-						<!-- ============================================== TABS : END ============================================== -->
-
-
-
-				
-						<?php include('includes/brands-slider.php'); ?>
+				} ?>
 				</div>
+				<!-- ============================================== TABS : END ============================================== -->
+
+
+
+
+				<?php include('includes/brands-slider.php'); ?>
 			</div>
-			<?php include('includes/footer.php'); ?>
-
-			<script src="assets/js/jquery-1.11.1.min.js"></script>
-
-			<script src="assets/js/bootstrap.min.js"></script>
-
-			<script src="assets/js/bootstrap-hover-dropdown.min.js"></script>
-			<script src="assets/js/owl.carousel.min.js"></script>
-
-			<script src="assets/js/echo.min.js"></script>
-			<script src="assets/js/jquery.easing-1.3.min.js"></script>
-			<script src="assets/js/bootstrap-slider.min.js"></script>
-			<script src="assets/js/jquery.rateit.min.js"></script>
-			<script type="text/javascript" src="assets/js/lightbox.min.js"></script>
-			<script src="assets/js/bootstrap-select.min.js"></script>
-			<script src="assets/js/wow.min.js"></script>
-			<script src="assets/js/scripts.js"></script>
-
-			<!-- For demo purposes – can be removed on production -->
-
-			<!-- <script src="switchstylesheet/switchstylesheet.js"></script> -->
-
-			<script>
-				/*$(document).ready(function() {
-					$(".changecolor").switchstylesheet({
-						seperator: "color"
-					});
-					$('.show-theme-options').click(function() {
-						$(this).parent().toggleClass('open');
-						return false;
-					});
-				});
-
-				$(window).bind("load", function() {
-					$('.show-theme-options').delay(2000).trigger('click');
-				});*/
-
-					function WishList(ele){
-						var session_id = <?php echo intval($_SESSION['id']); ?>;
-
-						if (session_id) {
-
-							jQuery.ajax({
-							url: "add-to-wishlist.php",
-							data: { session_id: session_id, product_id: ele },
-							type: "POST",
-							success:function(data){
-								$("#ack").html(data);
-							},
-							error:function (){}
-							});
-						} else {
-							document.location = 'login.php';
-						}
-					}
-
-					function CartList(ele){
-					jQuery.ajax({
-					url: "add-to-cart.php",
-					data: { product_id: ele },
-					type: "POST",
-					success:function(data){
-						$("#ack").html(data);
-					},
-					error:function (){}
-					});
-				}
-			</script>
-			<!-- For demo purposes – can be removed on production : End -->
-
-
-
-</body>
-
-</html>
-<?php
-session_start();
-error_reporting(0);
-include('includes/config.php');
-if (isset($_GET['action']) && $_GET['action'] == "add") {
-	/*$id = intval($_GET['id']);
-	if (isset($_SESSION['cart'][$id])) {?>
-		<script>
-			Swal.fire({
-				title: 'Product Already in Cart!',
-				text: 'Do you want to proceed?',
-				icon: 'info',
-				showCancelButton: true,
-				confirmButtonText: 'Yes'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					window.location.href = 'my-cart.php?qi_id=<?php echo $id; ?>';
-				}
-			});
-		</script>
-		<?php 	
-	} else {
-		$sql_p = "SELECT * FROM products WHERE id={$id}";
-		$query_p = mysqli_query($con, $sql_p);
-		if (mysqli_num_rows($query_p) != 0) {
-			$row_p = mysqli_fetch_array($query_p);
-			$_SESSION['cart'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['productPrice']);
-		} else {
-			$message = "Product ID is invalid";
-		}
-
-		echo "<script>
-			Swal.fire({
-				title: 'Product Added!',
-				text: 'Product has been added to the cart.',
-				icon: 'success',
-				showCancelButton: true,
-				confirmButtonText: 'Go to Cart',
-				cancelButtonText: 'Continue Shopping'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					window.location.href = 'my-cart.php';
-				}
-			});
-		</script>";
-	}*/	
-}
-
-
-?>
+		</div>
+		<?php include('includes/footer.php'); ?>

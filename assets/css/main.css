@@ -1458,7 +1458,7 @@ a {
   font-family: 'FjallaOneRegular';
   padding: 15px 17px;
   text-transform: uppercase;
-  background: #333333;
+  background: #c5161d;
 }
 .sidebar .side-menu .head .icon {
   margin-right: 20px;
@@ -1513,7 +1513,7 @@ a {
 }
 .sidebar .side-menu nav .nav > li > a:hover .icon,
 .sidebar .side-menu nav .nav > li > a:focus .icon {
-  color: #666666;
+  color: #c5161d;
 }
 .sidebar .side-menu nav .nav > li > .mega-menu {
   padding: 3px 0;

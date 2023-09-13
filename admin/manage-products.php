@@ -76,11 +76,11 @@ while($row=mysqli_fetch_array($query))
 ?>									
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($row['productName']);?></td>
-											<td><?php echo htmlentities($row['categoryName']);?></td>
-											<td> <?php echo htmlentities($row['subcategory']);?></td>
-											<td><?php echo htmlentities($row['productCompany']);?></td>
-											<td><?php echo htmlentities($row['postingDate']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['productName']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['categoryName']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['subcategory']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['productCompany']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['postingDate']);?></td>
 											<td>
 											<a href="edit-products.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
 											<a href="manage-products.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>

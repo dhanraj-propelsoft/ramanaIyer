@@ -189,8 +189,9 @@ while($row=mysqli_fetch_array($query))
 <div class="controls">
 <select   name="productAvailability"  id="productAvailability" class="span8 tip" required>
 <option value="">Select</option>
-<option value="In Stock">In Stock</option>
+<option value="In Stock">In Stock</option> 
 <option value="Out of Stock">Out of Stock</option>
+<option value="Against Order">Against Order</option>
 </select>
 </div>
 </div>

@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 error_reporting(0);
-if(!empty($_POST["session_id"]))
-	$session_id= $_POST["session_id"];
-if(!empty($_POST["product_id"]))
-    $product_id= $_POST["product_id"];
+if (!empty($_POST["session_id"]))
+    $session_id = $_POST["session_id"];
+if (!empty($_POST["product_id"]))
+    $product_id = $_POST["product_id"];
 
 include('includes/config.php');
 $sql_p = "SELECT * FROM wishlist WHERE userId={$session_id} AND productId={$product_id}";

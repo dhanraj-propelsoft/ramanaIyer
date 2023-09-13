@@ -33,7 +33,7 @@ else{
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Manage Users</h3>
+								<h3>All Users</h3>
 							</div>
 							<div class="module-body table">
 	
@@ -42,12 +42,11 @@ else{
 									<thead>
 										<tr>
 											<th>#</th>
-											<th> User Email</th>
-											<th>User IP </th>
+											<th>User Email</th>
+											<th>User Name</th>
+											<th>User Mobile No</th>
 											<th>Login Time</th>
 											<th>Logout Time </th>
-											<th>Status </th>
-											
 										</tr>
 									</thead>
 									<tbody>
@@ -56,14 +55,19 @@ else{
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
+	$query1=mysqli_query($con,"select * from users WHERE email='".$row['userEmail']."'");
+	while($row1=mysqli_fetch_array($query1))
+	{
 ?>									
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($row['userEmail']);?></td>
-											<td><?php echo htmlentities($row['userip']);?></td>
+											<td><?php echo htmlentities($row1['name']);?></td>
+											<td><?php echo htmlentities($row1['contactno']);?></td>
 											<td> <?php echo htmlentities($row['loginTime']);?></td>
 											<td><?php echo htmlentities($row['logout']); ?></td>
-										<td><?php $st=$row['status'];
+											<!-- <td><?php /*echo htmlentities($row['userip']);?></td>
+											<td><?php $st=$row['status'];
 
 if($st==1)
 {
@@ -72,11 +76,13 @@ if($st==1)
 else
 {
 	echo "Failed";
-}
-										 ?></td>
+}*/
+										 ?></td> -->
 											
 											
-										<?php $cnt=$cnt+1; } ?>
+										<?php }
+										$cnt=$cnt+1; }
+										?>
 										
 								</table>
 							</div>

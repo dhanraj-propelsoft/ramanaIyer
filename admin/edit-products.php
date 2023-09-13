@@ -193,6 +193,7 @@ while($rw=mysqli_fetch_array($query))
 <option value="<?php echo htmlentities($row['productAvailability']);?>"><?php echo htmlentities($row['productAvailability']);?></option>
 <option value="In Stock">In Stock</option>
 <option value="Out of Stock">Out of Stock</option>
+<option value="Against Order">Against Order</option>
 </select>
 </div>
 </div>
@@ -239,7 +240,7 @@ while($rw=mysqli_fetch_array($query))
 <?php } ?>
 	<div class="control-group">
 											<div class="controls">
-												<input class="btn btn-primary" type="button" value="Back" onclick="window.history.back()" /> 
+												<input class="btn btn-primary" type="button" value="Back" onclick="window.location.href = 'manage-products.php'" /> 
 												<button type="submit" name="submit" class="btn btn-success">Update</button>
 											</div>
 										</div>

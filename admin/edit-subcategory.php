@@ -105,7 +105,7 @@ else{
 
 	<div class="control-group">
 											<div class="controls">
-												<input class="btn btn-primary" type="button" value="Back" onclick="window.history.back()" /> 
+												<input class="btn btn-primary" type="button" value="Back" onclick="window.location.href = 'subcategory.php'" /> 
 												<button type="submit" name="submit" class="btn btn-success">Update</button>
 											</div>
 										</div>

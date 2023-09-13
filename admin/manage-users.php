@@ -22,7 +22,7 @@ if(isset($_GET['del']))
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin | Manage Users</title>
+	<title>Admin | All Users</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -41,7 +41,7 @@ if(isset($_GET['del']))
 
 	<div class="module">
 							<div class="module-head">
-								<h3>Manage Users</h3>
+								<h3>All Users</h3>
 							</div>
 							<div class="module-body table">
 	<?php if(isset($_GET['del']))
@@ -59,7 +59,7 @@ if(isset($_GET['del']))
 									<thead>
 										<tr>
 											<th>#</th>
-											<th> Name</th>
+											<th>Name</th>
 											<th>Email </th>
 											<th>Contact no</th>
 											<th>Shippping Address / City / State / Pincode </th>
@@ -77,12 +77,12 @@ while($row=mysqli_fetch_array($query))
 ?>									
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($row['name']);?></td>
-											<td style="min-width: 200px;overflow-wrap: anywhere;"><?php echo htmlentities($row['email']);?></td>
-											<td> <?php echo htmlentities($row['contactno']);?></td>
-											<td><?php echo htmlentities($row['shippingAddress'].",".$row['shippingCity'].",".$row['shippingState']."-".$row['shippingPincode']);?></td>
-											<td><?php echo htmlentities($row['billingAddress'].",".$row['billingCity'].",".$row['billingState']."-".$row['billingPincode']);?></td>
-											<td><?php echo htmlentities($row['regDate']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['name']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['email']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['contactno']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['shippingAddress'].",".$row['shippingCity'].",".$row['shippingState']."-".$row['shippingPincode']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['billingAddress'].",".$row['billingCity'].",".$row['billingState']."-".$row['billingPincode']);?></td>
+											<td class="wrap_td_100"><?php echo htmlentities($row['regDate']);?></td>
 											
 										<?php $cnt=$cnt+1; } ?>
 										

@@ -55,10 +55,12 @@ $num1 = mysqli_num_rows($rt);
 								</ul>
 							</li>
 							
+							<li><a href="user-logs.php"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
+							
 							<li>
 								<a href="manage-users.php">
 									<i class="menu-icon icon-group"></i>
-									Manage users
+									All Users
 								</a>
 							</li>
 						</ul>
@@ -73,8 +75,6 @@ $num1 = mysqli_num_rows($rt);
                             </ul><!--/.widget-nav-->
 
 						<ul class="widget widget-menu unstyled">
-							<li><a href="user-logs.php"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
-							
 							<li>
 								<a href="logout.php">
 									<i class="menu-icon icon-signout"></i>

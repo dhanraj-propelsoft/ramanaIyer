@@ -120,7 +120,7 @@ return true;
 <div class="control-group">
 <label class="control-label" for="basicinput">Current Password</label>
 <div class="controls">
-<input type="password" placeholder="Enter your current Password"  name="password" class="span8 tip" required>
+<input type="password" placeholder="Enter Your Current Password"  name="password" class="span8 tip" required>
 </div>
 </div>
 
@@ -128,14 +128,14 @@ return true;
 <div class="control-group">
 <label class="control-label" for="basicinput">New Password</label>
 <div class="controls">
-<input type="password" placeholder="Enter your new current Password"  name="newpassword" class="span8 tip" required>
+<input type="password" placeholder="Enter Your New Password"  name="newpassword" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
-<label class="control-label" for="basicinput">Current Password</label>
+<label class="control-label" for="basicinput">Confirm Password</label>
 <div class="controls">
-<input type="password" placeholder="Enter your new Password again"  name="confirmpassword" class="span8 tip" required>
+<input type="password" placeholder="Enter Your New Password Again"  name="confirmpassword" class="span8 tip" required>
 </div>
 </div>
 

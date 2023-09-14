@@ -28,6 +28,8 @@ if(isset($_GET['del']))
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
 	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
 	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <?php include('include/header.php');?>
@@ -83,7 +85,7 @@ while($row=mysqli_fetch_array($query))
 											<td class="wrap_td_100"><?php echo htmlentities($row['postingDate']);?></td>
 											<td>
 											<a href="edit-products.php?id=<?php echo $row['id']?>" ><i class="icon-edit"></i></a>
-											<a href="manage-products.php?id=<?php echo $row['id']?>&del=delete" onClick="return confirm('Are you sure you want to delete?')"><i class="icon-remove-sign"></i></a></td>
+											<a onClick="delPopup('<?php echo $row['id'] ?>')"><i class="icon-remove-sign"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; } ?>
 										
@@ -114,6 +116,22 @@ while($row=mysqli_fetch_array($query))
 			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 		} );
+
+		function delPopup(ele)
+		{
+			Swal.fire({
+				title: 'Warning!',
+				text: 'Are you sure you want to delete?',
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonText: 'Yes',
+				cancelButtonText: 'No'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.href = 'manage-products.php?id='+ele+'&del=delete';
+				}
+			});
+		}
 	</script>
 </body>
 <?php } ?>

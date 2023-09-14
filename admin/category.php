@@ -46,6 +46,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
 		<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
 			rel='stylesheet'>
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	</head>
 
 	<body>
@@ -161,8 +163,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<a href="edit-category.php?id=<?php echo $row['id'] ?>"><i
 																class="icon-edit"></i></a>
-														<a href="category.php?id=<?php echo $row['id'] ?>&del=delete"
-															onClick="return confirm('Are you sure you want to delete?')"><i
+														<a onClick="delPopup('<?php echo $row['id'] ?>')"><i
 																class="icon-remove-sign"></i></a>
 													</td>
 												</tr>
@@ -196,6 +197,22 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 			});
+
+			function delPopup(ele)
+			{
+				Swal.fire({
+					title: 'Warning!',
+					text: 'Are you sure you want to delete?',
+					icon: 'info',
+					showCancelButton: true,
+					confirmButtonText: 'Yes',
+            		cancelButtonText: 'No'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'category.php?id='+ele+'&del=delete';
+					}
+				});
+			}
 		</script>
 	</body>
 <?php } ?>

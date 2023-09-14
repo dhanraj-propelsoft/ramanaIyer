@@ -65,7 +65,7 @@ if (strlen($_SESSION['login']) == 0) {
 											<input type="radio" name="paymethod" value="Internet Banking" disabled> Internet Banking &nbsp;
 											<input type="radio" name="paymethod" value="Debit / Credit card" disabled> Debit / Credit
 											card <br /><br />
-											<input type="submit" value="submit" name="submit" class="btn btn-primary">
+											<input type="submit" value="SUBMIT" name="submit" class="btn btn-primary">
 
 
 										</form>

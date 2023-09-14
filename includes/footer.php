@@ -74,7 +74,7 @@
                     <!-- ============================================================= INFORMATION============================================================= -->
                     <div class="contact-information">
                         <div class="module-heading">
-                            <h4 class="module-title">Exports and Wholesale</h4>
+                            <h4 class="module-title">Ramana Exports and Wholesale</h4>
                         </div><!-- /.module-heading -->
 
                         <div class="module-body outer-top-xs">

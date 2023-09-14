@@ -2423,7 +2423,7 @@ a {
   color: #666666;
   text-transform: uppercase;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 12px;
   margin: 0px;
 }
 .scroll-tabs {
@@ -3331,7 +3331,7 @@ a {
 }
 .search-result-container .category-product .product .cart .lnk a {
   background: #a8a8a8;
-  padding: 8px 11px !important;
+  padding: 9px 11px !important;
   margin-left: 10px;
   color: #fff !important;
   -webkit-border-radius: 4px;

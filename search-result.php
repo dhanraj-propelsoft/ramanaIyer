@@ -138,10 +138,10 @@ $pid = intval($_GET['pid']);
 
 															<div class="product-price">
 																<span class="price">
-																	Rs.
+																	₹ 
 																	<?php echo htmlentities($row['productPrice']); ?>
 																</span>
-																<span class="price-before-discount">Rs.
+																<span class="price-before-discount">₹ 
 																	<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>
 																</span>
 

@@ -46,7 +46,7 @@ include('includes/header.php'); ?>
 												<h4 class="info-box-heading green">money back</h4>
 											</div>
 										</div>
-										<h6 class="text">30 Day Money Back Guarantee.</h6>
+										<h6 class="text">30 Day Money Back Guarantee</h6>
 									</div>
 								</div><!-- .col -->
 
@@ -60,7 +60,7 @@ include('includes/header.php'); ?>
 												<h4 class="info-box-heading orange">free shipping</h4>
 											</div>
 										</div>
-										<h6 class="text">free ship-on oder over Rs. 600.00</h6>
+										<h6 class="text">free shipping on order over ₹ 600</h6>
 									</div>
 								</div><!-- .col -->
 
@@ -152,10 +152,10 @@ include('includes/header.php'); ?>
 
 													<div class="product-price">
 														<span class="price">
-															Rs.
+															₹ 
 															<?php echo htmlentities($row['productPrice']); ?>
 														</span>
-														<span class="price-before-discount">Rs.
+														<span class="price-before-discount">₹ 
 															<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>
 														</span>
 													</div>

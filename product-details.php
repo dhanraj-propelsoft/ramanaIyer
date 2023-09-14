@@ -276,10 +276,10 @@
 
 											<div class="col-sm-6 col-xs-9">
 												<div class="price-box">
-													<span class="price">Rs.
+													<span class="price">₹ 
 														<?php echo htmlentities($row['productPrice']); ?>
 													</span>
-													<span class="price-strike">Rs.
+													<span class="price-strike">₹ 
 														<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>
 													</span>
 												</div>
@@ -583,10 +583,10 @@
 
 									<div class="product-price">
 										<span class="price">
-											Rs.
+											₹ 
 											<?php echo htmlentities($rw['productPrice']); ?>
 										</span>
-										<span class="price-before-discount">Rs.
+										<span class="price-before-discount">₹ 
 											<?php echo htmlentities($rw['productPriceBeforeDiscount']); ?>
 										</span>
 

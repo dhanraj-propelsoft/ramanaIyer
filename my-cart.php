@@ -234,14 +234,14 @@ if (isset($_POST['shipupdate'])) {
 														</div>
 													</td>
 													<td class="cart-product-sub-total"><span class="cart-sub-total-price">
-															<?php echo "Rs" . " " . $row['productPrice']; ?>.00
+														₹ <?php echo $row['productPrice']; ?>.00
 														</span></td>
 													<td class="cart-product-sub-total"><span class="cart-sub-total-price">
-															<?php echo "Rs" . " " . $row['shippingCharge']; ?>.00
+														₹ <?php echo $row['shippingCharge']; ?>.00
 														</span></td>
 
 													<td class="cart-product-grand-total"><span class="cart-grand-total-price">
-															<?php echo ((int) $_SESSION['cart'][$row['id']]['quantity'] * (int) $row['productPrice'] + (int) $row['shippingCharge']); ?>.00
+														₹ <?php echo ((int) $_SESSION['cart'][$row['id']]['quantity'] * (int) $row['productPrice'] + (int) $row['shippingCharge']); ?>.00
 														</span></td>
 												</tr>
 
@@ -402,7 +402,7 @@ if (isset($_POST['shipupdate'])) {
 
 											<div class="cart-grand-total">
 												Grand Total<span class="inner-left-md">
-													<?php echo $_SESSION['tp'] = "$totalprice" . ".00"; ?>
+												₹ <?php echo $_SESSION['tp'] = $totalprice; ?>.00
 												</span>
 											</div>
 										</th>

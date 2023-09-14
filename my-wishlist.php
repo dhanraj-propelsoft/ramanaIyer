@@ -71,9 +71,9 @@ if (strlen($_SESSION['login']) == 0) {
 															</span>
 														</div>
 													<?php } ?>
-													<div class="price">Rs.
+													<div class="price">₹ 
 														<?php echo htmlentities($row['pprice']); ?>.00
-														<span>Rs.
+														<span>₹ 
 															<?php echo htmlentities($row['pdiscount']); ?>
 														</span>
 													</div>

@@ -4,105 +4,14 @@ error_reporting(0);
 //echo "<script>alert(".$_COOKIE['qi_id'].");</script>";
 include('includes/config.php');
 
-
 if (isset($_COOKIE['qi_id'])) {
 	$qi_id = intval($_COOKIE['qi_id']);
 	if ($qi_id > 0)
 		$_SESSION['cart'][$qi_id]['quantity']++;
 	setcookie("qi_id", "", time() -3600);
 }
+
 include('includes/header.php');
-
-if (isset($_POST['submit'])) {
-	if (!empty($_SESSION['cart'])) {
-		if (isset($_POST['quantity'])) {
-			foreach ($_POST['quantity'] as $key => $val) {
-				if ($val == 0) {
-					unset($_SESSION['cart'][$key]);
-				} else {
-					$_SESSION['cart'][$key]['quantity'] = $val;
-
-				}
-			}
-		}
-		// Code for Remove a Product from Cart
-		if (isset($_POST['remove_code'])) {
-			foreach ($_POST['remove_code'] as $key) {
-				unset($_SESSION['cart'][$key]);
-			}
-		}
-		echo "<script>
-			Swal.fire({
-				title: 'Success!',
-				text: 'Your Cart has been Updated!',
-				icon: 'success',
-				confirmButtonText: 'OK'
-			});
-			</script>";
-	}
-}
-
-// code for insert product in order table
-
-
-if (isset($_POST['ordersubmit'])) {
-	if (strlen($_SESSION['login']) == 0) {
-		echo "<script>location.href='login.php';</script>";
-	} else {
-
-		$quantity = $_SESSION['pQty'];
-		$pdd = $_SESSION['pid'];
-		$value = array_combine($pdd, $quantity);
-
-
-		foreach ($value as $qty => $val34) {
-
-
-
-			mysqli_query($con, "insert into orders(userId,productId,quantity) values('" . $_SESSION['id'] . "','$qty','$val34')");
-			echo "<script>location.href='payment-method.php';</script>";
-		}
-	}
-}
-
-// code for billing address updation
-if (isset($_POST['update'])) {
-	$baddress = $_POST['billingaddress'];
-	$bstate = $_POST['bilingstate'];
-	$bcity = $_POST['billingcity'];
-	$bpincode = $_POST['billingpincode'];
-	$query = mysqli_query($con, "update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='" . $_SESSION['id'] . "'");
-	if ($query) {
-		echo "<script>
-			Swal.fire({
-				title: 'Success!',
-				text: 'Billing Address has been updated!',
-				icon: 'success',
-				confirmButtonText: 'OK'
-			});
-			</script>";
-	}
-}
-
-
-// code for Shipping address updation
-if (isset($_POST['shipupdate'])) {
-	$saddress = $_POST['shippingaddress'];
-	$sstate = $_POST['shippingstate'];
-	$scity = $_POST['shippingcity'];
-	$spincode = $_POST['shippingpincode'];
-	$query = mysqli_query($con, "update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='" . $_SESSION['id'] . "'");
-	if ($query) {
-		echo "<script>
-			Swal.fire({
-				title: 'Success!',
-				text: 'Shipping Address has been updated!',
-				icon: 'success',
-				confirmButtonText: 'OK'
-			});
-			</script>";
-	}
-}
 ?>
 <div class="breadcrumb">
 	<div class="container">
@@ -115,7 +24,8 @@ if (isset($_POST['shipupdate'])) {
 	</div><!-- /.container -->
 </div><!-- /.breadcrumb -->
 
-<div class="body-content outer-top-xs">
+<form name="checkout" id="checkout" method="post">
+					<div class="body-content outer-top-xs">
 	<div class="container">
 		<div class="row inner-bottom-sm">
 			<div class="shopping-cart">
@@ -146,7 +56,7 @@ if (isset($_POST['shipupdate'])) {
 														<a href="index.php"
 															class="btn btn-upper btn-primary outer-left-xs">Continue
 															Shopping</a>
-														<input type="submit" name="submit" value="Update shopping cart"
+														<input type="submit" id="update" name="submit" value="Update shopping cart"
 															class="btn btn-upper btn-primary pull-right outer-right-xs">
 													</span>
 												</div><!-- /.shopping-cart-btn -->
@@ -227,7 +137,7 @@ if (isset($_POST['shipupdate'])) {
 																<div class="arrow minus gradient"><span class="ir"><i
 																			class="icon fa fa-sort-desc"></i></span></div>
 															</div>
-															<input type="text"
+															<input type="text" id="quantity[<?php echo $row['id']; ?>]"
 																value="<?php echo $_SESSION['cart'][$row['id']]['quantity']; ?>"
 																name="quantity[<?php echo $row['id']; ?>]" required>
 
@@ -257,7 +167,6 @@ if (isset($_POST['shipupdate'])) {
 						</div>
 					</div><!-- /.shopping-cart-table -->
 
-					<form name="checkout" id="checkout" method="post">
 						<div class="col-md-4 col-sm-12 estimate-ship-tax">
 							<?php
 							$query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
@@ -275,9 +184,8 @@ if (isset($_POST['shipupdate'])) {
 									<tbody>
 										<tr>
 											<td>
-												<form name="billAdrs" id="billAdrs" method="post">
 													<div class="form-group">
-
+														<div id="bill-ack"></div>
 														<div class="form-group">
 															<label class="info-title" for="Billing Address">Billing
 																Address<span>*</span></label>
@@ -314,13 +222,12 @@ if (isset($_POST['shipupdate'])) {
 														</div>
 
 
-														<button type="submit" id="update" name="update"
+														<button type="submit" id="billupdate" name="billupdate"
 															class="btn-upper btn btn-primary checkout-page-button">Update</button>
 
 
 
 													</div>
-												</form>
 											</td>
 										</tr>
 									</tbody><!-- /tbody -->
@@ -344,9 +251,8 @@ if (isset($_POST['shipupdate'])) {
 									<tbody>
 										<tr>
 											<td>
-												<form name="shipAdrs" id="shipAdrs" method="post">
 													<div class="form-group">
-
+														<div id="ship-ack"></div>
 														<div class="form-group">
 															<label class="info-title" for="Shipping Address">Shipping
 																Address<span>*</span></label>
@@ -387,7 +293,6 @@ if (isset($_POST['shipupdate'])) {
 															class="btn-upper btn btn-primary checkout-page-button">Update</button>
 
 													</div>
-												</form>
 											</td>
 										</tr>
 									</tbody><!-- /tbody -->
@@ -421,7 +326,6 @@ if (isset($_POST['shipupdate'])) {
 								</tbody><!-- /tbody -->
 							</table>
 						</div>
-					</form>
 				<?php } else {
 							echo "Your shopping Cart is empty";
 						} ?>
@@ -430,4 +334,66 @@ if (isset($_POST['shipupdate'])) {
 
 	</div>
 </div>
+					</form>
+<div id="ack"></div>					
 <?php include('includes/footer.php'); ?>
+<script>
+	
+	$('#update').click(function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "update-cart.php",
+			data: $("#checkout").serialize(),
+			type: "POST",
+			success: function (data) {
+				$("#ack").html(data);
+				$('.shopping-cart-table').load(' .shopping-cart-table > *');
+				$('#cartRefreshDiv').load(' #cartRefreshDiv > *');
+			},
+			error: function () { }
+		});
+	});
+	$('#billupdate').click(function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "upd-bill-adrs.php",
+			data: $("#checkout").serialize(),
+			type: "POST",
+			success: function (data) {
+				$("#bill-ack").html(data);
+				$("#bill-ack").fadeTo(5000, 500).slideUp(500, function(){
+					$("#bill-ack").slideUp(500);
+				});
+			},
+			error: function () { }
+		});
+	});
+	$('#shipupdate').click(function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "upd-ship-adrs.php",
+			data: $("#checkout").serialize(),
+			type: "POST",
+			success: function (data) {
+				$("#ship-ack").html(data);
+				$("#ship-ack").fadeTo(5000, 500).slideUp(500, function(){
+					$("#ship-ack").slideUp(500);
+				});
+			},
+			error: function () { }
+		});
+	});
+	$('#ordersubmit').click(function (e) {
+		e.preventDefault();
+		jQuery.ajax({
+			url: "checkout.php",
+			data: $("#checkout").serialize(),
+			type: "POST",
+			success: function (data) {
+				$("#ack").html(data);
+			},
+			error: function () { }
+		});
+	});
+
+</script>

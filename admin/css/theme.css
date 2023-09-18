@@ -1124,8 +1124,7 @@ border-top-left-radius: 3px;
 	padding: 0
 }
 .stream.new-update a, .stream.load-more a {
-	background: #background: #f7f7f7;;
-	
+	background: #f7f7f7;
 	color: #555;
 	font-weight: 600;
 	font-size: 14px;
@@ -1252,12 +1251,12 @@ border-top-left-radius: 3px;
 	padding: 0
 }
 .message .table-message thead tr.heading td, .message .table-message tbody tr.heading td {
-	background: #29b7d3!important;
+	background: #29b7d3 !important;
 	font-weight: bold;
 	border: 0;
 }
-.message .table-message tbody td {
-	}
+/* .message .table-message tbody td {
+} */
 .message .table-message tbody td.cell-check {
 	width: 20px;
 	text-align: center

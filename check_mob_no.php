@@ -2,8 +2,10 @@
 require_once("includes/config.php");
 if (!empty($_POST["contactno"])) {
 	$contactno = $_POST["contactno"];
-
-	$result = mysqli_query($con, "SELECT  contactno FROM  users WHERE  contactno='$contactno'");
+	if (isset($_POST["user_id"]))
+		$result = mysqli_query($con, "SELECT  contactno FROM  users WHERE  contactno='$contactno' AND id<>'".$_POST["user_id"]."'");
+	else
+		$result = mysqli_query($con, "SELECT  contactno FROM  users WHERE  contactno='$contactno'");
 	$count = mysqli_num_rows($result);
 	if ($count > 0) {
 		echo "<span style='color:red'>Contact No already exists .</span>";

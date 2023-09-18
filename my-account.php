@@ -117,14 +117,14 @@
 																	readonly>
 															</div>
 															<div class="form-group">
-																<label class="info-title" for="Contact No.">Contact No.
-																	<span>*</span></label>
-																<input type="text"
-																	class="form-control unicase-form-control text-input"
-																	id="contactno" name="contactno" required="required"
-																	value="<?php echo $row['contactno']; ?>" maxlength="10">
+																<label class="info-title" for="contactno">Contact No. <span>*</span></label>
+																<input type="text" class="form-control unicase-form-control text-input" id="contactno"
+																	onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+																	onblur="contactAvailability()" name="contactno" value="<?php echo $row['contactno']; ?>" maxlength="10" required>
+																<span id="user-availability-status2" style="font-size:12px;"></span>
 															</div>
-															<button type="submit" name="update"
+															<input type="hidden" name="user_id" id="user_id" value="<?php echo $_SESSION['id']; ?>">
+															<button type="submit" id="submit" name="update"
 																class="btn-upper btn btn-primary checkout-page-button">Update</button>
 														</form>
 													<?php } ?>
@@ -243,6 +243,25 @@
 					return false;
 				}
 				return true;
+			}
+			function contactAvailability() {
+				$("#loaderIcon").show();
+				var data = new FormData();	
+				data.append('contactno', $("#contactno").val());
+				data.append('user_id', $("#user_id").val());
+				
+				jQuery.ajax({
+					url: "check_mob_no.php",
+					data: data,
+					processData: false,
+					type: 'POST',
+					contentType: false,
+					success: function (data) {
+						$("#user-availability-status2").html(data);
+						$("#loaderIcon").hide();
+					},
+					error: function () { }
+				});
 			}
 		</script>
 <?php } ?>

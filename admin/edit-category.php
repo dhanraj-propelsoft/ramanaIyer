@@ -40,7 +40,9 @@ $_SESSION['msg']="Category Updated !!";
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-<?php include('include/sidebar.php');?>				
+<?php 
+$actmenu = "category";
+include('include/sidebar.php');?>				
 			<div class="span9">
 					<div class="content">
 

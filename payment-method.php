@@ -14,7 +14,7 @@ if (strlen($_SESSION['login']) == 0) {
 		echo "<script>
         Swal.fire({
             title: 'Success!',
-            text: 'Your order has been successfully submitted!',
+            text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to customer shipping address!',
             icon: 'success',
             confirmButtonText: 'Ok'
         }).then((result) => {

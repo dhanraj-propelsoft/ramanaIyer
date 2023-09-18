@@ -1555,7 +1555,8 @@ a {
   padding: 14.3px 15px;
 }
 .sidebar .sidebar-module-container .sidebar-widget .widget-header {
-  background: #eeeeee;
+  background: #c5161d;
+  color: #ffffff;
   padding: 10px 15px;
 }
 .sidebar .sidebar-module-container .sidebar-widget .widget-header .widget-title {

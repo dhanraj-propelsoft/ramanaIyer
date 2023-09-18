@@ -4,14 +4,14 @@
 
 <ul class="widget widget-menu unstyled">
 							<li>
-								<a class="collapsed" data-toggle="collapse" href="#togglePages">
+								<a class="<?php if(($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered")) { echo "act-menu-icon"; } else { echo "collapsed"; } ?>" data-toggle="collapse" href="#togglePages">
 									<i class="menu-icon icon-cog"></i>
 									<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
 									Order Management
 								</a>
-								<ul id="togglePages" class="collapse unstyled">
+								<ul id="togglePages" class="<?php if(($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered")) { echo "in "; } ?>collapse unstyled">
 									<li>
-										<a href="todays-orders.php">
+										<a href="todays-orders.php" class="<?php if($actmenu == "orders") { echo "act-menu-icon"; } ?>">
 											<i class="icon-tasks"></i>
 											Today's Orders
   <?php
@@ -28,7 +28,7 @@ $num_rows1 = mysqli_num_rows($result);
 										</a>
 									</li>
 									<li>
-										<a href="pending-orders.php">
+										<a href="pending-orders.php" class="<?php if($actmenu == "pending") { echo "act-menu-icon"; } ?>">
 											<i class="icon-tasks"></i>
 											Pending Orders
 										<?php	
@@ -40,7 +40,7 @@ $num = mysqli_num_rows($ret);
 										</a>
 									</li>
 									<li>
-										<a href="delivered-orders.php">
+										<a href="delivered-orders.php" class="<?php if($actmenu == "delivered") { echo "act-menu-icon"; } ?>">
 											<i class="icon-inbox"></i>
 											Delivered Orders
 								<?php	
@@ -55,10 +55,10 @@ $num1 = mysqli_num_rows($rt);
 								</ul>
 							</li>
 							
-							<li><a href="user-logs.php"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
+							<li><a href="user-logs.php" class="<?php if($actmenu == "userlog") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
 							
 							<li>
-								<a href="manage-users.php">
+								<a href="manage-users.php" class="<?php if($actmenu == "allusers") { echo "act-menu-icon"; } ?>">
 									<i class="menu-icon icon-group"></i>
 									All Users
 								</a>
@@ -67,10 +67,10 @@ $num1 = mysqli_num_rows($rt);
 
 
 						<ul class="widget widget-menu unstyled">
-                                <li><a href="category.php"><i class="menu-icon icon-tasks"></i> Create Category </a></li>
-                                <li><a href="subcategory.php"><i class="menu-icon icon-tasks"></i>Sub Category </a></li>
-                                <li><a href="insert-product.php"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
-                                <li><a href="manage-products.php"><i class="menu-icon icon-table"></i>Manage Products </a></li>
+                                <li><a href="category.php" class="<?php if($actmenu == "category") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-tasks"></i> Create Category </a></li>
+                                <li><a href="subcategory.php" class="<?php if($actmenu == "subcategory") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-tasks"></i>Sub Category </a></li>
+                                <li><a href="insert-product.php" class="<?php if($actmenu == "ins_product") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
+                                <li><a href="manage-products.php" class="<?php if($actmenu == "all_product") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-table"></i>Manage Products </a></li>
                         
                             </ul><!--/.widget-nav-->
 

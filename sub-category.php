@@ -153,8 +153,12 @@ $pid = intval($_GET['pid']);
 																			<button class="btn btn-upper btn-primary"
 																				type="button"><i class="fa fa-shopping-cart"></i>
 																				&nbsp; Add to cart</button></a>
+																	<?php } else if ($row['productAvailability'] == 'Out of Stock') { ?>
+																		<div class="action" style="color:red">Out of Stock
+																		</div>
 																	<?php } else { ?>
-																		<div class="action" style="color:red">Out of Stock</div>
+																		<div class="action" style="color:red">Against Order
+																		</div>
 																	<?php } ?>
 
 																</li>

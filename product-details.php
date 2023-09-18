@@ -202,11 +202,11 @@
 												?>
 											</div>
 											<div class="col-sm-9 col-xs-7">
-												<div class="reviews">
+												<!-- <div class="reviews">
 													<a href="#" class="lnk">(
-														<?php echo htmlentities($rowCnt); ?> Reviews)
+														<?php //echo htmlentities($rowCnt); ?> Reviews)
 													</a>
-												</div>
+												</div> -->
 											</div>
 										</div><!-- /.row -->
 									</div><!-- /.rating-reviews -->
@@ -333,8 +333,12 @@
 													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')"
 														class="btn-upper btn btn-primary"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
+												<?php } else if ($row['productAvailability'] == 'Out of Stock') { ?>
+													<div class="action" style="color:red">Out of Stock
+													</div>
 												<?php } else { ?>
-													<div class="action" style="color:red">Out of Stock</div>
+													<div class="action" style="color:red">Against Order
+													</div>
 												<?php } ?>
 											</div>
 
@@ -597,9 +601,17 @@
 									<div class="action">
 										<ul class="list-unstyled">
 											<li class="add-cart-button btn-group">
-												<a onclick="CartList('<?php echo $rw['id']; ?>')"
-													class="lnk btn btn-primary btn-upper"><i
-														class="fa fa-shopping-cart"></i> &nbsp; Add to cart</a>
+												<?php if ($rw['productAvailability'] == 'In Stock') { ?>
+													<a id="CartList" onclick="CartList('<?php $rw['id']; ?>')"
+														class="lnk btn btn-primary btn-upper"><i
+															class="fa fa-shopping-cart inner-right-vs"></i> &nbsp; Add to Cart</a>
+												<?php } else if ($rw['productAvailability'] == 'Out of Stock') { ?>
+													<div class="action" style="color:red">Out of Stock
+													</div>
+												<?php } else { ?>
+													<div class="action" style="color:red">Against Order
+													</div>
+												<?php } ?>
 											</li>
 											<li class="lnk wishlist">
 												<a class="add-to-cart" onclick="WishList('<?php echo $rw['id']; ?>')"

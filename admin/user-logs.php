@@ -27,7 +27,9 @@ else{
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-<?php include('include/sidebar.php');?>				
+<?php 
+$actmenu = "userlog";
+include('include/sidebar.php');?>				
 			<div class="span9">
 					<div class="content">
 

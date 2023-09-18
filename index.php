@@ -172,9 +172,13 @@ include('includes/header.php'); ?>
 															<i class="fa fa-heart"></i>
 														</a>
 													</div>
-												<?php } else { ?>
-													<div class="action" style="color:red">Out of Stock</div>
-												<?php } ?>
+													<?php } else if ($row['productAvailability'] == 'Out of Stock') { ?>
+														<div class="action" style="color:red">Out of Stock
+														</div>
+													<?php } else { ?>
+														<div class="action" style="color:red">Against Order
+														</div>
+													<?php } ?>
 											</div>
 										</div>
 									</div>

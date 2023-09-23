@@ -46,7 +46,7 @@ if(document.chngpwd.password.value=="")
 {
 Swal.fire({
 	title: 'Error!',
-	text: 'Current Password Filed is Empty!',
+	text: 'Current Password Field is Empty!',
 	icon: 'error',
 	confirmButtonText: 'OK'
 });
@@ -57,7 +57,7 @@ else if(document.chngpwd.newpassword.value=="")
 {
 Swal.fire({
 	title: 'Error!',
-	text: 'New Password Filed is Empty!',
+	text: 'New Password Field is Empty!',
 	icon: 'error',
 	confirmButtonText: 'OK'
 });
@@ -68,7 +68,7 @@ else if(document.chngpwd.confirmpassword.value=="")
 {
 Swal.fire({
 	title: 'Error!',
-	text: 'Confirm Password Filed is Empty!',
+	text: 'Confirm Password Field is Empty!',
 	icon: 'error',
 	confirmButtonText: 'OK'
 });
@@ -135,7 +135,7 @@ return true;
 <div class="control-group">
 <label class="control-label" for="basicinput">Confirm Password</label>
 <div class="controls">
-<input type="password" placeholder="Enter Your New Password Again"  name="confirmpassword" class="span8 tip" required>
+<input type="password" placeholder="Re-enter Your New Password Again"  name="confirmpassword" class="span8 tip" required>
 </div>
 </div>
 

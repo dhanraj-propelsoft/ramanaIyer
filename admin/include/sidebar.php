@@ -54,15 +54,16 @@ $num1 = mysqli_num_rows($rt);
 									</li>
 								</ul>
 							</li>
-							
-							<li><a href="user-logs.php" class="<?php if($actmenu == "userlog") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
-							
 							<li>
 								<a href="manage-users.php" class="<?php if($actmenu == "allusers") { echo "act-menu-icon"; } ?>">
 									<i class="menu-icon icon-group"></i>
 									All Users
 								</a>
 							</li>
+							
+							<li><a href="user-logs.php" class="<?php if($actmenu == "userlog") { echo "act-menu-icon"; } ?>"><i class="menu-icon icon-tasks"></i>User Login Log </a></li>
+							
+							
 						</ul>
 
 

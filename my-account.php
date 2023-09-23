@@ -205,7 +205,7 @@
 				if (document.chngpwd.cpass.value == "") {
 					Swal.fire({
 						title: 'Error!',
-						text: 'Current Password Filed is Empty!',
+						text: 'Current Password Field is Empty!',
 						icon: 'error',
 						confirmButtonText: 'OK'
 					});
@@ -215,7 +215,7 @@
 				else if (document.chngpwd.newpass.value == "") {
 					Swal.fire({
 						title: 'Error!',
-						text: 'New Password Filed is Empty!',
+						text: 'New Password Field is Empty!',
 						icon: 'error',
 						confirmButtonText: 'OK'
 					});
@@ -225,7 +225,7 @@
 				else if (document.chngpwd.cnfpass.value == "") {
 					Swal.fire({
 						title: 'Error!',
-						text: 'Confirm Password Filed is Empty!',
+						text: 'Confirm Password Field is Empty!',
 						icon: 'error',
 						confirmButtonText: 'OK'
 					});

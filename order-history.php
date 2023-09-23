@@ -23,9 +23,6 @@ if (strlen($_SESSION['login']) == 0) {
             <div class="row inner-bottom-sm">
                 <div class="shopping-cart">
                     <div class="col-md-12 col-sm-12 shopping-cart-table ">
-                        <a href="index.php"
-                        class="btn btn-upper btn-primary pull-right outer-right-xs">Continue
-                        Shopping</a><BR/><BR/>
                         <div class="table-responsive">
                             <form name="cart" method="post">
                                 <table class="table table-bordered">
@@ -44,6 +41,11 @@ if (strlen($_SESSION['login']) == 0) {
                                             <th class="cart-total last-item">Action</th>
                                         </tr>
                                     </thead><!-- /thead -->
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="10" align="center"><a href="index.php" class="btn btn-upper btn-primary">Continue Shopping</a></td>
+                                        </tr>
+                                    </tfoot>
                                     <tbody>
                                         <?php $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentMethod is not null");
                                         $cnt = 1;

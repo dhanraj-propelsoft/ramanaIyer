@@ -11,10 +11,16 @@ date_default_timezone_set('Asia/Kolkata');// change according timezone
 $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 if(isset($_GET['del']))
-		  {
-		          mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
-                  $_SESSION['delmsg']="Product deleted !!";
-		  }
+{
+	$result1 = mysqli_query($con, "SELECT * FROM orders WHERE productId='".$_GET['id']."' AND (orderStatus IS NULL OR orderStatus!='Delivered')");
+	$row_cnt1 = mysqli_num_rows($result1);
+	if ($row_cnt1 > 0) {
+		$_SESSION['delmsg'] = "Could not delete since this product has been ordered by user !!";
+	} else {
+		mysqli_query($con,"delete from products where id = '".$_GET['id']."'");
+		$_SESSION['delmsg']="Product deleted !!";
+	}
+}
 
 ?>
 <!DOCTYPE html>

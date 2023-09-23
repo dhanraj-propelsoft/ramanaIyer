@@ -25,6 +25,12 @@ if (!empty($_SESSION['cart'])) {
             text: 'Your Cart has been Updated!',
             icon: 'success',
             confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+				location.reload(true);
+				// $('.shopping-cart-table').load(' .shopping-cart-table > *');
+				// $('#cartRefreshDiv').load(' #cartRefreshDiv > *');
+            }
         });
         </script>";
 }

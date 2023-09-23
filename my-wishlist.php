@@ -66,9 +66,9 @@ if (strlen($_SESSION['login']) == 0) {
 																	echo '<span class="fa fa-star"></span>';
 															}
 															?>
-															<span class="review">(
-																<?php echo htmlentities($num); ?> Reviews )
-															</span>
+															<!-- <span class="review">(
+																<?php //echo htmlentities($num); ?> Reviews )
+															</span> -->
 														</div>
 													<?php } ?>
 													<div class="price">₹ 

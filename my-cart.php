@@ -106,7 +106,7 @@ include('includes/header.php');
 																	 $_SESSION['sid'] = $pd;
 																	 ?></a></h4>
 														<div class="row">
-															<div class="col-sm-4">
+															<div class="col-sm-12">
 																<?php
 																for ($jctr = 0; $jctr < 5; $jctr++) {
 																	if ($jctr < $rating)
@@ -116,16 +116,16 @@ include('includes/header.php');
 																}
 																?>
 															</div>
-															<div class="col-sm-8">
-																<?php $rt = mysqli_query($con, "select * from productreviews where productId='$pd'");
+															<!-- <div class="col-sm-8">
+																<?php /*$rt = mysqli_query($con, "select * from productreviews where productId='$pd'");
 																$num = mysqli_num_rows($rt); {
 																	?>
 																	<div class="reviews">
 																		(
 																		<?php echo htmlentities($num); ?> Reviews )
 																	</div>
-																<?php } ?>
-															</div>
+																<?php } */ ?>
+															</div> -->
 														</div><!-- /.row -->
 
 													</td>
@@ -216,8 +216,8 @@ include('includes/header.php');
 															<label class="info-title" for="Billing Pincode">Billing Pincode
 																<span>*</span></label>
 															<input type="text"
-																class="form-control unicase-form-control text-input"
-																id="billingpincode" name="billingpincode" required="required"
+																class="form-control unicase-form-control text-input txtPinCode"
+																maxlength="6" id="billingpincode" name="billingpincode" required="required"
 																value="<?php echo $row['billingPincode']; ?>">
 														</div>
 
@@ -283,8 +283,8 @@ include('includes/header.php');
 															<label class="info-title" for="Billing Pincode">Shipping Pincode
 																<span>*</span></label>
 															<input type="text"
-																class="form-control unicase-form-control text-input"
-																id="shippingpincode" name="shippingpincode" required="required"
+																class="form-control unicase-form-control text-input txtPinCode"
+																maxlength="6" id="shippingpincode" name="shippingpincode" required="required"
 																value="<?php echo $row['shippingPincode']; ?>">
 														</div>
 
@@ -347,8 +347,6 @@ include('includes/header.php');
 			type: "POST",
 			success: function (data) {
 				$("#ack").html(data);
-				$('.shopping-cart-table').load(' .shopping-cart-table > *');
-				$('#cartRefreshDiv').load(' #cartRefreshDiv > *');
 			},
 			error: function () { }
 		});

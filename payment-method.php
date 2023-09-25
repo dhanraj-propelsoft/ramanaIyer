@@ -9,20 +9,23 @@ if (strlen($_SESSION['login']) == 0) {
 	if (isset($_POST['submit'])) {
 
 		mysqli_query($con, "update orders set 	paymentMethod='" . $_POST['paymethod'] . "' where userId='" . $_SESSION['id'] . "' and paymentMethod is null ");
-		mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
-		unset($_SESSION['cart']);
-		echo "<script>
-        Swal.fire({
-            title: 'Success!',
-            text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to customer shipping address!',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.location = 'order-history.php';
-            }
-        });
-    	</script>";
+		// if($_POST['paymethod'] == "COD")
+		// {
+			echo "<script>
+			Swal.fire({
+				title: 'Success!',
+				text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to customer shipping address!',
+				icon: 'success',
+				confirmButtonText: 'Ok'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					document.location = 'order-history.php';
+				}
+			});
+			</script>";
+		// } else {
+		// 	echo "<script>document.location = 'order-history.php';</script>";
+		// }
 	}
 	?>
 	<div class="breadcrumb">

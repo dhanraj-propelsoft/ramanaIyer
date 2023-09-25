@@ -34,10 +34,10 @@ $_SESSION['msg']="Old Password not match !!";
 	<title>Admin | Change Password</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+	<link rel="stylesheet" href="css/sweetalert2.min.css">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
 	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+	<link type="text/css" href='css/opensans.css' rel='stylesheet'>
 	<?php include('userStyle.php');?>
 	<script type="text/javascript">
 function valid()

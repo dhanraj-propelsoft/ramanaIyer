@@ -67,7 +67,9 @@ if((!empty($baddress)) && (!empty($bstate)) && (!empty($bcity)) && (!empty($bpin
 
     foreach ($value as $qty => $val34) {
         mysqli_query($con, "insert into orders(userId,productId,quantity) values('" . $_SESSION['id'] . "','$qty','$val34')");
-        echo "<script>location.href='payment-method.php';</script>";
+        mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
+		unset($_SESSION['cart']);
+		echo "<script>location.href='payment-method.php';</script>";
     }
 } else {
 

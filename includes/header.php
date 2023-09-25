@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="assets/css/rateit.css">
     <link rel="stylesheet" href="assets/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="assets/css/config.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
 
     <link href="assets/css/green.css" rel="alternate stylesheet" title="Green color">
     <link href="assets/css/blue.css" rel="alternate stylesheet" title="Blue color">
@@ -31,9 +31,9 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+    <link href='assets/css/roboto.css' rel='stylesheet' type='text/css'>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="assets/js/sweetalert.js"></script>
 </head>
 
 <body class="cnt-home">

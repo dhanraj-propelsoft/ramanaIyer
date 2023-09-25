@@ -41,10 +41,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600'
+		<link type="text/css" href='css/opensans.css'
 			rel='stylesheet'>
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
-    	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    	<link rel="stylesheet" href="css/sweetalert2.min.css">
+    	<script src="assets/js/sweetalert.js"></script>
 	</head>
 
 	<body>

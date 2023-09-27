@@ -160,14 +160,14 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price Before Discount</label>
 <div class="controls">
-<input type="text"    name="productpricebd"  placeholder="Enter Product Price" class="span8 tip" required>
+<input type="text"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"  name="productpricebd"  placeholder="Enter Product Price" class="span8 tip" required>
 </div>
 </div>
 
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Price After Discount(Selling Price)</label>
 <div class="controls">
-<input type="text"    name="productprice"  placeholder="Enter Product Price" class="span8 tip" required>
+<input type="text"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"  name="productprice"  placeholder="Enter Product Price" class="span8 tip" required>
 </div>
 </div>
 
@@ -182,7 +182,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Shipping Charge</label>
 <div class="controls">
-<input type="text"    name="productShippingcharge"  placeholder="Enter Product Shipping Charge" class="span8 tip" required>
+<input type="text"   onkeypress="return event.charCode >= 48 && event.charCode <= 57"  name="productShippingcharge"  placeholder="Enter Product Shipping Charge" class="span8 tip" required>
 </div>
 </div>
 
@@ -217,7 +217,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image1</label>
 <div class="controls">
-<input type="file" name="productimage1" id="productimage1" value="" class="span8 tip" required>
+<input type="file" name="productimage1" id="productimage1" value="" accept="image/*" class="span8 tip" required>
 </div>
 </div>
 
@@ -225,7 +225,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image2</label>
 <div class="controls">
-<input type="file" name="productimage2"  class="span8 tip">
+<input type="file" name="productimage2"  accept="image/*" class="span8 tip">
 </div>
 </div>
 
@@ -234,7 +234,7 @@ while($row=mysqli_fetch_array($query))
 <div class="control-group">
 <label class="control-label" for="basicinput">Product Image3</label>
 <div class="controls">
-<input type="file" name="productimage3"  class="span8 tip">
+<input type="file" name="productimage3"  accept="image/*" class="span8 tip">
 </div>
 </div>
 

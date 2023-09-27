@@ -10,6 +10,10 @@ if (isset($_COOKIE['qi_id'])) {
 		$_SESSION['cart'][$qi_id]['quantity']++;
 	setcookie("qi_id", "", time() -3600);
 }
+	
+mysqli_query($con, "DELETE FROM orders WHERE userId='" . $_SESSION['id'] . "' AND paymentId IS NULL");
+unset($_SESSION['receiptNo']);
+unset($_SESSION['total_amt']);
 
 include('includes/header.php');
 ?>
@@ -187,6 +191,15 @@ include('includes/header.php');
 													<div class="form-group">
 														<div id="bill-ack"></div>
 														<div class="form-group">
+															<label class="info-title" for="Billing Pincode">Billing Pincode
+																<span>*</span></label>
+															<input type="text"
+																class="form-control unicase-form-control text-input"
+																maxlength="6" onblur="pull_st_ct(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="billingpincode" name="billingpincode" required="required"
+																value="<?php echo $row['billingPincode']; ?>">
+															<div id="bill-pin-ack" style="color: red;"></div>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Billing Address">Billing
 																Address<span>*</span></label>
 															<textarea class="form-control unicase-form-control text-input"
@@ -211,14 +224,6 @@ include('includes/header.php');
 																class="form-control unicase-form-control text-input"
 																id="billingcity" name="billingcity" required="required"
 																value="<?php echo $row['billingCity']; ?>">
-														</div>
-														<div class="form-group">
-															<label class="info-title" for="Billing Pincode">Billing Pincode
-																<span>*</span></label>
-															<input type="text"
-																class="form-control unicase-form-control text-input txtPinCode"
-																maxlength="6" id="billingpincode" name="billingpincode" required="required"
-																value="<?php echo $row['billingPincode']; ?>">
 														</div>
 
 
@@ -254,6 +259,15 @@ include('includes/header.php');
 													<div class="form-group">
 														<div id="ship-ack"></div>
 														<div class="form-group">
+															<label class="info-title" for="Billing Pincode">Shipping Pincode
+																<span>*</span></label>
+															<input type="text"
+																class="form-control unicase-form-control text-input"
+																maxlength="6" onblur="pull_st_ct(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="shippingpincode" name="shippingpincode" required="required"
+																value="<?php echo $row['shippingPincode']; ?>">
+															<div id="ship-pin-ack" style="color: red;"></div>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Shipping Address">Shipping
 																Address<span>*</span></label>
 															<textarea class="form-control unicase-form-control text-input"
@@ -278,14 +292,6 @@ include('includes/header.php');
 																class="form-control unicase-form-control text-input"
 																id="shippingcity" name="shippingcity" required="required"
 																value="<?php echo $row['shippingCity']; ?>">
-														</div>
-														<div class="form-group">
-															<label class="info-title" for="Billing Pincode">Shipping Pincode
-																<span>*</span></label>
-															<input type="text"
-																class="form-control unicase-form-control text-input txtPinCode"
-																maxlength="6" id="shippingpincode" name="shippingpincode" required="required"
-																value="<?php echo $row['shippingPincode']; ?>">
 														</div>
 
 
@@ -326,9 +332,28 @@ include('includes/header.php');
 								</tbody><!-- /tbody -->
 							</table>
 						</div>
-				<?php } else {
-							echo "Your shopping Cart is empty";
-						} ?>
+				<?php } else {?>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Your Shopping Cart is empty</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr align="center">
+											<td><a href="index.php"
+											class="btn btn-upper btn-primary outer-left-xs">Continue
+											Shopping</a></td>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
 			</div>
 		</div>
 

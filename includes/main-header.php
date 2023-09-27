@@ -16,7 +16,7 @@
 	<div class="main-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+				<div class="col-xs-12 col-sm-4 col-md-3 logo-holder">
 					<!-- ============================================================= LOGO ============================================================= -->
 					<div class="logo">
 						<a href="index.php">
@@ -26,7 +26,7 @@
 						</a>
 					</div>		
 				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6 top-search-holder top-search-row">
+				<div class="col-xs-12 col-sm-4 col-md-6 top-search-holder top-search-row">
 					<div class="search-area">
 						<form id="searchform" name="search" method="post" action="search-result.php">
 							<div class="input-group">
@@ -38,7 +38,7 @@
 				</div>
 <!-- ============================================================= SEARCH AREA : END ============================================================= -->				
 
-				<div id="cartRefreshDiv" class="col-xs-12 col-sm-6 col-md-3 animate-dropdown top-cart-row">
+				<div id="cartRefreshDiv" class="col-xs-12 col-sm-4 col-md-3 animate-dropdown top-cart-row">
 					<!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 <?php
 if(!empty($_SESSION['cart'])){

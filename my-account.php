@@ -245,7 +245,8 @@
 				return true;
 			}
 			function contactAvailability() {
-				$("#loaderIcon").show();
+				// $('#loaderIcon').css('visibility', 'visible');
+				// $("#loaderIcon").show();
 				var data = new FormData();	
 				data.append('contactno', $("#contactno").val());
 				data.append('user_id', $("#user_id").val());
@@ -258,7 +259,8 @@
 					contentType: false,
 					success: function (data) {
 						$("#user-availability-status2").html(data);
-						$("#loaderIcon").hide();
+						// $('#loaderIcon').css('visibility', 'hidden');
+						// $("#loaderIcon").hide();
 					},
 					error: function () { }
 				});

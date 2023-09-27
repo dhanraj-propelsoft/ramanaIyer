@@ -7,10 +7,48 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
 	include('includes/header.php');
 	if (isset($_POST['submit'])) {
+		//echo "<script>$('#loaderIcon').css('visibility', 'visible'); $('#loaderIcon').show();</script>";
+		$prodid = array();
+        $prodQt = array();
+        if (!empty($_SESSION['cart'])) {
+            $sql = "SELECT * FROM products WHERE id IN(";
+            foreach ($_SESSION['cart'] as $id => $value) {
+                $sql .= $id . ",";
+            }
+            $sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
+            $query = mysqli_query($con, $sql);
+            $totalprice = 0;
+            $totalqunty = 0;
+            if (!empty($query)) {
+                $rating = 0;
+                while ($row = mysqli_fetch_array($query)) {
+                    $quantity = $_SESSION['cart'][$row['id']]['quantity'];
+                    $subtotal = (int) $_SESSION['cart'][$row['id']]['quantity'] * (int) $row['productPrice'] + (int) $row['shippingCharge'];
+                    $totalprice += $subtotal;
+                    $_SESSION['qnty'] = $totalqunty += (int) $quantity;
 
-		mysqli_query($con, "update orders set 	paymentMethod='" . $_POST['paymethod'] . "' where userId='" . $_SESSION['id'] . "' and paymentMethod is null ");
-		// if($_POST['paymethod'] == "COD")
-		// {
+                    array_push($prodid, $row['id']);
+                    array_push($prodQt, $quantity);
+                }
+            }
+            // $_SESSION['pid'] = $prodid;
+            // $_SESSION['prodQt'] = $prodQt;
+        }
+
+        $value = array_combine($prodid, $prodQt);
+
+		mysqli_query($con, "DELETE FROM orders WHERE userId='" . $_SESSION['id'] . "' AND paymentId IS NULL");
+
+		if($_POST['paymethod'] == "COD")
+		{
+			
+			foreach ($value as $qty => $val34) {
+				mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','".$_POST['paymethod']."')");
+			}
+	
+			mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
+			unset($_SESSION['cart']);
+
 			echo "<script>
 			Swal.fire({
 				title: 'Success!',
@@ -23,9 +61,19 @@ if (strlen($_SESSION['login']) == 0) {
 				}
 			});
 			</script>";
-		// } else {
-		// 	echo "<script>document.location = 'order-history.php';</script>";
-		// }
+		} else {
+
+			date_default_timezone_set("Asia/Kolkata");
+			$receiptNo = $_SESSION['id']."_".date("YmdHis");
+			
+			$_SESSION['receiptNo']=$receiptNo;
+
+			foreach ($value as $qty => $val34) {
+				mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,receiptNo) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$receiptNo')");
+			}
+			//echo "<script>$('#loaderIcon').css('visibility', 'hidden'); $('#loaderIcon').hide();</script>";
+			echo "<script>window.location.href = 'pg-redirect.php';</script>";
+		}
 	}
 	?>
 	<div class="breadcrumb">
@@ -65,8 +113,8 @@ if (strlen($_SESSION['login']) == 0) {
 									<div class="panel-body">
 										<form name="payment" method="post">
 											<input type="radio" name="paymethod" value="COD" checked="checked"> COD &nbsp;
-											<input type="radio" name="paymethod" value="Internet Banking" disabled> Internet Banking &nbsp;
-											<input type="radio" name="paymethod" value="Debit / Credit card" disabled> Debit / Credit
+											<input type="radio" name="paymethod" value="Internet Banking"> Internet Banking &nbsp;
+											<input type="radio" name="paymethod" value="Debit / Credit card"> Debit / Credit
 											card <br /><br />
 											<input type="submit" value="SUBMIT" name="submit" class="btn btn-primary">
 

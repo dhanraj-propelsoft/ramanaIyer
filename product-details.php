@@ -16,6 +16,113 @@
 		mysqli_query($con, "insert into productreviews(productId,quality,price,value,name,summary,review) values('$pid','$qty','$price','$value','$name','$summary','$review')");
 	}
 	?>
+	<style>
+		.rating1 {
+		/* margin-top: 40px; */
+		border: none;
+		float: left;
+		}
+
+		.rating1 > label {
+		color: #90A0A3;
+		float: right;
+		}
+
+		.rating1 > label:before {
+		margin: 5px;
+		font-size: 2em;
+		font-family: FontAwesome;
+		content: "\f005";
+		display: inline-block;
+		}
+
+		.rating1 > input {
+		display: none;
+		}
+
+		.rating1 > input:checked ~ label,
+		.rating1:not(:checked) > label:hover,
+		.rating1:not(:checked) > label:hover ~ label {
+		color: #F79426;
+		}
+
+		.rating1 > input:checked + label:hover,
+		.rating1 > input:checked ~ label:hover,
+		.rating1 > label:hover ~ input:checked ~ label,
+		.rating1 > input:checked ~ label:hover ~ label {
+		color: #FECE31;
+		}
+		.rating2 {
+		/* margin-top: 40px; */
+		border: none;
+		float: left;
+		}
+
+		.rating2 > label {
+		color: #90A0A3;
+		float: right;
+		}
+
+		.rating2 > label:before {
+		margin: 5px;
+		font-size: 2em;
+		font-family: FontAwesome;
+		content: "\f005";
+		display: inline-block;
+		}
+
+		.rating2 > input {
+		display: none;
+		}
+
+		.rating2 > input:checked ~ label,
+		.rating2:not(:checked) > label:hover,
+		.rating2:not(:checked) > label:hover ~ label {
+		color: #F79426;
+		}
+
+		.rating2 > input:checked + label:hover,
+		.rating2 > input:checked ~ label:hover,
+		.rating2 > label:hover ~ input:checked ~ label,
+		.rating2 > input:checked ~ label:hover ~ label {
+		color: #FECE31;
+		}
+		.rating3 {
+		/* margin-top: 40px; */
+		border: none;
+		float: left;
+		}
+
+		.rating3 > label {
+		color: #90A0A3;
+		float: right;
+		}
+
+		.rating3 > label:before {
+		margin: 5px;
+		font-size: 2em;
+		font-family: FontAwesome;
+		content: "\f005";
+		display: inline-block;
+		}
+
+		.rating3 > input {
+		display: none;
+		}
+
+		.rating3 > input:checked ~ label,
+		.rating3:not(:checked) > label:hover,
+		.rating3:not(:checked) > label:hover ~ label {
+		color: #F79426;
+		}
+
+		.rating3 > input:checked + label:hover,
+		.rating3 > input:checked ~ label:hover,
+		.rating3 > label:hover ~ input:checked ~ label,
+		.rating3 > input:checked ~ label:hover ~ label {
+		color: #FECE31;
+		}
+	</style>
 	<div class="breadcrumb">
 		<div class="container">
 			<div class="breadcrumb-inner">
@@ -90,7 +197,7 @@
 							<div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
 								<div class="product-item-holder size-big single-product-gallery small-gallery">
 
-									<div id="owl-single-product" class="hidden-sm hidden-xs">
+									<div id="owl-single-product" class="hidden-xs">
 
 										<?php if (!empty($row['productImage1'])) { ?>
 											<div class="single-product-gallery-item" id="slide1">
@@ -125,7 +232,7 @@
 									</div><!-- /.single-product-slider -->
 
 
-									<div class="single-product-gallery-thumbs gallery-thumbs">
+									<div class="single-product-gallery-thumbs gallery-thumbs hidden-sm">
 
 										<div id="owl-single-product-thumbnails">
 											<?php if (!empty($row['productImage1'])) { ?>
@@ -414,63 +521,63 @@
 
 													<div class="product-add-review">
 														<h4 class="title">Write your own review</h4>
-														<div class="review-table">
-															<div class="table-responsive">
-																<table class="table table-bordered">
-																	<thead>
-																		<tr>
-																			<th class="cell-label">&nbsp;</th>
-																			<th>1 star</th>
-																			<th>2 stars</th>
-																			<th>3 stars</th>
-																			<th>4 stars</th>
-																			<th>5 stars</th>
-																		</tr>
-																	</thead>
-																	<tbody>
-																		<tr>
-																			<td class="cell-label">Quality</td>
-																			<td><input type="radio" name="quality"
-																					class="radio" value="1"></td>
-																			<td><input type="radio" name="quality"
-																					class="radio" value="2"></td>
-																			<td><input type="radio" name="quality"
-																					class="radio" value="3"></td>
-																			<td><input type="radio" name="quality"
-																					class="radio" value="4"></td>
-																			<td><input type="radio" name="quality"
-																					class="radio" value="5"></td>
-																		</tr>
-																		<tr>
-																			<td class="cell-label">Price</td>
-																			<td><input type="radio" name="price"
-																					class="radio" value="1"></td>
-																			<td><input type="radio" name="price"
-																					class="radio" value="2"></td>
-																			<td><input type="radio" name="price"
-																					class="radio" value="3"></td>
-																			<td><input type="radio" name="price"
-																					class="radio" value="4"></td>
-																			<td><input type="radio" name="price"
-																					class="radio" value="5"></td>
-																		</tr>
-																		<tr>
-																			<td class="cell-label">Value</td>
-																			<td><input type="radio" name="value"
-																					class="radio" value="1"></td>
-																			<td><input type="radio" name="value"
-																					class="radio" value="2"></td>
-																			<td><input type="radio" name="value"
-																					class="radio" value="3"></td>
-																			<td><input type="radio" name="value"
-																					class="radio" value="4"></td>
-																			<td><input type="radio" name="value"
-																					class="radio" value="5"></td>
-																		</tr>
-																	</tbody>
-																</table><!-- /.table .table-bordered -->
-															</div><!-- /.table-responsive -->
-														</div><!-- /.review-table -->
+														<div class="row">
+															<div class="col-md-6 col-xs-4">
+																<b>Quality</b>
+															</div>
+															<div class="col-md-6 col-xs-8">
+																<div class="rating1">
+																	<input type="radio" id="star15" name="quality" value="5" />
+																	<label class="star" for="star15" title="Awesome" aria-hidden="true"></label>
+																	<input type="radio" id="star14" name="quality" value="4" />
+																	<label class="star" for="star14" title="Great" aria-hidden="true"></label>
+																	<input type="radio" id="star13" name="quality" value="3" />
+																	<label class="star" for="star13" title="Very good" aria-hidden="true"></label>
+																	<input type="radio" id="star12" name="quality" value="2" />
+																	<label class="star" for="star12" title="Good" aria-hidden="true"></label>
+																	<input type="radio" id="star11" name="quality" value="1" />
+																	<label class="star" for="star11" title="Bad" aria-hidden="true"></label>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6 col-xs-4">
+																<b>Price</b>
+															</div>
+															<div class="col-md-6 col-xs-8">
+																<div class="rating2">
+																	<input type="radio" id="star25" name="price" value="5" />
+																	<label class="star" for="star25" title="Awesome" aria-hidden="true"></label>
+																	<input type="radio" id="star24" name="price" value="4" />
+																	<label class="star" for="star24" title="Great" aria-hidden="true"></label>
+																	<input type="radio" id="star23" name="price" value="3" />
+																	<label class="star" for="star23" title="Very good" aria-hidden="true"></label>
+																	<input type="radio" id="star22" name="price" value="2" />
+																	<label class="star" for="star22" title="Good" aria-hidden="true"></label>
+																	<input type="radio" id="star21" name="price" value="1" />
+																	<label class="star" for="star21" title="Bad" aria-hidden="true"></label>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6 col-xs-4">
+																<b>Value</b>
+															</div>
+															<div class="col-md-6 col-xs-8">
+																<div class="rating3">
+																	<input type="radio" id="star35" name="value" value="5" />
+																	<label class="star" for="star35" title="Awesome" aria-hidden="true"></label>
+																	<input type="radio" id="star34" name="value" value="4" />
+																	<label class="star" for="star34" title="Great" aria-hidden="true"></label>
+																	<input type="radio" id="star33" name="value" value="3" />
+																	<label class="star" for="star33" title="Very good" aria-hidden="true"></label>
+																	<input type="radio" id="star32" name="value" value="2" />
+																	<label class="star" for="star32" title="Good" aria-hidden="true"></label>
+																	<input type="radio" id="star31" name="value" value="1" />
+																	<label class="star" for="star31" title="Bad" aria-hidden="true"></label>
+																</div>
+															</div>
+														</div>
 
 														<div class="review-form">
 															<div class="form-container">

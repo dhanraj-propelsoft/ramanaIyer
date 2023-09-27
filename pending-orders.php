@@ -11,7 +11,6 @@ if (strlen($_SESSION['login']) == 0) {
 		mysqli_query($con, "delete from orders  where userId='" . $_SESSION['id'] . "' and paymentMethod is null and id='" . $_GET['id'] . "' ");
 
 	}
-
 	?>
 	<div class="breadcrumb">
 		<div class="container">
@@ -51,7 +50,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 									<tbody>
 
-										<?php $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentMethod is null"); //
+										<?php $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as c,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as oid,orders.receiptNo as oReceiptNo from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentId is null"); //
 											$cnt = 1;
 											$num = mysqli_num_rows($query);
 											if ($num > 0) {
@@ -93,7 +92,7 @@ if (strlen($_SESSION['login']) == 0) {
 														<?php echo $row['odate']; ?>
 													</td>
 
-													<td><a href="payment-method.php" title="Track order">Pay</td>
+													<td><a href="my-cart.php" title="Pay">Pay</td>
 												</tr>
 												<?php $cnt = $cnt + 1;
 												} ?>

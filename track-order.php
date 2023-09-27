@@ -37,7 +37,7 @@ $oid = intval($_GET['oid']);
 
         </tr>
         <tr height="30">
-          <td class="fontkink1"><b>order Id:</b></td>
+          <td class="fontkink1"><b>Order Id:</b></td>
           <td class="fontkink">
             <?php echo $oid; ?>
           </td>
@@ -48,9 +48,6 @@ $oid = intval($_GET['oid']);
         if ($num > 0) {
           while ($row = mysqli_fetch_array($ret)) {
             ?>
-
-
-
             <tr height="20">
               <td class="fontkink1"><b>At Date:</b></td>
               <td class="fontkink">
@@ -80,7 +77,13 @@ $oid = intval($_GET['oid']);
         } else {
           ?>
           <tr>
-            <td colspan="2">Order Not Process Yet</td>
+            <td class="fontkink1"><b>Status:</b></td>
+            <td class="fontkink">Order Not Process Yet</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
           </tr>
         <?php }
         $st = 'Delivered';

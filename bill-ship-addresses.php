@@ -89,6 +89,16 @@ if (strlen($_SESSION['login']) == 0) {
 
 													<form class="register-form" role="form" method="post">
 														<div class="form-group">
+															<label class="info-title" for="Billing Pincode">Billing Pincode
+																<span>*</span></label>
+															<input type="text"
+																class="form-control unicase-form-control text-input"
+																id="billingpincode" maxlength="6" onblur="pull_st_ct(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+																name="billingpincode" required="required"
+																value="<?php echo $row['billingPincode']; ?>">
+															<div id="bill-ack" style="color: red;"></div>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Billing Address">Billing
 																Address<span>*</span></label>
 															<textarea class="form-control unicase-form-control text-input"
@@ -113,14 +123,6 @@ if (strlen($_SESSION['login']) == 0) {
 																class="form-control unicase-form-control text-input"
 																id="billingcity" name="billingcity" required="required"
 																value="<?php echo $row['billingCity']; ?>">
-														</div>
-														<div class="form-group">
-															<label class="info-title" for="Billing Pincode">Billing Pincode
-																<span>*</span></label>
-															<input type="text"
-																class="form-control unicase-form-control text-input"
-																id="billingpincode" name="billingpincode" required="required"
-																value="<?php echo $row['billingPincode']; ?>">
 														</div>
 
 
@@ -158,6 +160,15 @@ if (strlen($_SESSION['login']) == 0) {
 
 											<form class="register-form" role="form" method="post">
 												<div class="form-group">
+													<label class="info-title" for="Billing Pincode">Shipping Pincode
+														<span>*</span></label>
+													<input type="text" class="form-control unicase-form-control text-input"
+														id="shippingpincode" name="shippingpincode" required="required"
+														maxlength="6" onblur="pull_st_ct(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														value="<?php echo $row['shippingPincode']; ?>">
+													<div id="ship-ack" style="color: red;"></div>
+												</div>
+												<div class="form-group">
 													<label class="info-title" for="Shipping Address">Shipping
 														Address<span>*</span></label>
 													<textarea class="form-control unicase-form-control text-input" name="shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea>
@@ -178,13 +189,6 @@ if (strlen($_SESSION['login']) == 0) {
 													<input type="text" class="form-control unicase-form-control text-input"
 														id="shippingcity" name="shippingcity" required="required"
 														value="<?php echo $row['shippingCity']; ?>">
-												</div>
-												<div class="form-group">
-													<label class="info-title" for="Billing Pincode">Shipping Pincode
-														<span>*</span></label>
-													<input type="text" class="form-control unicase-form-control text-input"
-														id="shippingpincode" name="shippingpincode" required="required"
-														value="<?php echo $row['shippingPincode']; ?>">
 												</div>
 
 

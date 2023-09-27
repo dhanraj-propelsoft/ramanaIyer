@@ -220,27 +220,31 @@ if (isset($_POST['login'])) {
 		}
 		
 		function emailAvailability() {
-			$("#loaderIcon").show();
+			// $('#loaderIcon').css('visibility', 'visible');
+			// $("#loaderIcon").show();
 			jQuery.ajax({
 				url: "check_availability.php",
 				data: 'email=' + $("#email").val(),
 				type: "POST",
 				success: function (data) {
 					$("#user-availability-status1").html(data);
-					$("#loaderIcon").hide();
+					// $('#loaderIcon').css('visibility', 'hidden');
+					// $("#loaderIcon").hide();
 				},
 				error: function () { }
 			});
 		}
 		function contactAvailability() {
-			$("#loaderIcon").show();
+			// $('#loaderIcon').css('visibility', 'visible');
+			// $("#loaderIcon").show();
 			jQuery.ajax({
 				url: "check_mob_no.php",
 				data: 'contactno=' + $("#contactno").val(),
 				type: "POST",
 				success: function (data) {
 					$("#user-availability-status2").html(data);
-					$("#loaderIcon").hide();
+					// $('#loaderIcon').css('visibility', 'hidden');
+					// $("#loaderIcon").hide();
 				},
 				error: function () { }
 			});

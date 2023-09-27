@@ -33,6 +33,13 @@ if (strlen($_SESSION['login']) == 0) {
 										<th colspan="4">my wishlist</th>
 									</tr>
 								</thead>
+								<tfoot>
+									<tr align="center">
+										<td colspan="4"><a href="index.php"
+															class="btn btn-upper btn-primary outer-left-xs">Continue
+															Shopping</a></td>
+									</tr>
+								</tfoot>
 								<tbody>
 									<?php
 									$ret = mysqli_query($con, "select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");

@@ -89,6 +89,13 @@ if (strlen($_SESSION['login']) == 0) {
 
 													<form class="register-form" role="form" method="post">
 														<div class="form-group">
+															<label class="info-title" for="Billing Address">Billing
+																Address<span>*</span></label>
+															<textarea class="form-control unicase-form-control text-input"
+																name="billingaddress"
+																required="required"><?php echo $row['billingAddress']; ?></textarea>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Billing Pincode">Billing Pincode
 																<span>*</span></label>
 															<input type="text"
@@ -98,14 +105,7 @@ if (strlen($_SESSION['login']) == 0) {
 																value="<?php echo $row['billingPincode']; ?>">
 															<div id="bill-ack" style="color: red;"></div>
 														</div>
-														<div class="form-group">
-															<label class="info-title" for="Billing Address">Billing
-																Address<span>*</span></label>
-															<textarea class="form-control unicase-form-control text-input"
-																name="billingaddress"
-																required="required"><?php echo $row['billingAddress']; ?></textarea>
-														</div>
-
+														
 
 
 														<div class="form-group">
@@ -160,6 +160,11 @@ if (strlen($_SESSION['login']) == 0) {
 
 											<form class="register-form" role="form" method="post">
 												<div class="form-group">
+													<label class="info-title" for="Shipping Address">Shipping
+														Address<span>*</span></label>
+													<textarea class="form-control unicase-form-control text-input" name="shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea>
+												</div>
+												<div class="form-group">
 													<label class="info-title" for="Billing Pincode">Shipping Pincode
 														<span>*</span></label>
 													<input type="text" class="form-control unicase-form-control text-input"
@@ -168,12 +173,7 @@ if (strlen($_SESSION['login']) == 0) {
 														value="<?php echo $row['shippingPincode']; ?>">
 													<div id="ship-ack" style="color: red;"></div>
 												</div>
-												<div class="form-group">
-													<label class="info-title" for="Shipping Address">Shipping
-														Address<span>*</span></label>
-													<textarea class="form-control unicase-form-control text-input" name="shippingaddress" required="required"><?php echo $row['shippingAddress']; ?></textarea>
-												</div>
-
+												
 
 
 												<div class="form-group">

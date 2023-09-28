@@ -205,8 +205,8 @@
         $.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
             if (data[0].PostOffice && data[0].PostOffice.length) {
                 for (var i = 0; i < data[0].PostOffice.length; i++) {
-                    $(ele).parent().next().next().find("input").val(data[0].PostOffice[i].State);
-                    $(ele).parent().next().next().next().find("input").val(data[0].PostOffice[i].District);
+                    $(ele).parent().next().find("input").val(data[0].PostOffice[i].State);
+                    $(ele).parent().next().next().find("input").val(data[0].PostOffice[i].District);
                     return;
                 }
             }

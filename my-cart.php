@@ -191,6 +191,13 @@ include('includes/header.php');
 													<div class="form-group">
 														<div id="bill-ack"></div>
 														<div class="form-group">
+															<label class="info-title" for="Billing Address">Billing
+																Address<span>*</span></label>
+															<textarea class="form-control unicase-form-control text-input"
+																name="billingaddress"
+																required="required"><?php echo $row['billingAddress']; ?></textarea>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Billing Pincode">Billing Pincode
 																<span>*</span></label>
 															<input type="text"
@@ -199,14 +206,7 @@ include('includes/header.php');
 																value="<?php echo $row['billingPincode']; ?>">
 															<div id="bill-pin-ack" style="color: red;"></div>
 														</div>
-														<div class="form-group">
-															<label class="info-title" for="Billing Address">Billing
-																Address<span>*</span></label>
-															<textarea class="form-control unicase-form-control text-input"
-																name="billingaddress"
-																required="required"><?php echo $row['billingAddress']; ?></textarea>
-														</div>
-
+														
 
 
 														<div class="form-group">
@@ -259,6 +259,13 @@ include('includes/header.php');
 													<div class="form-group">
 														<div id="ship-ack"></div>
 														<div class="form-group">
+															<label class="info-title" for="Shipping Address">Shipping
+																Address<span>*</span></label>
+															<textarea class="form-control unicase-form-control text-input"
+																name="shippingaddress"
+																required="required"><?php echo $row['shippingAddress']; ?></textarea>
+														</div>
+														<div class="form-group">
 															<label class="info-title" for="Billing Pincode">Shipping Pincode
 																<span>*</span></label>
 															<input type="text"
@@ -267,14 +274,7 @@ include('includes/header.php');
 																value="<?php echo $row['shippingPincode']; ?>">
 															<div id="ship-pin-ack" style="color: red;"></div>
 														</div>
-														<div class="form-group">
-															<label class="info-title" for="Shipping Address">Shipping
-																Address<span>*</span></label>
-															<textarea class="form-control unicase-form-control text-input"
-																name="shippingaddress"
-																required="required"><?php echo $row['shippingAddress']; ?></textarea>
-														</div>
-
+														
 
 
 														<div class="form-group">

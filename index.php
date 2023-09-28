@@ -36,7 +36,7 @@ include('includes/header.php'); ?>
 					<div class="info-boxes wow fadeInUp">
 						<div class="info-boxes-inner">
 							<div class="row">
-								<div class="col-md-4 col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-3 col-lg-4">
 									<div class="info-box">
 										<div class="row">
 											<!-- <div class="col-xs-2">
@@ -50,7 +50,7 @@ include('includes/header.php'); ?>
 									</div>
 								</div><!-- .col -->
 
-								<div class="col-md-4 col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-3 col-lg-4">
 									<div class="info-box">
 										<div class="row">
 											<!-- <div class="col-xs-2">
@@ -64,7 +64,7 @@ include('includes/header.php'); ?>
 									</div>
 								</div><!-- .col -->
 
-								<div class="col-md-4 col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-6 col-lg-4">
 									<div class="info-box">
 										<div class="row">
 											<!-- <div class="col-xs-2">

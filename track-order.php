@@ -26,20 +26,30 @@ $oid = intval($_GET['oid']);
 
 <body>
 
-  <div style="margin-left:50px;">
+  <div style="background-color:#cf171d; color:#fff; padding:5px;">
+    <center><img src="assets/images/ramana-logo.jpg" style="max-height: 50px; width: auto" alt="">
+    <h2>ORDER TRACKING DETAILS</h2></center>
+  </div>
     <form name="updateticket" id="updateticket" method="post">
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
-
-        <tr height="50">
-          <td colspan="2" class="fontkink2" style="padding-left:0px;">
-            <div class="fontpink2"> <b>Order Tracking Details !</b></div>
-          </td>
-
-        </tr>
-        <tr height="30">
+        <thead>
+          <tr>
+            <th colspan="2">
+              
+              <hr />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr height="20">
           <td class="fontkink1"><b>Order Id:</b></td>
           <td class="fontkink">
             <?php echo $oid; ?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <hr />
           </td>
         </tr>
         <?php
@@ -72,20 +82,23 @@ $oid = intval($_GET['oid']);
               <td colspan="2">
                 <hr />
               </td>
+            </tr>       
+            <?php }
+          } else {
+            ?>
+            <tr>
+              <td class="fontkink1"><b>Status:</b></td>
+              <td class="fontkink">Order Not Process Yet</td>
             </tr>
-          <?php }
-        } else {
-          ?>
-          <tr>
-            <td class="fontkink1"><b>Status:</b></td>
-            <td class="fontkink">Order Not Process Yet</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <hr />
-            </td>
-          </tr>
-        <?php }
+            <tr>
+              <td colspan="2">
+                <hr />
+              </td>
+            </tr>
+          <?php } ?>
+        </tbody>
+        <tfoot>
+        <?php 
         $st = 'Delivered';
         $rt = mysqli_query($con, "SELECT * FROM orders WHERE id='$oid'");
         while ($num = mysqli_fetch_array($rt)) {
@@ -93,15 +106,17 @@ $oid = intval($_GET['oid']);
         }
         if ($st == $currrentSt) { ?>
           <tr>
-            <td colspan="2"><b>
+            <td colspan="2" align="center"><b>
                 Product Delivered successfully </b></td>
-          <?php }
-
-        ?>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <hr />
+            </td>
+          </tr>
+          <?php } ?>
+        </tfoot>
       </table>
     </form>
-  </div>
-
 </body>
-
 </html>

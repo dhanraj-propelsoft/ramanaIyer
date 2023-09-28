@@ -16,13 +16,11 @@
 	<div class="main-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-sm-4 col-md-3 logo-holder">
+				<div class="col-xs-12 col-sm-4 col-md-3 logo-holder" align="center">
 					<!-- ============================================================= LOGO ============================================================= -->
 					<div class="logo">
 						<a href="index.php">
-							
-							<h2>Ramana Iyer</h2>
-
+							<img src="assets/images/ramana-logo.jpg" style="max-height: 65px; width: auto" alt="">
 						</a>
 					</div>		
 				</div>

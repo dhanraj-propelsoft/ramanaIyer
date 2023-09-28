@@ -94,7 +94,7 @@
 
 													<?php
 													$query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
-													while ($row = mysqli_fetch_array($query)) {
+													if ($row = mysqli_fetch_array($query)) {
 														?>
 
 														<form class="register-form" role="form" method="post">

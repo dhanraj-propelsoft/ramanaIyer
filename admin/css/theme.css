@@ -76,7 +76,7 @@ blockquote small::before {
 }
 .footer {
 	color: #999;
-	padding: 30px 0 60px
+	padding: 30px 0 30px
 }
 .footer .nav li {
 	float: left
@@ -196,8 +196,8 @@ body [class^="icon-"], body [class*=" icon-"] {
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 20px;
-	margin-right: 20px;
-	padding: 20px;
+	margin-left: 10px;
+	padding: 5px;
 	text-shadow: none;
 }
 .navbar .nav>li>a {
@@ -454,7 +454,8 @@ transition: all .2s ease-in-out;
 	outline-offset: -2px
 }
 .btn:focus, .btn:hover {
-	color: #767676;
+	background-color: #cf171d;
+	color: #ffffff;
 	text-decoration: none
 }
 .btn.active, .btn:active {

@@ -49,10 +49,16 @@ if (strlen($_SESSION['login']) == 0) {
 			mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
 			unset($_SESSION['cart']);
 
+			$cust_adrs = "";
+            $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
+            if ($row2 = mysqli_fetch_array($query)) {
+                $cust_adrs = $row2['shippingAddress'].", ".$row2['shippingState'].", ".$row2['shippingCity'].", ".$row2['shippingPincode'];
+            }
+
 			echo "<script>
 			Swal.fire({
 				title: 'Success!',
-				text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to customer shipping address!',
+				text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
 				icon: 'success',
 				confirmButtonText: 'Ok'
 			}).then((result) => {

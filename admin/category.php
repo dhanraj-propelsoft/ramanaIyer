@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -44,10 +45,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='css/opensans.css'
-			rel='stylesheet'>
-    	<link rel="stylesheet" href="css/sweetalert2.min.css">
-    	<script src="assets/js/sweetalert.js"></script>
+		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
+		<link rel="stylesheet" href="css/sweetalert2.min.css">
+		<script src="assets/js/sweetalert.js"></script>
 	</head>
 
 	<body>
@@ -56,7 +56,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<div class="wrapper">
 			<div class="container">
 				<div class="row">
-					<?php 
+					<?php
 					$actmenu = "category";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
@@ -69,19 +69,20 @@ if (strlen($_SESSION['alogin']) == 0) {
 								<div class="module-body">
 
 									<?php if (isset($_POST['submit'])) {
-									 if ($_SESSION['msg'] != "") { ?>
-										<div class="alert alert-success">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<?php echo $_SESSION['msg']; ?>
-											<?php echo htmlentities($_SESSION['msg'] = ""); ?>
-										</div>
-									<?php } else if ($_SESSION['errmsg'] != "") { ?>
-										<div class="alert alert-error">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<?php echo $_SESSION['errmsg']; ?>
-											<?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
-										</div>
-									<?php } } ?>
+										if ($_SESSION['msg'] != "") { ?>
+											<div class="alert alert-success">
+												<button type="button" class="close" data-dismiss="alert">×</button>
+												<?php echo $_SESSION['msg']; ?>
+												<?php echo htmlentities($_SESSION['msg'] = ""); ?>
+											</div>
+										<?php } else if ($_SESSION['errmsg'] != "") { ?>
+												<div class="alert alert-error">
+													<button type="button" class="close" data-dismiss="alert">×</button>
+												<?php echo $_SESSION['errmsg']; ?>
+												<?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
+												</div>
+										<?php }
+									} ?>
 
 									<?php if (isset($_GET['del'])) { ?>
 										<div class="alert alert-error">
@@ -114,7 +115,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 										<div class="control-group">
 											<div class="controls">
-												<button type="submit" name="submit" class="btn btn-primary">Create</button>
+												<button type="submit" name="submit" class="btn">Create</button>
 											</div>
 										</div>
 									</form>
@@ -200,18 +201,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 			});
 
-			function delPopup(ele)
-			{
+			function delPopup(ele) {
 				Swal.fire({
 					title: 'Warning!',
 					text: 'Are you sure you want to delete?',
 					icon: 'info',
 					showCancelButton: true,
 					confirmButtonText: 'Yes',
-            		cancelButtonText: 'No'
+					cancelButtonText: 'No'
 				}).then((result) => {
 					if (result.isConfirmed) {
-						window.location.href = 'category.php?id='+ele+'&del=delete';
+						window.location.href = 'category.php?id=' + ele + '&del=delete';
 					}
 				});
 			}

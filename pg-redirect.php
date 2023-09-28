@@ -3,7 +3,7 @@ session_start();
 require_once('vendor/razorpay/razorpay/Razorpay.php');
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors\SignatureVerificationError;
-//error_reporting(0);
+error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
     exit;

@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -20,8 +21,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='css/opensans.css'
-			rel='stylesheet'>
+		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
 		<script language="javascript" type="text/javascript">
 			var popUpWin = 0;
 			function popUpWindow(URLStr, left, top, width, height) {
@@ -40,7 +40,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<div class="wrapper">
 			<div class="container">
 				<div class="row">
-					<?php 
+					<?php
 					$actmenu = "delivered";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
@@ -114,7 +114,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td class="wrap_td_50">
 														<?php echo htmlentities($row['orderdate']); ?>
 													</td>
-													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>"
+													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=delivered"
 															title="Update order"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>

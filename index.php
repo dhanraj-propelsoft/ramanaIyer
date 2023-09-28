@@ -36,45 +36,45 @@ include('includes/header.php'); ?>
 					<div class="info-boxes wow fadeInUp">
 						<div class="info-boxes-inner">
 							<div class="row">
-								<div class="col-md-6 col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-4 col-lg-4">
 									<div class="info-box">
 										<div class="row">
-											<div class="col-xs-2">
-												<i class="icon fa fa-dollar"></i>
-											</div>
-											<div class="col-xs-10">
-												<h4 class="info-box-heading green">money back</h4>
+											<!-- <div class="col-xs-2">
+												<i class="icon fa fa-leaf"></i>
+											</div> -->
+											<div class="col-xs-12" align="center">
+												<h4 class="info-box-heading green">Fresh</h4>
 											</div>
 										</div>
-										<h6 class="text">30 Day Money Back Guarantee</h6>
+										<!-- <h6 class="text">30 Day Money Back Guarantee</h6> -->
 									</div>
 								</div><!-- .col -->
 
-								<div class="hidden-md col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-4 col-lg-4">
 									<div class="info-box">
 										<div class="row">
-											<div class="col-xs-2">
+											<!-- <div class="col-xs-2">
 												<i class="icon fa fa-truck"></i>
-											</div>
-											<div class="col-xs-10">
-												<h4 class="info-box-heading orange">free shipping</h4>
+											</div> -->
+											<div class="col-xs-12" align="center">
+												<h4 class="info-box-heading orange">Hygienic</h4>
 											</div>
 										</div>
-										<h6 class="text">free shipping on order over ₹ 600</h6>
+										<!-- <h6 class="text">free shipping on order over ₹ 600</h6> -->
 									</div>
 								</div><!-- .col -->
 
-								<div class="col-md-6 col-sm-4 col-lg-4">
+								<div class="col-md-4 col-sm-4 col-lg-4">
 									<div class="info-box">
 										<div class="row">
-											<div class="col-xs-2">
-												<i class="icon fa fa-gift"></i>
-											</div>
-											<div class="col-xs-10">
-												<h4 class="info-box-heading red">Special Sale</h4>
+											<!-- <div class="col-xs-2">
+												<i class="icon fa fa-inr"></i>
+											</div> -->
+											<div class="col-xs-12" align="center">
+												<h4 class="info-box-heading red">Value for money</h4>
 											</div>
 										</div>
-										<h6 class="text">All items-sale up to 20% off </h6>
+										<!-- <h6 class="text">All items-sale up to 20% off </h6> -->
 									</div>
 								</div><!-- .col -->
 							</div><!-- /.row -->

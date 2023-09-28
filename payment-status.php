@@ -17,7 +17,7 @@ $razorpayErrorStep = 0;
 $razorpayErrorReason = 0;
 $paymentStatus = 0;
 $paymentInd = 0;
-//error_reporting(0);
+error_reporting(0);
 //include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
@@ -76,10 +76,16 @@ if (strlen($_SESSION['login']) == 0) {
 			mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
 			unset($_SESSION['cart']);
 
+            $cust_adrs = "";
+            $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
+            if ($row = mysqli_fetch_array($query)) {
+                $cust_adrs = $row['shippingAddress'].", ".$row['shippingState'].", ".$row['shippingCity'].", ".$row['shippingPincode'];
+            }
+
             echo "<script>
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Payment Successful',
+                    text: 'Payment Successful. Your order has been received by Ramana Sweets. Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
                     icon: 'success',
                     showDenyButton: true,
                     confirmButtonText: 'Go to Order List',

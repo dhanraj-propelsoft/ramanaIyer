@@ -1,37 +1,36 @@
-<?php 
+<?php
 session_start();
 error_reporting(0);
+unset($_SESSION['alogin']);
+unset($_SESSION['aid']);
 include("include/config.php");
-if(isset($_POST['submit']))
-{
-	$username=$_POST['username'];
-	$password=md5($_POST['password']);
-$ret=mysqli_query($con,"SELECT * FROM admin WHERE username='$username' and password='$password'");
-$num=mysqli_fetch_array($ret);
-if($num>0)
-{
-$extra="todays-orders.php";//
-$_SESSION['alogin']=$_POST['username'];
-$_SESSION['aid']=$num['id'];
-$host=$_SERVER['HTTP_HOST'];
-$uri=rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
-header("location:http://$host$uri/$extra");
-exit();
-}
-else
-{
-$_SESSION['errmsg']="Invalid username or password";
-$extra="index.php";
-$host  = $_SERVER['HTTP_HOST'];
-$uri  = rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
-header("location:http://$host$uri/$extra");
-exit();
-}
+if (isset($_POST['submit'])) {
+	$username = $_POST['username'];
+	$password = md5($_POST['password']);
+	$ret = mysqli_query($con, "SELECT * FROM admin WHERE username='$username' and password='$password'");
+	$num = mysqli_fetch_array($ret);
+	if ($num > 0) {
+		$extra = "todays-orders.php"; //
+		$_SESSION['alogin'] = $_POST['username'];
+		$_SESSION['aid'] = $num['id'];
+		$host = $_SERVER['HTTP_HOST'];
+		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		header("location:http://$host$uri/$extra");
+		exit();
+	} else {
+		$_SESSION['errmsg'] = "Invalid username or password";
+		$extra = "index.php";
+		$host = $_SERVER['HTTP_HOST'];
+		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		header("location:http://$host$uri/$extra");
+		exit();
+	}
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +41,7 @@ exit();
 	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
 	<link type="text/css" href='css/opensans.css' rel='stylesheet'>
 </head>
+
 <body>
 
 	<div class="navbar navbar-fixed-top">
@@ -51,12 +51,12 @@ exit();
 					<i class="icon-reorder shaded"></i>
 				</a>
 
-			  	<a class="brand" href="index.php">
-			  		Ramana Iyer | Admin
-			  	</a>
+				<a class="brand" href="index.php">
+					<img src="assets/images/ramana-logo.jpg" style="max-height: 50px; width: auto" alt=""> | Admin
+				</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
-				
+
 					<!-- <ul class="nav pull-right">
 
 						<li><a href="http://localhost/shopping/">
@@ -83,24 +83,29 @@ exit();
 						<div class="module-head">
 							<h3>Sign In</h3>
 						</div>
-						<span style="color:red;" ><?php echo htmlentities($_SESSION['errmsg']); ?><?php echo htmlentities($_SESSION['errmsg']="");?></span>
+						<span style="color:red;">
+							<?php echo htmlentities($_SESSION['errmsg']); ?>
+							<?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
+						</span>
 						<div class="module-body">
 							<div class="control-group">
 								<div class="controls row-fluid">
-									<input class="span12" type="text" id="inputEmail" name="username" placeholder="Username">
+									<input class="span12" type="text" id="inputEmail" name="username"
+										placeholder="Username">
 								</div>
 							</div>
 							<div class="control-group">
 								<div class="controls row-fluid">
-						<input class="span12" type="password" id="inputPassword" name="password" placeholder="Password">
+									<input class="span12" type="password" id="inputPassword" name="password"
+										placeholder="Password">
 								</div>
 							</div>
 						</div>
 						<div class="module-foot">
 							<div class="control-group">
 								<div class="controls clearfix">
-									<button type="submit" class="btn btn-primary pull-right" name="submit">Login</button>
-									
+									<button type="submit" class="btn pull-right" name="submit">Login</button>
+
 								</div>
 							</div>
 						</div>
@@ -114,10 +119,11 @@ exit();
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-sm-6 col-lg-6">
-				<b class="copyright">&copy; 2023 Ramana Iyer </b> All rights reserved.
+					<b class="copyright">&copy; 2023 Ramana Iyer </b> All rights reserved.
 				</div>
 				<div class="col-md-6 col-sm-6 col-lg-6">
-				Designed & Powered by <a href="http://www.propelsoft.in" target="_blank" style="color: #8000ff; text-decoration: none; font-weight: bold;">Propelsoft</a>.
+					Designed & Powered by <a href="http://www.propelsoft.in" target="_blank"
+						style="color: #8000ff; text-decoration: none; font-weight: bold;">Propelsoft</a>.
 				</div>
 
 			</div>

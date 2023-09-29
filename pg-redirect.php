@@ -136,9 +136,9 @@ if (strlen($_SESSION['login']) == 0) {
                 <li class='active'>Payment Status</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
-        <div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
     </div><!-- /.container -->
 </div>
+<div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
 <script>
     // Checkout details as a json
     var options = <?=$json?>;

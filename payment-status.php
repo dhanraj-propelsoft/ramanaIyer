@@ -64,7 +64,7 @@ if (strlen($_SESSION['login']) == 0) {
         $paymentStatus = "FAILED";
     }
 
-    echo $_SESSION['total_amt'].','.$_SESSION['receiptNo'].','.$paymentStatus.','.$razorpayPaymentId.','.$razorpayOrderId.','.$razorpaySignature.','.$razorpayErrorCode.','.$razorpayErrorDesc.','.$razorpayErrorSource.','.$razorpayErrorStep.','.$razorpayErrorReason;
+    echo $_SESSION['total_amt'].','.$_SESSION['receiptNo'].','.$paymentInd.','.$paymentStatus.','.$razorpayPaymentId.','.$razorpayOrderId.','.$razorpaySignature.','.$razorpayErrorCode.','.$razorpayErrorDesc.','.$razorpayErrorSource.','.$razorpayErrorStep.','.$razorpayErrorReason;
     exit();
     include('includes/config.php');
     include('includes/header.php');

@@ -18,7 +18,6 @@ $razorpayErrorReason = 0;
 $paymentStatus = 0;
 $paymentInd = 0;
 //error_reporting(0);
-//include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
 } else {
@@ -44,11 +43,12 @@ if (strlen($_SESSION['login']) == 0) {
 
     }
 
+    // echo $_SESSION['total_amt'] . ',' . $_SESSION['receiptNo'] . ',' .$paymentStatus. ',' .$razorpayPaymentId. ',' .$razorpayOrderId. ',' .$razorpaySignature. ',' .$razorpayErrorCode. ',' .$razorpayErrorDesc. ',' .$razorpayErrorSource. ',' .$razorpayErrorStep. ',' .$razorpayErrorReason;
+    // exit();
     // if($razorpayPaymentId == 0)
     // {
     //     header('location:index.php');
-    // }
-    // else
+    // } else 
     {
     $razorpayOrderId = $_SESSION['razorpay_order_id'];
     //echo "<BR/>Session Order ID - ".$razorpayOrderId;
@@ -64,10 +64,7 @@ if (strlen($_SESSION['login']) == 0) {
         $paymentStatus = "FAILED";
     }
 
-    echo $_SESSION['total_amt'].','.$_SESSION['receiptNo'].','.$paymentInd.','.$paymentStatus.','.$razorpayPaymentId.','.$razorpayOrderId.','.$razorpaySignature.','.$razorpayErrorCode.','.$razorpayErrorDesc.','.$razorpayErrorSource.','.$razorpayErrorStep.','.$razorpayErrorReason;
-    exit();
     include('includes/config.php');
-    include('includes/header.php');
     $razorpayErrorDesc = str_replace("'","\'",$razorpayErrorDesc);
     if(($_SESSION['receiptNo'] != "") && ($_SESSION['total_amt'] != "0"))
     {
@@ -86,7 +83,7 @@ if (strlen($_SESSION['login']) == 0) {
             if ($row = mysqli_fetch_array($query)) {
                 $cust_adrs = $row['shippingAddress'].", ".$row['shippingState'].", ".$row['shippingCity'].", ".$row['shippingPincode'];
             }
-
+            echo "<h1>Your order has been received by Ramana Sweets.<BR/>Your sweets will be delivered to  customer shipping address</h1>";
             echo "<script>
                 Swal.fire({
                     title: 'Success!',
@@ -104,6 +101,7 @@ if (strlen($_SESSION['login']) == 0) {
                 });
                 </script>";
         } else {
+            echo "<h1>Sorry!!!<BR/>Your payment transaction has failed.<BR/>Please retry the payment to checkout the order.</h1>";
             echo "<script>
                 Swal.fire({
                     title: 'Oops...',
@@ -123,24 +121,4 @@ if (strlen($_SESSION['login']) == 0) {
         }
     }
 	?>
-	<div class="breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-inner">
-				<ul class="list-inline list-unstyled">
-					<li><a href="home.html">Home</a></li>
-					<li class='active'>Payment Status</li>
-				</ul>
-			</div><!-- /.breadcrumb-inner -->
-            <?php
-            if($paymentInd == 1)
-                echo "<h1>Your order has been received by Ramana Sweets. Your sweets will be delivered to  customer shipping address</h1>";
-            else
-                echo "<h1>Sorry!!! Your payment transaction has failed. Please retry the payment to checkout the order.</h1>";
-            ?>
-		</div><!-- /.container -->
-	</div><!-- /.breadcrumb -->
-	
-	<?php include('includes/footer.php'); ?>
-	<script>
-	</script>
 <?php } } ?>

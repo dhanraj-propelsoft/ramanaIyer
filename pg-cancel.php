@@ -6,7 +6,7 @@
         exit;
     } else {
     include('includes/config.php');
-    include('includes/header.php');
+    echo "<h1>Oops!!! Your Last Payment has been cancelled. Please retry the payment to checkout the order.</h1>";
     echo "<script>
             Swal.fire({
                 title: 'Oops!',
@@ -24,18 +24,6 @@
             });
             </script>";
     ?>
-    <div class="breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-inner">
-				<ul class="list-inline list-unstyled">
-					<li><a href="home.html">Home</a></li>
-					<li class='active'>Payment Status</li>
-				</ul>
-			</div><!-- /.breadcrumb-inner -->
-            <h1>Oops!!! Your Last Payment has been cancelled. Please retry the payment to checkout the order.</h1>
-		</div><!-- /.container -->
-	</div><!-- /.breadcrumb -->
     <?php 
-    include('includes/footer.php');
     }
 ?>

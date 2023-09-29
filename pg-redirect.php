@@ -43,12 +43,10 @@ if (strlen($_SESSION['login']) == 0) {
         $cust_adrs = $row2['shippingState'].", ".$row2['shippingCity'];
     }
 
-    // if(($_SESSION['receiptNo']=="") || ($_SESSION['total_amt']=="0"))
-    // {
-    //     header('location:index.php');
-    // }
-    // else 
+    if(($_SESSION['receiptNo']=="") || ($_SESSION['total_amt']=="0"))
     {
+        header('location:index.php');
+    } else {
         //session_start();
         $keyId = 'rzp_test_TIvjJmBIbM2Kci';
         $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
@@ -110,7 +108,7 @@ if (strlen($_SESSION['login']) == 0) {
             $data['display_amount']    = $displayAmount;
         }
         $json = json_encode($data);
-        //include('includes/header.php');
+        include('includes/header.php');
     }
 }
 ?>
@@ -130,18 +128,17 @@ if (strlen($_SESSION['login']) == 0) {
     }
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<form name='razorpayform' action="payment-status.php" method="POST">
-    <!-- <button id="rzp-button1">Pay</button> -->
-    <p align="center">Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</p>
-    <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
-    <input type="hidden" name="razorpay_order_id"  id="razorpay_order_id" >
-    <input type="hidden" name="razorpay_signature"  id="razorpay_signature" >
-    <input type="hidden" name="razorpay_error_code" id="razorpay_error_code" >
-    <input type="hidden" name="razorpay_error_desc"  id="razorpay_error_desc" >
-    <input type="hidden" name="razorpay_error_source"  id="razorpay_error_source" >
-    <input type="hidden" name="razorpay_error_step" id="razorpay_error_step" >
-    <input type="hidden" name="razorpay_error_reason"  id="razorpay_error_reason" >
-</form>
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+                <li><a href="home.html">Home</a></li>
+                <li class='active'>Payment Status</li>
+            </ul>
+        </div><!-- /.breadcrumb-inner -->
+        <div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
+    </div><!-- /.container -->
+</div>
 <script>
     // Checkout details as a json
     var options = <?=$json?>;
@@ -150,18 +147,47 @@ if (strlen($_SESSION['login']) == 0) {
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields
     */
     options.handler = function (response){
-        alert(response);
-        document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
-        document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
-        document.getElementById('razorpay_signature').value = response.razorpay_signature;
-        document.razorpayform.submit();
+        console.log(response);
+        var formData = new FormData();
+        formData.append('razorpay_payment_id', response.razorpay_payment_id);
+        formData.append('razorpay_order_id', response.razorpay_order_id);
+        formData.append('razorpay_signature', response.razorpay_signature);
+
+        $.ajax({
+            method: 'POST',
+            url: 'payment-status.php',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //console.log(data);
+                $("#ack").html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            },
+        });
     };
     // Boolean whether to show image inside a white frame. (default: true)
     options.theme.image_padding = false;
     options.modal = {
         ondismiss: function() {
         //console.log("This code runs when the popup is closed");
-        window.location = 'pg-cancel.php';
+        $("#ack").html("<h1>Oops!!!<BR/>Your Last Payment has been cancelled.<BR/>Please retry the payment to checkout the order.</h1>");
+        Swal.fire({
+            title: 'Oops!',
+            text: 'Your Last Payment has been cancelled.',
+            icon: 'info',
+            showDenyButton: true,
+            confirmButtonText: 'Retry Payment',
+            denyButtonText: 'Continue Shopping',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'pg-redirect.php';
+            } else if (result.isDenied) {
+                window.location.href = 'index.php';
+            }
+        });
         },
         // Boolean indicating whether pressing escape key
         // should close the checkout form. (default: true)
@@ -173,19 +199,34 @@ if (strlen($_SESSION['login']) == 0) {
     var rzp = new Razorpay(options);
     rzp.open();
     rzp.on('payment.failed', function (response){
-        alert(response);
-        document.getElementById('razorpay_error_code').value = response.error.code;
-        document.getElementById('razorpay_error_desc').value = response.error.description;
-        document.getElementById('razorpay_error_source').value = response.error.source;
-        document.getElementById('razorpay_error_step').value = response.error.step;
-        document.getElementById('razorpay_error_reason').value = response.error.reason;
-        document.getElementById('razorpay_order_id').value = response.error.metadata.order_id;
-        document.getElementById('razorpay_payment_id').value = response.error.metadata.payment_id;
-        document.razorpayform.submit();
+        console.log(response);
+        var formData = new FormData();
+        formData.append('razorpay_payment_id', response.error.metadata.payment_id);
+        formData.append('razorpay_order_id', response.error.metadata.order_id);
+        formData.append('razorpay_error_code', response.error.code);
+        formData.append('razorpay_error_desc', response.error.description);
+        formData.append('razorpay_error_source', response.error.source);
+        formData.append('razorpay_error_step', response.error.step);
+        formData.append('razorpay_error_reason', response.error.reason);
+
+        $.ajax({
+            method: 'POST',
+            url: 'payment-status.php',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //console.log(data);
+                $("#ack").html(data);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            },
+        });
     });
     // document.getElementById('rzp-button1').onclick = function(e){
     //     rzp.open();
     //     e.preventDefault();
     // }
 </script>
-<?php //include('includes/footer.php'); ?>
+<?php include('includes/footer.php'); ?>

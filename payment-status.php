@@ -43,10 +43,12 @@ if (strlen($_SESSION['login']) == 0) {
             $razorpayErrorReason = $_POST['razorpay_error_reason'];
 
     }
-    if($razorpayPaymentId == 0)
+    // if($razorpayPaymentId == 0)
+    // {
+    //     header('location:index.php');
+    // }
+    // else
     {
-        header('location:index.php');
-    } else {
     $razorpayOrderId = $_SESSION['razorpay_order_id'];
     //echo "<BR/>Session Order ID - ".$razorpayOrderId;
     $secret = "grIOrCY9qMtAsAeBrylYyYPi";

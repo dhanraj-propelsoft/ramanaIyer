@@ -17,7 +17,7 @@ $razorpayErrorStep = 0;
 $razorpayErrorReason = 0;
 $paymentStatus = 0;
 $paymentInd = 0;
-error_reporting(0);
+//error_reporting(0);
 //include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
@@ -43,6 +43,7 @@ if (strlen($_SESSION['login']) == 0) {
             $razorpayErrorReason = $_POST['razorpay_error_reason'];
 
     }
+
     // if($razorpayPaymentId == 0)
     // {
     //     header('location:index.php');
@@ -63,6 +64,8 @@ if (strlen($_SESSION['login']) == 0) {
         $paymentStatus = "FAILED";
     }
 
+    echo $_SESSION['total_amt'].','.$_SESSION['receiptNo'].','.$paymentStatus.','.$razorpayPaymentId.','.$razorpayOrderId.','.$razorpaySignature.','.$razorpayErrorCode.','.$razorpayErrorDesc.','.$razorpayErrorSource.','.$razorpayErrorStep.','.$razorpayErrorReason;
+    exit();
     include('includes/config.php');
     include('includes/header.php');
     $razorpayErrorDesc = str_replace("'","\'",$razorpayErrorDesc);

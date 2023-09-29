@@ -1,6 +1,10 @@
 <?php 
     session_start();
     error_reporting(0);
+    if (strlen($_SESSION['login']) == 0) {
+        header('location:login.php');
+        exit;
+    } else {
     include('includes/config.php');
     include('includes/header.php');
     echo "<script>
@@ -33,4 +37,5 @@
 	</div><!-- /.breadcrumb -->
     <?php 
     include('includes/footer.php');
+    }
 ?>

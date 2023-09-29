@@ -3,7 +3,7 @@ session_start();
 require_once('vendor/razorpay/razorpay/Razorpay.php');
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors\SignatureVerificationError;
-error_reporting(0);
+//error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
     exit;
@@ -43,10 +43,12 @@ if (strlen($_SESSION['login']) == 0) {
         $cust_adrs = $row2['shippingState'].", ".$row2['shippingCity'];
     }
 
-    if(($_SESSION['receiptNo']=="") || ($_SESSION['total_amt']=="0"))
+    // if(($_SESSION['receiptNo']=="") || ($_SESSION['total_amt']=="0"))
+    // {
+    //     header('location:index.php');
+    // }
+    // else 
     {
-        header('location:index.php');
-    } else {
         //session_start();
         $keyId = 'rzp_test_TIvjJmBIbM2Kci';
         $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
@@ -148,6 +150,7 @@ if (strlen($_SESSION['login']) == 0) {
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields
     */
     options.handler = function (response){
+        alert(response);
         document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
         document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
         document.getElementById('razorpay_signature').value = response.razorpay_signature;
@@ -170,6 +173,7 @@ if (strlen($_SESSION['login']) == 0) {
     var rzp = new Razorpay(options);
     rzp.open();
     rzp.on('payment.failed', function (response){
+        alert(response);
         document.getElementById('razorpay_error_code').value = response.error.code;
         document.getElementById('razorpay_error_desc').value = response.error.description;
         document.getElementById('razorpay_error_source').value = response.error.source;

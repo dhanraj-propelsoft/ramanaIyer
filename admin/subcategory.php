@@ -96,7 +96,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<form class="form-horizontal row-fluid" name="subcategory" method="post">
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Category</label>
+											<label class="control-label" for="basicinput">Category <span>*</span></label>
 											<div class="controls">
 												<select name="category" class="span8 tip" required>
 													<option value="">Select Category</option>
@@ -113,7 +113,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">SubCategory Name</label>
+											<label class="control-label" for="basicinput">SubCategory Name <span>*</span></label>
 											<div class="controls">
 												<input type="text" placeholder="Enter SubCategory Name" name="subcategory"
 													class="span8 tip" required>
@@ -144,7 +144,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<tr>
 												<th>#</th>
 												<th>Category</th>
-												<th>Name</th>
+												<th>Sub-Category</th>
 												<th>Creation date</th>
 												<th>Last Updated</th>
 												<th>Action</th>

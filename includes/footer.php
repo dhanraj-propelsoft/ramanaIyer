@@ -2,7 +2,7 @@
     <div class="links-social inner-top-sm">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-3">
                     <!-- ============================================================= CONTACT INFO ============================================================= -->
                     <div class="contact-info">
                         <div class="footer-logo">
@@ -70,7 +70,7 @@
                     <!-- ============================================================= CONTACT TIMING : END ============================================================= -->
                 </div><!-- /.col -->
 
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-xs-12 col-sm-6 col-md-3">
                     <!-- ============================================================= INFORMATION============================================================= -->
                     <div class="contact-information">
                         <div class="module-heading">
@@ -121,6 +121,27 @@
                         </div><!-- /.module-body -->
                     </div><!-- /.contact-timing -->
                     <!-- ============================================================= INFORMATION : END ============================================================= -->
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2">
+                    <div class="module-body outer-top-xs">
+                        <ul class="toggle-footer" style="">
+                            <li class="">
+                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/privacy" target="_blank">Privacy Policy</a>
+                            </li>
+                            <li class="">
+                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/terms" target="_blank">Terms & Conditions</a>
+                            </li>
+                            <li class="">
+                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/refund" target="_blank">Cancellation & Refund Policy</a>
+                            </li>
+                            <li class="">
+                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/shipping" target="_blank">Shipping & Delivery Policy</a>
+                            </li>
+                            <li class="">
+                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/contact_us" target="_blank">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <HR />

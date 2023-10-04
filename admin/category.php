@@ -98,7 +98,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<form class="form-horizontal row-fluid" name="Category" method="post">
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Category Name</label>
+											<label class="control-label" for="basicinput">Category Name <span>*</span></label>
 											<div class="controls">
 												<input type="text" placeholder="Enter category Name" name="category"
 													class="span8 tip" required>

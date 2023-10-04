@@ -131,7 +131,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										enctype="multipart/form-data">
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Category</label>
+											<label class="control-label" for="basicinput">Category <span>*</span></label>
 											<div class="controls">
 												<select name="category" class="span8 tip" onChange="getSubcat(this.value);"
 													required>
@@ -149,7 +149,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Sub Category</label>
+											<label class="control-label" for="basicinput">Sub Category <span>*</span></label>
 											<div class="controls">
 												<select name="subcategory" id="subcategory" class="span8 tip" required>
 												</select>
@@ -158,7 +158,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Name</label>
+											<label class="control-label" for="basicinput">Product Name <span>*</span></label>
 											<div class="controls">
 												<input type="text" name="productName" placeholder="Enter Product Name"
 													class="span8 tip" required>
@@ -166,7 +166,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Company</label>
+											<label class="control-label" for="basicinput">Product Company <span>*</span></label>
 											<div class="controls">
 												<input type="text" name="productCompany"
 													placeholder="Enter Product Comapny Name" class="span8 tip" required>
@@ -174,7 +174,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Product Price Before
-												Discount</label>
+												Discount <span>*</span></label>
 											<div class="controls">
 												<input type="text"
 													onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -185,7 +185,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Product Price After
-												Discount(Selling Price)</label>
+												Discount(Selling Price) <span>*</span></label>
 											<div class="controls">
 												<input type="text"
 													onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -204,7 +204,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Shipping Charge</label>
+											<label class="control-label" for="basicinput">Product Shipping Charge <span>*</span></label>
 											<div class="controls">
 												<input type="text"
 													onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -214,7 +214,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Availability</label>
+											<label class="control-label" for="basicinput">Product Availability <span>*</span></label>
 											<div class="controls">
 												<select name="productAvailability" id="productAvailability"
 													class="span8 tip" required>
@@ -227,7 +227,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Rating</label>
+											<label class="control-label" for="basicinput">Product Rating <span>*</span></label>
 											<div class="controls">
 												<select name="productRating" id="productRating" class="span8 tip" required>
 													<option value="">Select</option>
@@ -243,7 +243,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Image1</label>
+											<label class="control-label" for="basicinput">Product Image1 <span>*</span></label>
 											<div class="controls">
 												<input type="file" name="productimage1" id="productimage1" value=""
 													accept="image/*" class="span8 tip" required>

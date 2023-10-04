@@ -5,6 +5,8 @@ use Razorpay\Api\Api;
 use Razorpay\Api\Errors\SignatureVerificationError;
 $keyId = 'rzp_test_TIvjJmBIbM2Kci';
 $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
+// $keyId = 'rzp_test_mCBWr5F7S9wokz';        
+// $keySecret = '0GpW3L1LWUfnTURo5HmuB8Iu';
 $displayCurrency = 'INR';
 $api = new Api($keyId, $keySecret);
 $razorpayPaymentId = 0;
@@ -53,6 +55,7 @@ if (strlen($_SESSION['login']) == 0) {
     $razorpayOrderId = $_SESSION['razorpay_order_id'];
     //echo "<BR/>Session Order ID - ".$razorpayOrderId;
     $secret = "grIOrCY9qMtAsAeBrylYyYPi";
+    // $secret = '0GpW3L1LWUfnTURo5HmuB8Iu';
     $string = $razorpayOrderId . "|" . $razorpayPaymentId;
     $GeneratedSign = hash_hmac('sha256', $string, $secret);
     //echo "<BR/>".$GeneratedSign;

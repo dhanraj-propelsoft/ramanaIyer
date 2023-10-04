@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 		</script>";
 	}
 }
-// Code for User login
+// Code for Customer login
 if (isset($_POST['login'])) {
 	$email = $_POST['email'];
 	$password = md5($_POST['password']);

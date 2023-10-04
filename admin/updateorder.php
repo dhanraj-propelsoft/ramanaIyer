@@ -76,8 +76,8 @@ Swal.fire({
                       <thead>
                         <tr>
                           <th>At Date</th>
-                          <th>Status</th>
-                          <th width="300px">Remark</th>
+                          <th>Status <span style="color: red;">*</span></th>
+                          <th width="300px">Remark <span style="color: red;">*</span></th>
 
                         </tr>
                       </thead>

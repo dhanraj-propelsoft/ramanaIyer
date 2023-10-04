@@ -1722,3 +1722,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', end
 	min-width: 10px;
 	overflow-wrap: anywhere;
 }
+.control-label span {
+	color: red;
+}

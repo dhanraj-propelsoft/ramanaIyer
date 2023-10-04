@@ -12,7 +12,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$result1 = mysqli_query($con, "SELECT * FROM orders WHERE productId='" . $_GET['id'] . "' AND (orderStatus IS NULL OR orderStatus!='Delivered')");
 		$row_cnt1 = mysqli_num_rows($result1);
 		if ($row_cnt1 > 0) {
-			$_SESSION['delmsg'] = "Could not delete since this product has been ordered by user !!";
+			$_SESSION['delmsg'] = "Could not delete since this product has been ordered by customer !!";
 		} else {
 			$dirname = "productimages/" . $_GET['id'];
 			array_map('unlink', glob("$dirname/*.*"));

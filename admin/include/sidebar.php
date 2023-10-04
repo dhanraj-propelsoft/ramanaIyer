@@ -78,14 +78,14 @@
 					echo "act-menu-icon";
 				} ?>">
 					<i class="menu-icon icon-group"></i>
-					All Users
+					All Customers
 				</a>
 			</li>
 
 			<li><a href="user-logs.php" class="<?php if ($actmenu == "userlog") {
 				echo "act-menu-icon";
 			} ?>"><i
-						class="menu-icon icon-tasks"></i>User Login Log </a></li>
+						class="menu-icon icon-tasks"></i>Customer login log </a></li>
 
 
 		</ul>

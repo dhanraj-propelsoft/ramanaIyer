@@ -50,6 +50,9 @@ if (strlen($_SESSION['login']) == 0) {
         //session_start();
         $keyId = 'rzp_test_TIvjJmBIbM2Kci';
         $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
+        // $keyId = 'rzp_test_mCBWr5F7S9wokz';        
+        // $keySecret = '0GpW3L1LWUfnTURo5HmuB8Iu';
+        
         $displayCurrency = 'INR';
         $api = new Api($keyId, $keySecret);
         //
@@ -147,7 +150,7 @@ if (strlen($_SESSION['login']) == 0) {
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields
     */
     options.handler = function (response){
-        console.log(response);
+        //console.log(response);
         var formData = new FormData();
         formData.append('razorpay_payment_id', response.razorpay_payment_id);
         formData.append('razorpay_order_id', response.razorpay_order_id);
@@ -199,7 +202,7 @@ if (strlen($_SESSION['login']) == 0) {
     var rzp = new Razorpay(options);
     rzp.open();
     rzp.on('payment.failed', function (response){
-        console.log(response);
+        //console.log(response);
         var formData = new FormData();
         formData.append('razorpay_payment_id', response.error.metadata.payment_id);
         formData.append('razorpay_order_id', response.error.metadata.order_id);

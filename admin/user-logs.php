@@ -46,9 +46,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>User Email</th>
-												<th>User Name</th>
-												<th>User Mobile No</th>
+												<th>Customer Email</th>
+												<th>Customer Name</th>
+												<th>Customer Mobile No</th>
 												<th>Login Time</th>
 												<th>Logout Time </th>
 											</tr>

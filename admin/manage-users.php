@@ -63,7 +63,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Name</th>
+												<th>Customer Name</th>
 												<th>Email </th>
 												<th>Contact no</th>
 												<th>Shippping Address / City / State / Pincode </th>

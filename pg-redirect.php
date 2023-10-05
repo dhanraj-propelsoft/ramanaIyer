@@ -112,6 +112,7 @@ if (strlen($_SESSION['login']) == 0) {
         }
         $json = json_encode($data);
         include('includes/header.php');
+        echo "<script>var options = $json;</script>";
     }
 }
 ?>
@@ -143,8 +144,6 @@ if (strlen($_SESSION['login']) == 0) {
 </div>
 <div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
 <script>
-    // Checkout details as a json
-    var options = <?=$json?>;
     /**
     * The entire list of Checkout fields is available at
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields

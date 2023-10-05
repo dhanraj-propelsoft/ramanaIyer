@@ -41,8 +41,9 @@ if (strlen($_SESSION['login']) == 0) {
 									</tr>
 								</tfoot>
 								<tbody>
+									<div id="ack"></div>
 									<?php
-									$ret = mysqli_query($con, "select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");
+									$ret = mysqli_query($con, "select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,products.productAvailability as pAvailability,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");
 									$num = mysqli_num_rows($ret);
 									if ($num > 0) {
 										$rating = 0;
@@ -86,14 +87,21 @@ if (strlen($_SESSION['login']) == 0) {
 													</div>
 												</td>
 												<td class="col-md-2">
-													<div id="ack"></div>
+													<?php if ($row['pAvailability'] == 'In Stock') { ?>
 													<a onclick="CartList('<?php echo $row['pid']; ?>')"
 														class="btn-upper btn btn-primary"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</a>
+													<?php } else if ($row['pAvailability'] == 'Out of Stock') { ?>
+														<div class="action" style="color:red">Out of Stock
+														</div>
+													<?php } else { ?>
+														<div class="action" style="color:red">Against Order
+														</div>
+													<?php } ?>
 												</td>
 												<td class="col-md-2 close-btn">
-													<a onClick="DelWish('<?php echo htmlentities($row['wid']); ?>')"><i
-															class="fa fa-times"></i></a>
+													<a style="cursor: pointer;" onClick="DelWish('<?php echo htmlentities($row['wid']); ?>')"><i
+															class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 										<?php }

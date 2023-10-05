@@ -103,28 +103,14 @@ if (strlen($_SESSION['login']) == 0) {
 							<!-- checkout-step-01  -->
 							<div class="panel panel-default checkout-step-01">
 
-								<!-- panel-heading -->
-								<div class="panel-heading">
-									<h4 class="unicase-checkout-title">
-										<a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-											Select your Payment Method
-										</a>
-									</h4>
-								</div>
-								<!-- panel-heading -->
-
 								<div id="collapseOne" class="panel-collapse collapse in">
 
 									<!-- panel-body  -->
-									<div class="panel-body">
+									<div class="panel-body" align="center">
 										<form name="payment" method="post">
 											<input type="radio" name="paymethod" value="COD" checked="checked"> COD &nbsp;
-											<input type="radio" name="paymethod" value="Internet Banking"> Internet Banking &nbsp;
-											<input type="radio" name="paymethod" value="Debit / Credit card"> Debit / Credit
-											card <br /><br />
+											<input type="radio" name="paymethod" value="PREPAID"> UPI / Internet Banking / Debit Card / Credit Card / Wallet<br /><br />
 											<input type="submit" value="SUBMIT" name="submit" class="btn btn-primary">
-
-
 										</form>
 									</div>
 									<!-- panel-body  -->

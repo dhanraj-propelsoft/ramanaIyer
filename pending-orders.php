@@ -39,9 +39,9 @@ if (strlen($_SESSION['login']) == 0) {
 											<th class="cart-product-name item">Product Name</th>
 
 											<th class="cart-qty item">Quantity</th>
-											<th class="cart-sub-total item">Price Per unit</th>
+											<th class="cart-sub-total item">Price Per Unit</th>
 											<th class="cart-sub-total item">Shiping Charge</th>
-											<th class="cart-total">Grandtotal</th>
+											<th class="cart-total">Grand Total</th>
 											<th class="cart-total item">Payment Method</th>
 											<th class="cart-description item">Order Date</th>
 											<th class="cart-total last-item">Action</th>

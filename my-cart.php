@@ -49,7 +49,7 @@ include('includes/header.php');
 											<th class="cart-qty item">Quantity</th>
 											<th class="cart-sub-total item">Price Per unit</th>
 											<th class="cart-sub-total item">Shipping Charge</th>
-											<th class="cart-total last-item">Grandtotal</th>
+											<th class="cart-total last-item">Grand Total</th>
 										</tr>
 									</thead><!-- /thead -->
 									<tfoot>

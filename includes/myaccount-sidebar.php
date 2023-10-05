@@ -4,7 +4,7 @@
 	<div class="panel-group">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    	<h4 class="unicase-checkout-title">My Account</h4>
 		    </div>
 		    <div class="panel-body">
 				<ul class="nav nav-checkout-progress list-unstyled">

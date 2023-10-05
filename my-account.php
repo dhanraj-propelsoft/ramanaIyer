@@ -59,7 +59,7 @@
 				<div class="breadcrumb-inner">
 					<ul class="list-inline list-unstyled">
 						<li><a href="index.php">Home</a></li>
-						<li class='active'>Checkout</li>
+						<li class='active'>Account</li>
 					</ul>
 				</div><!-- /.breadcrumb-inner -->
 			</div><!-- /.container -->

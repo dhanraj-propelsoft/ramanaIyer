@@ -118,21 +118,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="controls">
 													<select name="category" class="span8 tip" onChange="getSubcat(this.value);"
 														required>
-														<option value="<?php echo htmlentities($row['cid']); ?>">
-															<?php echo htmlentities($row['catname']); ?>
-														</option>
 														<?php $query = mysqli_query($con, "select * from category");
 														while ($rw = mysqli_fetch_array($query)) {
-															if ($row['catname'] == $rw['categoryName']) {
-																continue;
-															} else {
 																?>
 
-																<option value="<?php echo $rw['id']; ?>">
-																	<?php echo $rw['categoryName']; ?>
-																</option>
-															<?php }
-														} ?>
+															<option value="<?php echo $rw['id']; ?>" <?php if ($row['cid'] == $rw['id']) { echo "selected"; } ?>>
+																<?php echo $rw['categoryName']; ?>
+															</option>
+														<?php } ?>
 													</select>
 												</div>
 											</div>
@@ -213,12 +206,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="controls">
 													<select name="productAvailability" id="productAvailability"
 														class="span8 tip" required>
-														<option value="<?php echo htmlentities($row['productAvailability']); ?>">
-															<?php echo htmlentities($row['productAvailability']); ?>
-														</option>
-														<option value="In Stock">In Stock</option>
-														<option value="Out of Stock">Out of Stock</option>
-														<option value="Against Order">Against Order</option>
+														<option value="In Stock" <?php if ($row['productAvailability'] == "In Stock") { echo "selected"; } ?>>In Stock</option>
+														<option value="Out of Stock" <?php if ($row['productAvailability'] == "Out of Stock") { echo "selected"; } ?>>Out of Stock</option>
+														<option value="Against Order" <?php if ($row['productAvailability'] == "Against Order") { echo "selected"; } ?>>Against Order</option>
 													</select>
 												</div>
 											</div>
@@ -229,14 +219,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<label class="control-label" for="basicinput">Product Rating</label>
 												<div class="controls">
 													<select name="productRating" id="productRating" class="span8 tip" required>
-														<option value="<?php echo htmlentities($row['productRating']); ?>">
-															<?php echo htmlentities($row['productRating']); ?>
-														</option>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
+														<option value="1" <?php if ($row['productRating'] == "1") { echo "selected"; } ?>>1</option>
+														<option value="2" <?php if ($row['productRating'] == "2") { echo "selected"; } ?>>2</option>
+														<option value="3" <?php if ($row['productRating'] == "3") { echo "selected"; } ?>>3</option>
+														<option value="4" <?php if ($row['productRating'] == "4") { echo "selected"; } ?>>4</option>
+														<option value="5" <?php if ($row['productRating'] == "5") { echo "selected"; } ?>>5</option>
 													</select>
 												</div>
 											</div>

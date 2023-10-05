@@ -74,21 +74,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<label class="control-label" for="basicinput">Category</label>
 												<div class="controls">
 													<select name="category" class="span8 tip" required>
-														<option value="<?php echo htmlentities($row['id']); ?>">
-															<?php echo htmlentities($catname = $row['categoryName']); ?>
-														</option>
 														<?php $ret = mysqli_query($con, "select * from category");
-														while ($result = mysqli_fetch_array($ret)) {
-															echo $cat = $result['categoryName'];
-															if ($catname == $cat) {
-																continue;
-															} else {
-																?>
-																<option value="<?php echo $result['id']; ?>">
-																	<?php echo $result['categoryName']; ?>
-																</option>
-															<?php }
-														} ?>
+														while ($result = mysqli_fetch_array($ret)) { ?>
+															<option value="<?php echo $result['id']; ?>" <?php if ($row['id'] == $result['id']) { echo "selected"; } ?>>
+																<?php echo $result['categoryName']; ?>
+															</option>
+														<?php } ?>
 													</select>
 												</div>
 											</div>

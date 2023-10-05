@@ -9,9 +9,9 @@ $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
 // $keySecret = '0GpW3L1LWUfnTURo5HmuB8Iu';
 $displayCurrency = 'INR';
 $api = new Api($keyId, $keySecret);
-$razorpayPaymentId = 0;
-$razorpayOrderId = 0;
-$razorpaySignature = 0;
+$razorpayPaymentId = "";
+$razorpayOrderId = "";
+$razorpaySignature = "";
 $razorpayErrorCode = 0;
 $razorpayErrorDesc = 0;
 $razorpayErrorSource = 0;
@@ -19,7 +19,7 @@ $razorpayErrorStep = 0;
 $razorpayErrorReason = 0;
 $paymentStatus = 0;
 $paymentInd = 0;
-//error_reporting(0);
+error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
 } else {
@@ -47,24 +47,28 @@ if (strlen($_SESSION['login']) == 0) {
 
     // echo $_SESSION['total_amt'] . ',' . $_SESSION['receiptNo'] . ',' .$paymentStatus. ',' .$razorpayPaymentId. ',' .$razorpayOrderId. ',' .$razorpaySignature. ',' .$razorpayErrorCode. ',' .$razorpayErrorDesc. ',' .$razorpayErrorSource. ',' .$razorpayErrorStep. ',' .$razorpayErrorReason;
     // exit();
-    // if($razorpayPaymentId == 0)
-    // {
-    //     header('location:index.php');
-    // } else 
+    if (empty($razorpayPaymentId) === true){
+        header('location:index.php');
+    } else 
     {
     $razorpayOrderId = $_SESSION['razorpay_order_id'];
-    //echo "<BR/>Session Order ID - ".$razorpayOrderId;
-    $secret = "grIOrCY9qMtAsAeBrylYyYPi";
-    // $secret = '0GpW3L1LWUfnTURo5HmuB8Iu';
-    $string = $razorpayOrderId . "|" . $razorpayPaymentId;
-    $GeneratedSign = hash_hmac('sha256', $string, $secret);
-    //echo "<BR/>".$GeneratedSign;
-    if ($GeneratedSign == $razorpaySignature) {
-        $paymentInd = 1;
-        $paymentStatus = "SUCCESS";
-    } else {
-        $paymentInd = 0;
-        $paymentStatus = "FAILED";
+
+    if (empty($razorpayPaymentId) === false){
+        try {
+            $attributes = array(
+                'razorpay_order_id' => $razorpayOrderId,
+                'razorpay_payment_id' => $razorpayPaymentId,
+                'razorpay_signature' => $razorpaySignature
+            );
+
+            $api->utility->verifyPaymentSignature($attributes);
+            $paymentInd = 1;
+            $paymentStatus = "SUCCESS";
+        } catch(SignatureVerificationError $e) {
+            $paymentInd = 0;
+            $paymentStatus = "FAILED";
+            $error = 'Razorpay Error : ' . $e->getMessage();
+        }
     }
 
     include('includes/config.php');

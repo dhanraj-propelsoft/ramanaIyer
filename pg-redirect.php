@@ -2,8 +2,7 @@
 session_start();
 require_once('vendor/razorpay/razorpay/Razorpay.php');
 use Razorpay\Api\Api;
-use Razorpay\Api\Errors\SignatureVerificationError;
-//error_reporting(0);
+error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
     exit;
@@ -112,7 +111,6 @@ if (strlen($_SESSION['login']) == 0) {
         }
         $json = json_encode($data);
         include('includes/header.php');
-        echo "<script>var options = $json;</script>";
     }
 }
 ?>
@@ -144,13 +142,15 @@ if (strlen($_SESSION['login']) == 0) {
 </div>
 <div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
 <script>
+    // Checkout details as a json
+    const options = <?=$json?>;
     /**
     * The entire list of Checkout fields is available at
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields
     */
     options.handler = function (response){
         //console.log(response);
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append('razorpay_payment_id', response.razorpay_payment_id);
         formData.append('razorpay_order_id', response.razorpay_order_id);
         formData.append('razorpay_signature', response.razorpay_signature);
@@ -198,11 +198,11 @@ if (strlen($_SESSION['login']) == 0) {
         // space outside checkout form should close the form. (default: false)
         backdropclose: false
     };
-    var rzp = new Razorpay(options);
+    const rzp = new Razorpay(options);
     rzp.open();
     rzp.on('payment.failed', function (response){
         //console.log(response);
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append('razorpay_payment_id', response.error.metadata.payment_id);
         formData.append('razorpay_order_id', response.error.metadata.order_id);
         formData.append('razorpay_error_code', response.error.code);

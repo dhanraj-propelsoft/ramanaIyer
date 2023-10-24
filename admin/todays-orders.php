@@ -76,6 +76,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Qty </th>
 												<th>Amount </th>
 												<th>Order Date</th>
+												<th>Supply Date</th>
 												<th>Action</th>
 
 
@@ -88,7 +89,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$from = date('Y-m-d') . " " . $f1;
 											$t1 = "23:59:59";
 											$to = date('Y-m-d') . " " . $t1;
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND orders.orderDate Between '$from' and '$to'");
+											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND orders.dtSupply Between '$from' and '$to'");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												?>
@@ -96,18 +97,18 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
-													<td class="wrap_td_100">
+													<td class="wrap_td_75">
 														<?php echo htmlentities($row['username']); ?>
 													</td>
-													<td class="wrap_td_100">
+													<td class="wrap_td_75">
 														<?php echo htmlentities($row['useremail']); ?>/
 														<?php echo htmlentities($row['usercontact']); ?>
 													</td>
 
-													<td class="wrap_td_100">
+													<td class="wrap_td_75">
 														<?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?>
 													</td>
-													<td class="wrap_td_100">
+													<td class="wrap_td_75">
 														<?php echo htmlentities($row['productname']); ?>
 													</td>
 													<td class="wrap_td_25">
@@ -118,6 +119,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</td>
 													<td class="wrap_td_50">
 														<?php echo htmlentities($row['orderdate']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo htmlentities($row['dtSupply']); ?>
 													</td>
 													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=orders"
 															title="Update order"><i class="icon-edit"></i></a>

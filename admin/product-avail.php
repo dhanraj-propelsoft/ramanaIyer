@@ -5,10 +5,22 @@ include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
 
+	if (isset($_GET['del'])) {
+		$result1 = mysqli_query($con, "SELECT * FROM orders WHERE productId='" . $_GET['id'] . "' AND (orderStatus IS NULL OR orderStatus!='Delivered')");
+		$row_cnt1 = mysqli_num_rows($result1);
+		if ($row_cnt1 > 0) {
+			$_SESSION['delmsg'] = "Could not delete since this product has been ordered by customer !!";
+		} else {
+			$dirname = "productimages/" . $_GET['id'];
+			array_map('unlink', glob("$dirname/*.*"));
+			rmdir($dirname);
+			mysqli_query($con, "delete from products where id = '" . $_GET['id'] . "'");
+			$_SESSION['delmsg'] = "Product deleted !!";
+		}
+	}
 
 	?>
 	<!DOCTYPE html>
@@ -17,22 +29,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Order Request</title>
+		<title>Admin | Manage Products</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
 		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
-		<script language="javascript" type="text/javascript">
-			var popUpWin = 0;
-			function popUpWindow(URLStr, left, top, width, height) {
-				if (popUpWin) {
-					if (!popUpWin.closed) popUpWin.close();
-				}
-				popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' + 600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
-			}
-
-		</script>
+		<link rel="stylesheet" href="css/sweetalert2.min.css">
+		<script src="assets/js/sweetalert.js"></script>
 	</head>
 
 	<body>
@@ -42,17 +46,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<div class="container">
 				<div class="row">
 					<?php
-					$actmenu = "pending";
+					$actmenu = "prod_avail";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
 						<div class="content">
 
 							<div class="module">
 								<div class="module-head">
-									<b>Order Request</b>
-									<span style="float: right">
+									<b>Manage Products</b>
+                                    <span style="float: right">
                                         <div class="controls">
-                                            <a href="check-contact.php" class="btn btn-ri">Add Order</a>
+                                            <a href="insert-product.php" class="btn btn-ri">Add Product</a>
                                         </div>
                                     </span>
 								</div>
@@ -70,29 +74,22 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 									<table cellpadding="0" cellspacing="0" border="0"
-										class="datatable-1 table table-bordered table-striped	 display table-responsive"
+										class="datatable-1 table table-bordered table-striped	 display"
 										style="width:100%;padding:5px;">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Order Number</th>
-												<th>Delivery Date & Time</th>
-												<th>Customer Name</th>
-												<th>Customer Mobile No / Email</th>
-												<th>Shipping Address</th>
-												<th>Product</th>
-												<th>Quantity</th>
-												<th>Order Date & Time</th>
-												<th>Order by</th>
-
-
+												<th>Product Name</th>
+												<th>Category </th>
+												<th>Subcategory</th>
+												<th>Company Name</th>
+												<th>Avaliablity</th>
+												<th>Action</th>
 											</tr>
 										</thead>
-
 										<tbody>
-											<?php
-											$status = 'Delivered';
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
+
+											<?php $query = mysqli_query($con, "select products.*,category.categoryName,subcategory.subcategory from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												?>
@@ -100,33 +97,29 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
-													<td><?php echo htmlentities($row['id']); ?></td>
-													<td><?php echo htmlentities($row['dtSupply']); ?></td>
-													<td class="wrap_td_50">
-														<?php echo htmlentities($row['username']); ?>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row['productName']); ?>
 													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['useremail']); ?>/
-														<?php echo htmlentities($row['usercontact']); ?>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row['categoryName']); ?>
 													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row['subcategory']); ?>
 													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['productname']); ?>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row['productCompany']); ?>
 													</td>
-													<td class="wrap_td_10">
-														<?php echo htmlentities($row['quantity']); ?>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row['prod_avail']); ?>
 													</td>
-													<td class="wrap_td_50">
-														<?php echo htmlentities($row['orderdate']); ?>
+													<td>
+														<a href="insert-avail.php?id=<?php echo $row['id'] ?>"><i
+																class="icon-edit"></i></a>
 													</td>
-													<td></td>
 												</tr>
-
 												<?php $cnt = $cnt + 1;
 											} ?>
-										</tbody>
+
 									</table>
 								</div>
 							</div>
@@ -154,6 +147,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 			});
+
+			function delPopup(ele) {
+				Swal.fire({
+					title: 'Warning!',
+					text: 'Are you sure you want to delete?',
+					icon: 'info',
+					showCancelButton: true,
+					confirmButtonText: 'Yes',
+					cancelButtonText: 'No'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						window.location.href = 'manage-products.php?id=' + ele + '&del=delete';
+					}
+				});
+			}
 		</script>
 	</body>
 <?php } ?>

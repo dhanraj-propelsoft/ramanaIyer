@@ -29,7 +29,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Manage Products</title>
+		<title>Admin | Products</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -53,7 +53,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Manage Products</h3>
+									<b>Products</b>
+                                    <span style="float: right">
+                                        <div class="controls">
+                                            <a href="insert-product.php" class="btn btn-ri">Add Product</a>
+                                        </div>
+                                    </span>
 								</div>
 								<div class="module-body table">
 									<?php if (isset($_GET['del'])) { ?>

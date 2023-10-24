@@ -16,9 +16,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$productdescription = $_POST['productDescription'];
 		$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
+		$allow_ao = $_POST['allow_ao'];
 		$productrating = $_POST['productRating'];
 
-		$sql = mysqli_query($con, "update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productRating='$productrating',productPriceBeforeDiscount='$productpricebd' where id='$pid' ");
+		$sql = mysqli_query($con, "update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productRating='$productrating',productPriceBeforeDiscount='$productpricebd',allow_ao='$allow_ao' where id='$pid' ");
 		$_SESSION['msg'] = "Product Updated Successfully !!";
 
 	}
@@ -31,7 +32,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Insert Product</title>
+		<title>Admin | Update Product</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -74,7 +75,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Insert Product</h3>
+									<h3>Update Product</h3>
 								</div>
 								<div class="module-body">
 
@@ -202,14 +203,18 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Product Availability</label>
+												<label class="control-label" for="basicinput">Product Status</label>
 												<div class="controls">
 													<select name="productAvailability" id="productAvailability"
-														class="span8 tip" required>
+														class="span8 tip" onchange="chkbox_ed(this.value)" required>
 														<option value="In Stock" <?php if ($row['productAvailability'] == "In Stock") { echo "selected"; } ?>>In Stock</option>
 														<option value="Out of Stock" <?php if ($row['productAvailability'] == "Out of Stock") { echo "selected"; } ?>>Out of Stock</option>
 														<option value="Against Order" <?php if ($row['productAvailability'] == "Against Order") { echo "selected"; } ?>>Against Order</option>
 													</select>
+												</div>
+												<div class="controls">
+													<input type="checkbox" id="allow_ao" name="allow_ao" value="1" <?php if ($row['allow_ao'] == "1") { echo "checked"; } ?>/> 
+													Allow Against Order if sale order exceeds availability
 												</div>
 											</div>
 
@@ -282,18 +287,25 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<?php include('include/footer.php'); ?>
 
 		<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-		<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-		<script src="scripts/datatables/jquery.dataTables.js"></script>
 		<script>
-			$(document).ready(function () {
-				$('.datatable-1').dataTable();
-				$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-				$('.dataTables_paginate > a').wrapInner('<span />');
-				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-			});
+			chkbox_ed($('#productAvailability').val());
+			function chkbox_ed(ele) {
+				if(ele == "Against Order")
+				{
+					document.getElementById("allow_ao").disabled = false;
+					$("#allow_ao").prop('checked', true).attr("onclick", 'return false');
+				}						
+				else if(ele == "Out of Stock")
+				{
+					document.getElementById("allow_ao").disabled = true;
+					$("#allow_ao").prop('checked', false).attr("onclick", 'return true');
+				}					
+				else
+				{
+					document.getElementById("allow_ao").disabled = false;
+					$("#allow_ao").prop('checked', false).attr("onclick", 'return true');
+				}
+			}
 		</script>
 	</body>
 <?php } ?>

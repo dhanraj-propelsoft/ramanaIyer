@@ -4,25 +4,24 @@
 
 		<ul class="widget widget-menu unstyled">
 			<li>
-				<a class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered")) {
+				<a class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise")) {
 					echo "act-menu-icon";
 				} else {
 					echo "collapsed";
 				} ?>"
 					data-toggle="collapse" href="#togglePages">
-					<i class="menu-icon icon-cog"></i>
-					<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
-					Order Management
+					<i class="menu-icon icon-shopping-cart"></i>
+					<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>Order Management
 				</a>
 				<ul id="togglePages"
-					class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered")) {
+					class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise")) {
 						echo "in ";
 					} ?>collapse unstyled">
 					<li>
 						<a href="todays-orders.php" class="<?php if ($actmenu == "orders") {
 							echo "act-menu-icon";
 						} ?>">
-							<i class="icon-tasks"></i>
+							<i class="icon-circle-blank"></i>
 							Today's Orders
 							<?php
 							$f1 = "00:00:00";
@@ -43,8 +42,8 @@
 							class="<?php if ($actmenu == "pending") {
 								echo "act-menu-icon";
 							} ?>">
-							<i class="icon-tasks"></i>
-							Pending Orders
+							<i class="icon-circle"></i>
+							Order Request
 							<?php
 							$status = 'Delivered';
 							$ret = mysqli_query($con, "SELECT * FROM orders where paymentMethod IS NOT NULL AND (orderStatus!='$status' OR orderStatus is null)");
@@ -59,7 +58,7 @@
 							class="<?php if ($actmenu == "delivered") {
 								echo "act-menu-icon";
 							} ?>">
-							<i class="icon-inbox"></i>
+							<i class="icon-check"></i>
 							Delivered Orders
 							<?php
 							$status = 'Delivered';
@@ -71,21 +70,29 @@
 
 						</a>
 					</li>
+					<li>
+						<a href="itemwise.php"
+							class="<?php if ($actmenu == "itemwise") {
+								echo "act-menu-icon";
+							} ?>">
+							<i class="icon-check"></i>
+							Itemwise Order
+						</a>
+					</li>
 				</ul>
 			</li>
 			<li>
 				<a href="manage-users.php" class="<?php if ($actmenu == "allusers") {
 					echo "act-menu-icon";
 				} ?>">
-					<i class="menu-icon icon-group"></i>
-					All Customers
+					<i class="menu-icon icon-group"></i>All Customers
 				</a>
 			</li>
 
 			<li><a href="user-logs.php" class="<?php if ($actmenu == "userlog") {
 				echo "act-menu-icon";
 			} ?>"><i
-						class="menu-icon icon-tasks"></i>Customer login log </a></li>
+						class="menu-icon icon-cloud"></i>Customer login log </a></li>
 
 
 		</ul>
@@ -95,20 +102,24 @@
 			<li><a href="category.php" class="<?php if ($actmenu == "category") {
 				echo "act-menu-icon";
 			} ?>"><i
-						class="menu-icon icon-tasks"></i> Create Category </a></li>
+						class="menu-icon icon-tasks"></i>Create Category </a></li>
 			<li><a href="subcategory.php" class="<?php if ($actmenu == "subcategory") {
 				echo "act-menu-icon";
 			} ?>"><i
 						class="menu-icon icon-tasks"></i>Sub Category </a></li>
-			<li><a href="insert-product.php" class="<?php if ($actmenu == "ins_product") {
+			<li><a href="product-avail.php" class="<?php if ($actmenu == "prod_avail") {
 				echo "act-menu-icon";
 			} ?>"><i
-						class="menu-icon icon-paste"></i>Insert Product </a></li>
+						class="menu-icon icon-tag"></i>Manage Product</a></li>
+			<li><a href="manage-combos.php" class="<?php if ($actmenu == "ins_combo") {
+				echo "act-menu-icon";
+			} ?>"><i
+						class="menu-icon icon-tags"></i>Combo Offer</a></li>
 			<li><a href="manage-products.php"
 					class="<?php if ($actmenu == "all_product") {
 						echo "act-menu-icon";
 					} ?>"><i
-						class="menu-icon icon-table"></i>Manage Products </a></li>
+						class="menu-icon icon-tag"></i>Products</a></li>
 
 		</ul><!--/.widget-nav-->
 

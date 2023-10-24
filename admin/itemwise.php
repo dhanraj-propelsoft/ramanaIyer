@@ -1,11 +1,10 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
 
@@ -17,7 +16,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Order Request</title>
+		<title>Admin | Itemwise Orders</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -42,19 +41,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<div class="container">
 				<div class="row">
 					<?php
-					$actmenu = "pending";
+					$actmenu = "itemwise";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
 						<div class="content">
 
 							<div class="module">
 								<div class="module-head">
-									<b>Order Request</b>
-									<span style="float: right">
-                                        <div class="controls">
-                                            <a href="check-contact.php" class="btn btn-ri">Add Order</a>
-                                        </div>
-                                    </span>
+									<h3>Itemwise Orders</h3>
 								</div>
 								<div class="module-body table">
 									<?php if (isset($_GET['del'])) { ?>
@@ -75,57 +69,40 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Order Number</th>
-												<th>Delivery Date & Time</th>
-												<th>Customer Name</th>
-												<th>Customer Mobile No / Email</th>
-												<th>Shipping Address</th>
-												<th>Product</th>
-												<th>Quantity</th>
-												<th>Order Date & Time</th>
-												<th>Order by</th>
-
-
+												<th>Date</th>
+												<th>Item</th>
+												<th>Required Quantity</th>
 											</tr>
 										</thead>
 
 										<tbody>
 											<?php
-											$status = 'Delivered';
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
 											$cnt = 1;
+                                            $query = mysqli_query($con, "SELECT DISTINCT DATE_FORMAT(dtSupply, '%Y-%m-%d') AS dtSupply FROM orders WHERE dtSupply IS NOT NULL AND paymentMethod IS NOT NULL AND (orderStatus!='Delivered' OR orderStatus IS NULL) ORDER BY (dtSupply) ASC");
 											while ($row = mysqli_fetch_array($query)) {
-												?>
-												<tr>
-													<td>
-														<?php echo htmlentities($cnt); ?>
-													</td>
-													<td><?php echo htmlentities($row['id']); ?></td>
-													<td><?php echo htmlentities($row['dtSupply']); ?></td>
-													<td class="wrap_td_50">
-														<?php echo htmlentities($row['username']); ?>
-													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['useremail']); ?>/
-														<?php echo htmlentities($row['usercontact']); ?>
-													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?>
-													</td>
-													<td class="wrap_td_75">
-														<?php echo htmlentities($row['productname']); ?>
-													</td>
-													<td class="wrap_td_10">
-														<?php echo htmlentities($row['quantity']); ?>
-													</td>
-													<td class="wrap_td_50">
-														<?php echo htmlentities($row['orderdate']); ?>
-													</td>
-													<td></td>
-												</tr>
+                                                
+                                                $query1 = mysqli_query($con, "SELECT SUM(orders.quantity) AS quanSum,products.productName AS productname,orders.quantity AS quantity,orders.dtSupply AS dtSupply,orders.id AS id  FROM orders JOIN users ON  orders.userId=users.id JOIN products ON products.id=orders.productId AND dtSupply IS NOT NULL AND paymentMethod IS NOT NULL AND (orderStatus!='Delivered' OR orderStatus IS NULL) AND orders.dtSupply LIKE '%".$row['dtSupply']."%' GROUP BY orders.productId");
+                                                
+                                                while ($row1 = mysqli_fetch_array($query1)) {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo htmlentities($cnt); ?>
+                                                        </td>
+                                                        <td class="wrap_td_100">
+                                                            <?php echo htmlentities(date('Y-m-d', strtotime($row1['dtSupply']))); ?>
+                                                        </td>
+                                                        <td class="wrap_td_100">
+                                                            <?php echo htmlentities($row1['productname']); ?>
+                                                        </td>
+                                                        <td class="wrap_td_100">
+                                                            <?php echo htmlentities($row1['quanSum']); ?>
+                                                        </td>
+                                                    </tr>
 
-												<?php $cnt = $cnt + 1;
-											} ?>
+                                                    <?php $cnt++;
+                                                }
+                                            } ?>
 										</tbody>
 									</table>
 								</div>

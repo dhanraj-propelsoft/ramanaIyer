@@ -17,6 +17,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$productdescription = $_POST['productDescription'];
 		$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
+		$allow_ao = $_POST['allow_ao'];
 		$productrating = $_POST['productRating'];
 		$productimage1 = $_FILES["productimage1"]["name"];
 		if (isset($_FILES["productimage2"]["name"]))
@@ -24,7 +25,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		if (isset($_FILES["productimage3"]["name"]))
 			$productimage3 = $_FILES["productimage3"]["name"];
 
-		$sql = mysqli_query($con, "insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd')");
+		$sql = mysqli_query($con, "insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount,allow_ao) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd','$allow_ao')");
 
 		//for getting product id
 		$query1 = mysqli_query($con, "select max(id) as pid from products");
@@ -87,7 +88,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<div class="container">
 				<div class="row">
 					<?php
-					$actmenu = "ins_product";
+					$actmenu = "all_product";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
 						<div class="content">
@@ -214,18 +215,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 
 										<div class="control-group">
-											<label class="control-label" for="basicinput">Product Availability <span>*</span></label>
+											<label class="control-label" for="basicinput">Product Status <span>*</span></label>
 											<div class="controls">
 												<select name="productAvailability" id="productAvailability"
-													class="span8 tip" required>
+													class="span8 tip" onchange="chkbox_ed(this.value)" required>
 													<option value="">Select</option>
 													<option value="In Stock">In Stock</option>
 													<option value="Out of Stock">Out of Stock</option>
 													<option value="Against Order">Against Order</option>
 												</select>
 											</div>
+											<div class="controls">
+												<input type="checkbox" id="allow_ao" name="allow_ao" value="1" /> 
+												Allow Against Order if sale order exceeds availability
+											</div>
 										</div>
-
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Product Rating <span>*</span></label>
 											<div class="controls">
@@ -289,18 +293,24 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<?php include('include/footer.php'); ?>
 
 		<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-		<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-		<script src="scripts/datatables/jquery.dataTables.js"></script>
 		<script>
-			$(document).ready(function () {
-				$('.datatable-1').dataTable();
-				$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-				$('.dataTables_paginate > a').wrapInner('<span />');
-				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-			});
+			function chkbox_ed(ele) {
+				if(ele == "Against Order")
+				{
+					document.getElementById("allow_ao").disabled = false;
+					$("#allow_ao").prop('checked', true).attr("onclick", 'return false');
+				}						
+				else if(ele == "Out of Stock")
+				{
+					document.getElementById("allow_ao").disabled = true;
+					$("#allow_ao").prop('checked', false).attr("onclick", 'return true');
+				}					
+				else
+				{
+					document.getElementById("allow_ao").disabled = false;
+					$("#allow_ao").prop('checked', false).attr("onclick", 'return true');
+				}
+			}
 		</script>
 	</body>
 <?php } ?>

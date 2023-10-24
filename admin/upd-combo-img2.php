@@ -5,16 +5,18 @@ include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-	$pid = intval($_GET['id']); // product id
+	$pid = intval($_GET['id']); // combo id
 	if (isset($_POST['submit'])) {
-		$productname = $_POST['productName'];
-		$productimage3 = $_FILES["productimage3"]["name"];
+		$comboname = $_POST['comboName'];
+		$comboimage2 = $_FILES["comboimage2"]["name"];
+
+		//dir="comboimages";
+//unlink($dir.'/'.$pimage);
 
 
-
-		move_uploaded_file($_FILES["productimage3"]["tmp_name"], "productimages/$pid/" . $_FILES["productimage3"]["name"]);
-		$sql = mysqli_query($con, "update  products set productImage3='$productimage3' where id='$pid' ");
-		$_SESSION['msg'] = "Product Image Updated Successfully !!";
+		move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$pid/" . $_FILES["comboimage2"]["name"]);
+		$sql = mysqli_query($con, "update  combo set comboImage2='$comboimage2' where id='$pid' ");
+		$_SESSION['msg'] = "Combo Image Updated Successfully !!";
 
 	}
 
@@ -26,7 +28,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Update Product Image 3</title>
+		<title>Admin | Update Combo Image 2</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -61,15 +63,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<div class="wrapper">
 			<div class="container">
 				<div class="row">
-					<?php
-					$actmenu = "all_product";
+					<?php $actmenu = "ins_combo";
 					include('include/sidebar.php'); ?>
 					<div class="span9">
 						<div class="content">
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Update Product Image 3</h3>
+									<h3>Update Combo Image 2</h3>
 								</div>
 								<div class="module-body">
 
@@ -86,12 +87,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 									<br />
 
-									<form class="form-horizontal row-fluid" name="insertproduct" method="post"
+									<form class="form-horizontal row-fluid" name="insertcombo" method="post"
 										enctype="multipart/form-data">
 
 										<?php
 
-										$query = mysqli_query($con, "select productName,productImage3 from products where id='$pid'");
+										$query = mysqli_query($con, "select comboName,comboImage2 from combo where id='$pid'");
 										$cnt = 1;
 										while ($row = mysqli_fetch_array($query)) {
 
@@ -101,19 +102,19 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Product Name</label>
+												<label class="control-label" for="basicinput">Combo Name</label>
 												<div class="controls">
-													<input type="text" name="productName" readonly
-														value="<?php echo htmlentities($row['productName']); ?>"
+													<input type="text" name="comboName" readonly
+														value="<?php echo htmlentities($row['comboName']); ?>"
 														class="span8 tip" required>
 												</div>
 											</div>
 
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Current Product Image1</label>
+												<label class="control-label" for="basicinput">Current Combo Image1</label>
 												<div class="controls">
-													<img src="productimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['productImage3']); ?>"
+													<img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage2']); ?>"
 														width="200" height="100">
 												</div>
 											</div>
@@ -121,9 +122,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">New Product Image3</label>
+												<label class="control-label" for="basicinput">New Combo Image2</label>
 												<div class="controls">
-													<input type="file" name="productimage3" id="productimage3" value=""
+													<input type="file" name="comboimage2" id="comboimage2" value=""
 														class="span8 tip" required>
 												</div>
 											</div>
@@ -134,7 +135,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="control-group">
 											<div class="controls">
 												<input class="btn" type="button" value="Back"
-													onclick="window.location.href = 'edit-products.php?id=<?php echo $pid; ?>'" />
+													onclick="window.location.href = 'edit-combo.php?id=<?php echo $pid; ?>'" />
 												<button type="submit" name="submit" class="btn">Update</button>
 											</div>
 										</div>

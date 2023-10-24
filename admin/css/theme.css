@@ -1710,6 +1710,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', end
 	min-width: 100px;
 	overflow-wrap: anywhere;
 }
+.wrap_td_75 {
+	min-width: 75px;
+	overflow-wrap: anywhere;
+}
 .wrap_td_50 {
 	min-width: 50px;
 	overflow-wrap: anywhere;
@@ -1724,4 +1728,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', end
 }
 .control-label span {
 	color: red;
+}
+.btn-ri {
+	background: #c5161d;
+	color: #ffffff;
 }

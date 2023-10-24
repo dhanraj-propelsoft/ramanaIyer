@@ -303,7 +303,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 				else
 				{
 					document.getElementById("allow_ao").disabled = false;
-					$("#allow_ao").prop('checked', false).attr("onclick", 'return true');
+					$("#allow_ao").attr("onclick", 'return true');
 				}
 			}
 		</script>

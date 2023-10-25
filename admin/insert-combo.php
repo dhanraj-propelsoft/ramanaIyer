@@ -33,6 +33,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         if (!is_dir($dir)) {
             mkdir("comboimages/" . $comboid);
         }
+      
         move_uploaded_file($_FILES["comboimage1"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage1"]["name"]);
         if (isset($_FILES["comboimage2"]["name"]))
             move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage2"]["name"]);

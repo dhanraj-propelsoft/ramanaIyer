@@ -53,12 +53,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-									<b>Manage Products</b>
-                                    <span style="float: right">
-                                        <div class="controls">
-                                            <a href="insert-product.php" class="btn btn-ri">Add Product</a>
-                                        </div>
-                                    </span>
+									<h3>Manage Products</h3>
 								</div>
 								<div class="module-body table">
 									<?php if (isset($_GET['del'])) { ?>

@@ -33,13 +33,13 @@ if (isset($_POST['submit'])) {
 }
 // Code for Customer login
 if (isset($_POST['login'])) {
-	$email = $_POST['email'];
+	$contactno = $_POST['contactno'];
 	$password = md5($_POST['password']);
-	$query = mysqli_query($con, "SELECT * FROM users WHERE email='$email' and password='$password'");
+	$query = mysqli_query($con, "SELECT * FROM users WHERE contactno='$contactno' and password='$password'");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
 		$extra = "index.php";
-		$_SESSION['login'] = $_POST['email'];
+		$_SESSION['login'] = $_POST['contactno'];
 		$_SESSION['id'] = $num['id'];
 		$_SESSION['username'] = $num['name'];
 
@@ -78,16 +78,16 @@ if (isset($_POST['login'])) {
 		// </script>";
 	} else {
 		$extra = "login.php";
-		$email = $_POST['email'];
+		$contactno = $_POST['contactno'];
 		$uip = $_SERVER['REMOTE_ADDR'];
 		$status = 0;
-		$log = mysqli_query($con, "insert into userlog(userEmail,userip,status) values('$email','$uip','$status')");
+		$log = mysqli_query($con, "insert into userlog(userEmail,userip,status) values('$contactno','$uip','$status')");
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		//header("location:http://$host$uri/$extra");
 		$header_loc = "http://$host$uri/$extra";
 		echo "<script>location.href='$header_loc';</script>";
-		$_SESSION['errmsg'] = "Invalid email id or Password";
+		$_SESSION['errmsg'] = "Invalid Mobile no or Password";
 		exit();
 	}
 }
@@ -121,8 +121,8 @@ if (isset($_POST['login'])) {
 								?>
 							</span>
 							<div class="form-group">
-								<label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-								<input type="email" name="email" class="form-control unicase-form-control text-input"
+								<label class="info-title" for="exampleInputEmail1">Mobile Number <span>*</span></label>
+								<input type="contactno" name="contactno" class="form-control unicase-form-control text-input"
 									id="exampleInputEmail1">
 							</div>
 							<div class="form-group">

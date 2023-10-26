@@ -114,8 +114,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Current Combo Image1</label>
 												<div class="controls">
+													<?php if (!empty($row['comboImage2'])) { ?>
 													<img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage2']); ?>"
 														width="200" height="100">
+													<?php } ?>
 												</div>
 											</div>
 

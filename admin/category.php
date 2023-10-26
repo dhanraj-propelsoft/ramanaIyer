@@ -20,9 +20,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			mysqli_query($con, "insert into category(categoryName,categoryDescription) values('$category','$description')");
 			$_SESSION['msg'] = "<strong>Well done!</strong> Category has been Created !!";
 		}
-	}
-
-	if (isset($_GET['del'])) {
+	} else if (isset($_GET['del'])) {
 		$result1 = mysqli_query($con, "SELECT id from products where category = '" . $_GET['id'] . "'");
 		$row_cnt1 = mysqli_num_rows($result1);
 		if ($row_cnt1 > 0) {
@@ -82,9 +80,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
 												</div>
 										<?php }
-									} ?>
-
-									<?php if (isset($_GET['del'])) { ?>
+									} else if (isset($_GET['del'])) { ?>
 										<div class="alert alert-error">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Oh snap!</strong>

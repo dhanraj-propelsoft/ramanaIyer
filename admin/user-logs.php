@@ -46,7 +46,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Customer Email</th>
 												<th>Customer Name</th>
 												<th>Customer Mobile No</th>
 												<th>Login Time</th>
@@ -58,15 +57,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<?php $query = mysqli_query($con, "select * from userlog");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
-												$query1 = mysqli_query($con, "select * from users WHERE email='" . $row['userEmail'] . "'");
+												$query1 = mysqli_query($con, "select * from users WHERE contactno='" . $row['userEmail'] . "'");
 												while ($row1 = mysqli_fetch_array($query1)) {
 													?>
 													<tr>
 														<td>
 															<?php echo htmlentities($cnt); ?>
-														</td>
-														<td>
-															<?php echo htmlentities($row['userEmail']); ?>
 														</td>
 														<td>
 															<?php echo htmlentities($row1['name']); ?>

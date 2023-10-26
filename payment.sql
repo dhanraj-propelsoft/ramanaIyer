@@ -45,3 +45,5 @@ ALTER TABLE orders ADD COLUMN price varchar(50) DEFAULT NULL;
 ALTER TABLE orders ADD COLUMN dtSupply datetime DEFAULT NULL;
 ALTER TABLE products ADD COLUMN prod_avail varchar(25) DEFAULT NULL;
 ALTER TABLE products ADD COLUMN allow_ao smallint DEFAULT 0;
+ALTER TABLE orders ADD COLUMN orderId varchar(50) DEFAULT NULL;
+ALTER TABLE orders ADD COLUMN orderBy varchar(10) DEFAULT NULL;

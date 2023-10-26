@@ -36,23 +36,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<script src="assets/js/nicEdit-latest.js" type="text/javascript"></script>
 		<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
 
-		<script>
-			function getSubcat(val) {
-				$.ajax({
-					type: "POST",
-					url: "get_subcat.php",
-					data: 'cat_id=' + val,
-					success: function (data) {
-						$("#subcategory").html(data);
-					}
-				});
-			}
-			function selectCountry(val) {
-				$("#search-box").val(val);
-				$("#suggesstion-box").hide();
-			}
-		</script>
-
 
 	</head>
 
@@ -69,7 +52,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Update Product Image 1</h3>
+									<h3>Update Product Image1</h3>
 								</div>
 								<div class="module-body">
 

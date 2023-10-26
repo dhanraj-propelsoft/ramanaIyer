@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
@@ -39,15 +39,15 @@ if (strlen($_SESSION['login']) == 0) {
 
 		mysqli_query($con, "DELETE FROM orders WHERE userId='" . $_SESSION['id'] . "' AND paymentId IS NULL");
 
+		$popupText = "";
+		$redirectUrl = "";
+		$book_type = "";
+		$book_status = "";
+
 		if($_POST['paymethod'] == "COD")
 		{
-			
-			foreach ($value as $qty => $val34) {
-				mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','".$_POST['paymethod']."')");
-			}
-	
-			mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
-			unset($_SESSION['cart']);
+			date_default_timezone_set("Asia/Kolkata");
+			$orderId = "OID_".$_SESSION['id']."_".date("ymdHis");
 
 			$cust_adrs = "";
             $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
@@ -55,27 +55,102 @@ if (strlen($_SESSION['login']) == 0) {
                 $cust_adrs = $row2['shippingAddress'].", ".$row2['shippingState'].", ".$row2['shippingCity'].", ".$row2['shippingPincode'];
             }
 
-			echo "<script>
-			Swal.fire({
-				title: 'Success!',
-				text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
-				icon: 'success',
-				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.isConfirmed) {
-					document.location = 'order-history.php';
+			foreach ($value as $prodId => $quant) {
+				$query3 = mysqli_query($con, "select productName,productAvailability,prod_avail,allow_ao from products where id='" . $prodId . "'");
+				if ($row3 = mysqli_fetch_array($query3)) {
+					$productName = $row3['productName'];
+					$productAvailability = $row3['productAvailability'];
+					$prod_avail = $row3['prod_avail'];
+					$allow_ao = $row3['allow_ao'];
+
+					if($productAvailability == "Out of Stock") {
+						$popupText .= "$productName - Out of Stock!!! ";
+						$book_type = "FULL";
+						$book_status = "FAILURE";
+					} else if($productAvailability == "Against Order") {
+						$popupText .= "$productName - Against Order!!! ";
+						$book_type = "FULL";
+						$book_status = "FAILURE";
+					} else if(($productAvailability == "In Stock") && ($prod_avail < $quant)) {
+						if($allow_ao == '1') {
+							$new_prod_avail = $prod_avail - $quant;
+							if($new_prod_avail < 0)
+								$new_prod_avail = 0;
+							mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
+							$popupText .= "$productName - The ordered quantity will be placed Against the Order. ";
+							unset($_SESSION['cart'][$prodId]);
+							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "");
+							mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer')");
+							$book_type = "PARTIAL";
+							$book_status = "SUCCESS";
+						} else {
+							$popupText .= "$productName - Place the order within the Available Quantity. ";
+							$book_type = "PARTIAL";
+							$book_status = "FAILURE";
+						}
+					} else if(($productAvailability == "In Stock") && ($prod_avail >= $quant)) {
+						$new_prod_avail = $prod_avail - $quant;
+						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
+						unset($_SESSION['cart'][$prodId]);
+						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "'");
+						mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer')");
+						$book_type = "FULL";
+						$book_status = "SUCCESS";
+					}
 				}
-			});
-			</script>";
+			}
+
+			if(($book_type == "FULL") && ($book_status = "SUCCESS"))
+			{
+				echo "<script>
+				Swal.fire({
+					title: 'Success!',
+					text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
+					icon: 'success',
+					confirmButtonText: 'Ok'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						document.location = 'order-history.php';
+					}
+				});
+				</script>";
+			} else if(($book_type == "PARTIAL") && ($book_status = "SUCCESS")) {
+				echo "<script>
+				Swal.fire({
+					title: 'Information!',
+					text: '$popupText',
+					icon: 'info',
+					confirmButtonText: 'Ok'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						document.location = 'my-cart.php';
+					}
+				});
+				</script>";
+			} else if($book_status = "FAILURE") {
+				echo "<script>
+				Swal.fire({
+					title: 'Failed!',
+					text: '$popupText',
+					icon: 'error',
+					confirmButtonText: 'Ok'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						document.location = 'my-cart.php';
+					}
+				});
+				</script>";
+			} 
+
 		} else {
 
 			date_default_timezone_set("Asia/Kolkata");
-			$receiptNo = $_SESSION['id']."_".date("YmdHis");
+			$orderId = "OID_".$_SESSION['id']."_".date("YmdHis");
 			
-			$_SESSION['receiptNo']=$receiptNo;
+			$_SESSION['receiptNo']=$orderId;
 
 			foreach ($value as $qty => $val34) {
-				mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,receiptNo) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$receiptNo')");
+				mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,receiptNo,orderId,orderBy) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$receiptNo','$orderId','Customer')");
 			}
 			//echo "<script>$('#loaderIcon').css('visibility', 'hidden'); $('#loaderIcon').hide();</script>";
 			echo "<script>window.location.href = 'pg-redirect.php';</script>";
@@ -109,7 +184,7 @@ if (strlen($_SESSION['login']) == 0) {
 									<div class="panel-body" align="center">
 										<form name="payment" method="post">
 											<input type="radio" name="paymethod" value="COD" checked="checked"> COD &nbsp;
-											<input type="radio" name="paymethod" value="PREPAID"> UPI / Internet Banking / Debit Card / Credit Card / Wallet<br /><br />
+											<input type="radio" name="paymethod" value="PREPAID" disabled> UPI / Internet Banking / Debit Card / Credit Card / Wallet<br /><br />
 											<input type="submit" value="SUBMIT" name="submit" class="btn btn-primary">
 										</form>
 									</div>

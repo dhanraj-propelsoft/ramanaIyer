@@ -86,7 +86,97 @@ include('includes/header.php'); ?>
 
 			</div><!-- /.row -->
 
+			<section class="section featured-product wow fadeInUp">
+				<h3 class="section-title">Combo Offer </h3>
+				<div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
 
+					<?php
+					$rating = 0;
+					$qry = mysqli_query($con, "select * from combo");
+					while ($rw = mysqli_fetch_array($qry)) {
+						/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
+									$row2 = mysqli_fetch_array($rt);
+
+									$rowCnt = 0;
+									$rating = 0;
+									//echo $row2['idCnt'];
+									if($row2['idCnt'] > 0) {
+										$rowCnt = $row2['idCnt'];
+										$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+									}*/
+						$rating = $rw['comboRating'];
+						?>
+
+
+						<div class="item item-carousel">
+							<div class="products">
+								<div class="product text-center">
+									<div class="product-image" style="width: 100%; height: 300px; display: table;">
+										<div class="image" style="display: table-cell; vertical-align: middle;">
+											<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><img
+													src="assets/images/blank.gif"
+													data-echo="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"
+													style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"
+													alt=""></a>
+										</div><!-- /.image -->
+
+
+									</div><!-- /.product-image -->
+
+
+									<div class="product-info text-center">
+										<h3 class="name"
+											style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
+											<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
+										<?php
+										for ($jctr = 0; $jctr < 5; $jctr++) {
+											if ($jctr < $rating)
+												echo '<span class="fa fa-star rate-checked $rating"></span>';
+											else
+												echo '<span class="fa fa-star"></span>';
+										}
+										?>
+										<div class="description"></div>
+
+										<div class="product-price">
+											<span class="price">
+												₹ 
+												<?php echo htmlentities($rw['comboPrice']); ?>
+											</span>
+											<span class="price-before-discount">₹ 
+												<?php echo htmlentities($rw['comboPriceBeforeDiscount']); ?>
+											</span>
+
+										</div><!-- /.product-price -->
+
+									</div><!-- /.product-info -->
+									<?php if ($rw['comboAvailability'] == 'In Stock') { ?>
+									<div class="action">
+										<a onclick="CartList('<?php echo $rw['id']; ?>')"
+											class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+											Add to Cart</a> &nbsp;
+										<a class="btn btn-primary" onclick="WishList('<?php echo $rw['id']; ?>')"
+											data-toggle="tooltip" data-placement="top" id="WishList"
+											title="Wishlist">
+											<i class="fa fa-heart"></i>
+										</a>
+									</div>
+									<?php } else if ($rw['comboAvailability'] == 'Out of Stock') { ?>
+										<div class="action" style="color:red">Out of Stock
+										</div>
+									<?php } else { ?>
+										<div class="action" style="color:red">Against Order
+										</div>
+									<?php } ?><!-- /.cart -->
+								</div><!-- /.product -->
+
+							</div><!-- /.products -->
+						</div><!-- /.item -->
+					<?php } ?>
+
+
+				</div><!-- /.home-owl-carousel -->
+			</section>
 			<!-- ============================================== TABS ============================================== -->
 			<div class="sections prod-slider-small outer-top-small">
 				<?php

@@ -6,27 +6,31 @@ if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
 	if (isset($_POST['submit'])) {
+		$msg = "";
+		$errmsg = "";
+		$delmsg = "";
 		$category = $_POST['category'];
 		$subcat = $_POST['subcategory'];
 		$result = mysqli_query($con, "SELECT id from subcategory where subcategory = '" . $subcat . "'");
 		$row_cnt = mysqli_num_rows($result);
 		if ($row_cnt > 0) {
-			$_SESSION['errmsg'] = "<strong>Sorry!</strong> SubCategory has been already in the list !!";
+			$errmsg = "<strong>Sorry!</strong> SubCategory has been already in the list !!";
 		} else {
 			mysqli_query($con, "insert into subcategory(categoryid,subcategory) values('$category','$subcat')");
-			$_SESSION['msg'] = "<strong>Well done!</strong> SubCategory has been Created !!";
+			$msg = "<strong>Well done!</strong> SubCategory has been Created !!";
 		}
 
-	}
-
-	if (isset($_GET['del'])) {
+	} else if (isset($_GET['del'])) {
+		$msg = "";
+		$errmsg = "";
+		$delmsg = "";
 		$result1 = mysqli_query($con, "SELECT id from products where subCategory = '" . $_GET['id'] . "'");
 		$row_cnt1 = mysqli_num_rows($result1);
 		if ($row_cnt1 > 0) {
-			$_SESSION['delmsg'] = "Could not delete since reference data exist !!";
+			$delmsg = "Could not delete since reference data exist !!";
 		} else {
 			mysqli_query($con, "delete from subcategory where id = '" . $_GET['id'] . "'");
-			$_SESSION['delmsg'] = "SubCategory deleted !!";
+			$delmsg = "SubCategory deleted !!";
 		}
 	}
 
@@ -66,30 +70,26 @@ if (strlen($_SESSION['alogin']) == 0) {
 								<div class="module-body">
 
 									<?php if (isset($_POST['submit'])) {
-										if ($_SESSION['msg'] != "") { ?>
+										if ($msg != "") { ?>
 											<div class="alert alert-success">
 												<button type="button" class="close" data-dismiss="alert">×</button>
-												<?php echo $_SESSION['msg']; ?>
-												<?php echo htmlentities($_SESSION['msg'] = ""); ?>
+												<?php echo $msg; ?>
 											</div>
-										<?php } else if ($_SESSION['errmsg'] != "") { ?>
+										<?php } else if ($errmsg != "") { ?>
 												<div class="alert alert-error">
 													<button type="button" class="close" data-dismiss="alert">×</button>
-												<?php echo $_SESSION['errmsg']; ?>
-												<?php echo htmlentities($_SESSION['errmsg'] = ""); ?>
+												<?php echo $errmsg; ?>
 												</div>
 										<?php }
-									} ?>
-
-
-									<?php if (isset($_GET['del'])) { ?>
+									} else if (isset($_GET['del'])) { 
+										if ($delmsg != "") { ?>
 										<div class="alert alert-error">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Oh snap!</strong>
-											<?php echo htmlentities($_SESSION['delmsg']); ?>
-											<?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
+											<?php echo $delmsg; ?>
 										</div>
-									<?php } ?>
+										<?php }
+									} ?>
 
 									<br />
 

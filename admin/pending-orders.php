@@ -121,7 +121,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td class="wrap_td_50">
 														<?php echo htmlentities($row['orderdate']); ?>
 													</td>
-													<td></td>
+													<td>
+														
+													</td>
 												</tr>
 
 												<?php $cnt = $cnt + 1;

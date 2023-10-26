@@ -246,9 +246,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Product Image2</label>
 												<div class="controls">
+													<?php if (!empty($row['productImage2'])) { ?>
 													<img src="productimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['productImage2']); ?>"
 														width="200" height="100"> <a
 														href="update-image2.php?id=<?php echo $row['id']; ?>">Change Image</a>
+													<?php } else { echo '<a
+														href="update-image2.php?id='.$row['id'].'">Add Image</a>'; } ?>
 												</div>
 											</div>
 
@@ -257,9 +260,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Product Image3</label>
 												<div class="controls">
+													<?php if (!empty($row['productImage2'])) { ?>
 													<img src="productimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['productImage3']); ?>"
 														width="200" height="100"> <a
 														href="update-image3.php?id=<?php echo $row['id']; ?>">Change Image</a>
+													<?php } else { echo '<a
+														href="update-image3.php?id='.$row['id'].'">Add Image</a>'; } ?>
 												</div>
 											</div>
 										<?php } ?>

@@ -13,9 +13,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$dateTime = date("Y-m-d H:i:s", strtotime($_POST["dateTime"]));
 		$remarks = $_POST['remarks'];
 
+        date_default_timezone_set("Asia/Kolkata");
+		$orderId = "OID_".$_SESSION['id']."_".date("ymdHis");
+
         $ictr=0;
         foreach($productIds as $productId) {
-            $sql = mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`) VALUES ('$pid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN')");
+            $sql = mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$pid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
             $ictr++;
         }
 		
@@ -163,7 +166,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <tbody>
                                                 <tr>
                                                     <td><input type="datetime-local" required name="dateTime" placeholder="Choose date and time"
-                                                    class="span8 tip"></td>
+                                                    class="span8 tip" step="any" min="<?= date('Y-m-d', strtotime('tomorrow'))."T".date('H:i:s'); ?>"></td>
                                                     <td><input type="text" name="remarks" placeholder="Enter remarks if any"
                                                     class="span8 tip"></td>
                                                     <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt">0.00</span></div></td>

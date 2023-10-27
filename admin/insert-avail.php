@@ -113,15 +113,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Current Available Kg Or Nos <span>*</span></label>
-												<div class="controls">
-													<input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="prodOldAvail" placeholder="0" value="<?php echo htmlentities($row['prod_avail']); ?>" class="span8 tip" readonly>
-												</div>
-											</div>
-											<div class="control-group">
 												<label class="control-label" for="basicinput">Kg or Nos <span>*</span></label>
 												<div class="controls">
-													<input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="prodAvail" placeholder="Enter Kg or Nos" value="" class="span8 tip" required>
+													<input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="prodAvail" placeholder="Enter Kg or Nos" value="<?php echo htmlentities($row['prod_avail']); ?>" class="span8 tip" required>
 												</div>
 											</div>
 										<?php } ?>

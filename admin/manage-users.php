@@ -98,7 +98,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['billingAddress'] . "," . $row['billingCity'] . "," . $row['billingState'] . "-" . $row['billingPincode']); ?>
 													</td>
 													<td class="wrap_td_100">
-														<?php echo htmlentities($row['regDate']); ?>
+														<?php echo date("d-m-Y h:i:s A", strtotime($row['regDate'])); ?>
 													</td>
 
 													<?php $cnt = $cnt + 1;

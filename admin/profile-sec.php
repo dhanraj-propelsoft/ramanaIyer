@@ -11,10 +11,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$contactno = $_POST['contactno'];
-		$address1 = $_POST['address1'];
-		$address2 = $_POST['address2'];
+		$shippingaddress = $_POST['shippingaddress'];
+		$shippingstate = $_POST['shippingstate'];
+		$shippingcity = $_POST['shippingcity'];
+		$shippingpincode = $_POST['shippingpincode'];
 		
-		mysqli_query($con, "update users set name='$name',email='$email',contactno='$contactno',address_line1='$address1',address_line2='$address2' where id='$pid' ");
+		mysqli_query($con, "update users set name='$name',email='$email',contactno='$contactno',shippingAddress='$shippingaddress',shippingState='$shippingstate',shippingCity='$shippingcity',shippingPincode='$shippingpincode' where id='$pid' ");
         header("Location: insert-order.php?id=$pid");
         exit;
 	}
@@ -85,13 +87,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										$query = mysqli_query($con, "select * from users where id='$pid'");
                                         $adrs = "";
 										while ($row = mysqli_fetch_array($query)) {
-                                            $adrs = $row['shippingState'] .', '. $row['shippingCity'] .', '. $row['shippingPincode'];
-
-
-											?>
-
-
-											
+                                            ?>
 
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Customer Name</label>
@@ -122,20 +118,39 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Address line 1</label>
+												<label class="control-label" for="basicinput">Address</label>
 												<div class="controls">
-													<input type="text" name="address1" placeholder="Enter Address line 1"
+													<input type="text" name="shippingaddress" placeholder="Enter Shipping Address"
 														value="<?php echo htmlentities($row['shippingAddress']); ?>"
 														class="span8 tip" required>
 												</div>
 											</div>
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Address line 2</label>
+												<label class="control-label" for="basicinput">Pincode</label>
 												<div class="controls">
-													<input type="text" name="address2"
-														placeholder="Enter Address line 2"
-														value="<?php echo htmlentities($adrs); ?>"
+													<input type="text" name="shippingpincode"
+														placeholder="Enter Shipping Pincode"
+														value="<?php echo htmlentities($row['shippingPincode']); ?>"
+														class="span8 tip" required>
+												</div>
+											</div>
+
+											<div class="control-group">
+												<label class="control-label" for="basicinput">State</label>
+												<div class="controls">
+													<input type="text" name="shippingstate"
+														placeholder="Enter Shipping State"
+														value="<?php echo htmlentities($row['shippingState']); ?>"
+														class="span8 tip" required>
+												</div>
+											</div>
+
+											<div class="control-group">
+												<label class="control-label" for="basicinput">City</label>
+												<div class="controls">
+													<input type="text" name="shippingcity" placeholder="Enter Shipping City"
+														value="<?php echo htmlentities($row['shippingCity']); ?>"
 														class="span8 tip" required>
 												</div>
 											</div>

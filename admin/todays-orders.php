@@ -119,10 +119,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row['orderdate']); ?>
+														<?php echo date("d-m-Y h:i:s A", strtotime($row['orderdate'])); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row['dtSupply']); ?>
+														<?php echo date("d-m-Y h:i:s A", strtotime($row['dtSupply'])); ?>
 													</td>
 													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=orders"
 															title="Update order"><i class="icon-edit"></i></a>

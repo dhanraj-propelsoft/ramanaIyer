@@ -112,7 +112,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row['orderdate']); ?>
+														<?php echo date("d-m-Y h:i:s A", strtotime($row['orderdate'])); ?>
 													</td>
 													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=delivered"
 															title="Update order"><i class="icon-eye-open"></i></a>

@@ -154,7 +154,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['categoryDescription']); ?>
 													</td>
 													<td class="wrap_td_100">
-														<?php echo htmlentities($row['creationDate']); ?>
+														<?php echo date("d-m-Y h:i:s A", strtotime($row['creationDate'])); ?>
 													</td>
 													<td class="wrap_td_100">
 														<?php echo htmlentities($row['updationDate']); ?>

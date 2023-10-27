@@ -90,7 +90,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             <?php echo htmlentities($cnt); ?>
                                                         </td>
                                                         <td class="wrap_td_100">
-                                                            <?php echo htmlentities(date('Y-m-d', strtotime($row1['dtSupply']))); ?>
+                                                            <?php echo htmlentities(date('d-m-Y', strtotime($row1['dtSupply']))); ?>
                                                         </td>
                                                         <td class="wrap_td_100">
                                                             <?php echo htmlentities($row1['productname']); ?>

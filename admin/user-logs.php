@@ -71,7 +71,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 															<?php echo htmlentities($row1['contactno']); ?>
 														</td>
 														<td>
-															<?php echo htmlentities($row['loginTime']); ?>
+															<?php echo date("d-m-Y h:i:s A", strtotime($row['loginTime'])); ?>
 														</td>
 														<td>
 															<?php echo htmlentities($row['logout']); ?>

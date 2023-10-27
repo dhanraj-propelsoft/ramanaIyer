@@ -111,7 +111,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <?php echo htmlentities($row['comboAvailability']); ?>
                                                     </td>
                                                     <td class="wrap_td_100">
-                                                        <?php echo htmlentities($row['postingDate']); ?>
+                                                        <?php echo date("d-m-Y h:i:s A", strtotime($row['postingDate'])); ?>
                                                     </td>
                                                     <td>
                                                         <a href="edit-combo.php?id=<?php echo $row['id'] ?>"><i

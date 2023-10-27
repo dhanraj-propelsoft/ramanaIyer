@@ -5,20 +5,19 @@ include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-	$uid = intval($_GET['id']); // product id
+	$oid = trim($_GET['oid']); // product id
 	if (isset($_POST['submit'])) {
 		$productIds = $_POST['productId'];
 		$quantity = $_POST['quantity'];
 		$amount = $_POST['amount'];
 		$dateTime = date("Y-m-d H:i:s", strtotime($_POST["dateTime"]));
 		$remarks = $_POST['remarks'];
+		$userId = $_POST['userId'];
 
-        date_default_timezone_set("Asia/Kolkata");
-		$orderId = "OID_".$uid."_".date("ymdHis");
-
+        mysqli_query($con, "DELETE FROM orders WHERE orderId='$oid'");
         $ictr=0;
         foreach($productIds as $productId) {
-            $sql = mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$userId','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$oid','Admin')");
             $ictr++;
         }
 		
@@ -34,7 +33,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Insert Order</title>
+		<title>Admin | Edit Order</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -59,7 +58,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-                                    <b>Insert Order</b>
+                                    <h3>Edit Order</h3>
                                     <!-- <span style="float: right">
                                         <div class="controls">
                                             <a href="insert-combo.php" class="btn">Add Order</a>
@@ -93,6 +92,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 										enctype="multipart/form-data">
 
 										<div id="prodErr"></div>
+                                        <?php 
+                                        $dtSupply = '';
+                                        $remarks = '';
+                                        $uId = '';
+                                        $cnt = 1;
+                                        $totAmt = 0;
+                                        ?>
                                         <table id="tblProd" cellpadding="0" cellspacing="0" border="0"
                                         class="table table-striped"
                                         style="width:100%;padding:5px;">
@@ -107,32 +113,51 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </tr>
                                             </thead>
                                             <tbody id="tblBody">
+                                                <?php 
+                                                $query2 = mysqli_query($con, "select orders.userId AS uId,orders.quantity AS oQuantity,orders.price AS oPrice,orders.dtSupply AS oDtSupply,orders.remarks AS oRemarks,products.productName AS pName,products.productPrice AS pPrice, products.id AS pId from orders JOIN products WHERE products.id=orders.productId AND orders.orderId='".$oid."'");
+                                                $amount = 0;
+                                                while ($row2 = mysqli_fetch_array($query2)) { 
+                                                    echo $dtSupply = str_replace(" ","T",$row2['oDtSupply']);
+                                                    $remarks = $row2['oRemarks'];
+                                                    $uId = $row2['uId'];
+                                                    if(intval($row2['oPrice']) > 0) {
+                                                        $totAmt += intval($row2['oPrice']);
+                                                        $amount = $row2['oPrice'];
+                                                    } else {
+                                                        $totAmt += intval($row2['pPrice']);
+                                                        $amount = $row2['pPrice'];
+                                                    }
+                                                    ?>
                                                 <tr>
-                                                    <td class="slNo">1</td>
+                                                    <td class="slNo"><?=$cnt?></td>
                                                     <td>
                                                         <select name="productId[]" class="productId span8 tip" required>
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select * from products");
                                                             while ($row = mysqli_fetch_array($query)) { ?>
 
-                                                                <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
+                                                                <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>" <?php if($row2['pId']==$row['id']) {echo 'selected';} ?>>
                                                                     <?php echo $row['productName']; ?>
                                                                 </option>
                                                             <?php } ?>
                                                         </select>
                                                     </td>
-                                                    <td><label style="font-weight: bold;" class="price"></label></td>
-                                                    <td><input type="text"
+                                                    <td><label style="font-weight: bold;" class="price"><?=$row2['pPrice'];?></label></td>
+                                                    <td><input type="text" value="<?=$row2['oQuantity'];?>"
                                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                                     name="quantity[]" placeholder="Enter Quantity"
                                                     class="quantity span8 tip" required></td>
-                                                    <td><input type="text"
+                                                    <td><input type="text" value="<?=$amount;?>"
                                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                                     name="amount[]" placeholder="Enter Amount" onblur="calTotAmt()"
                                                     class="amount span8 tip" required></td>
                                                     <td><a class="remove"><i
-                                                                class="icon-remove-sign"></i></a></td>
+                                                                class="icon-remove-sign"></i></a>
+                                                                <input type="hidden" id="count" name="count" value="<?=$cnt;?>"></td>
                                                 </tr>
+                                                <?php 
+                                                $cnt++;
+                                                } ?>
                                                 <tr style="display: none;" id="prodRow">
                                                     <td>
                                                         <select name="productId[]" class="productId span8 tip"  onchange="pushPrice(this, this.options[this.selectedIndex].getAttribute('price'))">
@@ -165,11 +190,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         style="width:100%;padding:5px;">
                                             <tbody>
                                                 <tr>
-                                                    <td><input type="datetime-local" required name="dateTime" placeholder="Choose date and time"
+                                                    <td>Delivery Date <input type="datetime-local" required name="dateTime" placeholder="Choose date and time" value="<?=$dtSupply;?>"
                                                     class="span8 tip" step="any" min="<?= date('Y-m-d', strtotime('tomorrow'))."T".date('H:i:s'); ?>"></td>
-                                                    <td><input type="text" name="remarks" placeholder="Enter remarks if any"
+                                                    <td><input type="text" name="remarks" placeholder="Enter remarks if any" value="<?=$remarks;?>"
                                                     class="span8 tip"></td>
-                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt">0.00</span></div></td>
+                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt"><?=$totAmt;?></span></div></td>
+                                                    <input type="hidden" name="userId" value="<?=$uId;?>">
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -177,8 +203,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="control-group">
 											<div class="controls">
 												<input class="btn btn-primary" type="button" value="Back"
-													onclick="window.location.href = 'check-contact.php'" />
-												<button type="submit" name="submit" class="btn btn-ri">Add Order</button>
+													onclick="window.location.href = 'view-order.php?oid=<?=$oid?>'" />
+												<button type="submit" name="submit" class="btn btn-ri">Update</button>
 											</div>
 										</div>
 									</form>
@@ -214,6 +240,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                 }
             });
             $("#addProduct").click(function(){
+                let incrSlNo=$('#tblBody').children().find(".slNo");
+                //console.log(incrSlNo.length);
+                number = incrSlNo.length + 1;
+
                 let validInd = 0;
                 let todoSelects=$('#tblBody').children().find("select");
                 let todoInputs=$('#tblBody').children().find("input");

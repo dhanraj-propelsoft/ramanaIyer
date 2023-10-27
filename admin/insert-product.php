@@ -273,6 +273,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 										<div class="control-group">
 											<div class="controls">
+												<input class="btn btn-primary" type="button" value="Back"
+													onclick="window.location.href = 'manage-products.php'" />
 												<button type="submit" name="submit" class="btn">Insert</button>
 											</div>
 										</div>

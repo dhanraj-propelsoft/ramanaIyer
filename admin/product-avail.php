@@ -78,7 +78,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Category </th>
 												<th>Subcategory</th>
 												<th>Company Name</th>
-												<th>Avaliablity</th>
+												<th>Available</th>
 												<th>Action</th>
 											</tr>
 										</thead>

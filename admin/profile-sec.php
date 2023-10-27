@@ -129,7 +129,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Pincode</label>
 												<div class="controls">
-													<input type="text" name="shippingpincode"
+													<input type="text" pattern="\d*" maxlength="6" name="shippingpincode"
 														placeholder="Enter Shipping Pincode"
 														value="<?php echo htmlentities($row['shippingPincode']); ?>"
 														class="span8 tip" required>

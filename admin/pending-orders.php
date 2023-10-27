@@ -84,7 +84,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Quantity</th>
 												<th>Order Date & Time</th>
 												<th>Order by</th>
-
+												<th>Action</th>
 
 											</tr>
 										</thead>
@@ -131,6 +131,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</td>
 													<td>
 														<?php echo htmlentities($row['orderBy']); ?>
+													</td>
+													<td>
+													<a href="view-order.php?oid=<?=$oid?>"
+															title="view order"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>
 

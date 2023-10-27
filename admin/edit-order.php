@@ -117,7 +117,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 $query2 = mysqli_query($con, "select orders.userId AS uId,orders.quantity AS oQuantity,orders.price AS oPrice,orders.dtSupply AS oDtSupply,orders.remarks AS oRemarks,products.productName AS pName,products.productPrice AS pPrice, products.id AS pId from orders JOIN products WHERE products.id=orders.productId AND orders.orderId='".$oid."'");
                                                 $amount = 0;
                                                 while ($row2 = mysqli_fetch_array($query2)) { 
-                                                    echo $dtSupply = str_replace(" ","T",$row2['oDtSupply']);
+                                                    $dtSupply = str_replace(" ","T",$row2['oDtSupply']);
                                                     $remarks = $row2['oRemarks'];
                                                     $uId = $row2['uId'];
                                                     if(intval($row2['oPrice']) > 0) {
@@ -205,6 +205,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<input class="btn btn-primary" type="button" value="Back"
 													onclick="window.location.href = 'view-order.php?oid=<?=$oid?>'" />
 												<button type="submit" name="submit" class="btn btn-ri">Update</button>
+                                                <a class="btn btn-success" href="updateorder.php?oid=<?=$oid?>&sm=pending">Update Status</a>
 											</div>
 										</div>
 									</form>

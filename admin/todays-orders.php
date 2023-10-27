@@ -90,11 +90,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$t1 = "23:59:59";
 											$to = date('Y-m-d') . " " . $t1;
 											$todayDate = date('Y-m-d');
-											$query = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,products.productName AS productname,products.shippingCharge AS shippingcharge,orders.quantity AS quantity,orders.orderDate AS orderdate,products.productPrice AS productprice,orders.id AS id,orders.dtSupply AS dtSupply FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
+											$query = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,products.productName AS productname,products.shippingCharge AS shippingcharge,orders.quantity AS quantity,orders.orderDate AS orderdate,products.productPrice AS productprice,orders.id AS id,orders.orderId AS orderId,orders.dtSupply AS dtSupply FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												?>
-												<tr>
+												<tr style="cursor:pointer" onclick="window.location.href = 'updateorder.php?oid=<?=$row['orderId'];?>&sm=orders'">
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
@@ -124,7 +124,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td class="wrap_td_50">
 														<?php echo date("d-m-Y h:i:s A", strtotime($row['dtSupply'])); ?>
 													</td>
-													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=orders"
+													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['orderId']); ?>&sm=orders"
 															title="Update order"><i class="icon-edit"></i></a>
 													</td>
 												</tr>

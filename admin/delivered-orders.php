@@ -83,11 +83,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 											<?php
 											$st = 'Delivered';
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.orderStatus='$st'");
+											$query = mysqli_query($con, "SELECT users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.orderId AS orderId from orders join users on orders.userId=users.id join products on products.id=orders.productId where orders.orderId IS NOT NULL AND orders.orderStatus='$st'");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												?>
-												<tr>
+												<tr style="cursor:pointer" onclick="window.location.href = 'updateorder.php?oid=<?=$row['orderId'];?>&sm=delivered'">
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
@@ -114,7 +114,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td class="wrap_td_50">
 														<?php echo date("d-m-Y h:i:s A", strtotime($row['orderdate'])); ?>
 													</td>
-													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>&sm=delivered"
+													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['orderId']); ?>&sm=delivered"
 															title="Update order"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>

@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Update Compliant</title>
+  <title>Update Status</title>
   <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -24,21 +24,25 @@
   if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
   } else {
-    $oid = intval($_GET['oid']);
+    $oid = trim($_GET['oid']);
     if (isset($_POST['submit2'])) {
       $status = $_POST['status'];
       $remark = $_POST['remark']; //space char
-  
-      $query = mysqli_query($con, "insert into ordertrackhistory(orderId,status,remark) values('$oid','$status','$remark')");
-      $sql = mysqli_query($con, "update orders set orderStatus='$status' where id='$oid'");
+      
+      $ret = mysqli_query($con, "SELECT id FROM orders WHERE orderId='$oid'");
+      while ($row = mysqli_fetch_array($ret)) {
+        echo $row_id = $row['id'];
+        mysqli_query($con, "insert into ordertrackhistory(orderId,status,remark) values('$row_id','$status','$remark')");
+        mysqli_query($con, "update orders set orderStatus='$status' where id='$row_id'");
+      }
       echo "<script>
-Swal.fire({
-  title: 'Success!',
-  text: 'Order updated sucessfully...!',
-  icon: 'success',
-  confirmButtonText: 'OK'
-});
-</script>";
+      Swal.fire({
+        title: 'Success!',
+        text: 'Order updated sucessfully...!',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+      </script>";
       //}
     }
 
@@ -84,26 +88,30 @@ Swal.fire({
 
                       <tbody>
                         <?php
-                        $ret = mysqli_query($con, "SELECT * FROM ordertrackhistory WHERE orderId='$oid'");
-                        while ($row = mysqli_fetch_array($ret)) {
-                          ?>
-                          <tr>
-                            <td>
-                              <?php echo htmlentities($row['postingDate']); ?>
-                            </td>
-                            <td>
-                              <?php echo htmlentities($row['status']); ?>
-                            </td>
-                            <td>
-                              <?php echo htmlentities($row['remark']); ?>
-                            </td>
-                          </tr>
-
-                        <?php } ?>
+                          $ret1 = mysqli_query($con, "SELECT id FROM orders WHERE orderId='$oid'");
+                          while ($row1 = mysqli_fetch_array($ret1)) {
+                          $ret = mysqli_query($con, "SELECT * FROM ordertrackhistory WHERE orderId='".$row1['id']."'");
+                          while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                            <tr>
+                              <td>
+                                <?php echo htmlentities($row['postingDate']); ?>
+                              </td>
+                              <td>
+                                <?php echo htmlentities($row['status']); ?>
+                              </td>
+                              <td>
+                                <?php echo htmlentities($row['remark']); ?>
+                              </td>
+                            </tr>
+                          <?php 
+                            }
+                          }
+                        ?>
                         <?php
                         $st = 'Delivered';
-                        $rt = mysqli_query($con, "SELECT * FROM orders WHERE id='$oid'");
-                        while ($num = mysqli_fetch_array($rt)) {
+                        $rt = mysqli_query($con, "SELECT * FROM orders WHERE orderId='$oid'");
+                        if ($num = mysqli_fetch_array($rt)) {
                           $currrentSt = $num['orderStatus'];
                         }
                         if ($st == $currrentSt) { ?>
@@ -113,7 +121,7 @@ Swal.fire({
                           </tr>
                           <tr>
                             <td colspan="3"><input class="btn" type="button" value="Back"
-                                onclick="window.history.go(-1); return false;" /> </td>
+                                onclick="window.location.href = 'delivered-orders.php'; return false;" /> </td>
                           </tr>
                         <?php } else {
                           ?>

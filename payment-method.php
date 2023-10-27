@@ -40,9 +40,8 @@ if (strlen($_SESSION['login']) == 0) {
 		mysqli_query($con, "DELETE FROM orders WHERE userId='" . $_SESSION['id'] . "' AND paymentId IS NULL");
 
 		$popupText = "";
-		$redirectUrl = "";
-		$book_type = "";
-		$book_status = "";
+		$totProd = 0;
+		$errorInd = 0;
 
 		if($_POST['paymethod'] == "COD")
 		{
@@ -56,6 +55,7 @@ if (strlen($_SESSION['login']) == 0) {
             }
 
 			foreach ($value as $prodId => $quant) {
+				$totProd++;
 				$query3 = mysqli_query($con, "select productName,productAvailability,prod_avail,allow_ao from products where id='" . $prodId . "'");
 				if ($row3 = mysqli_fetch_array($query3)) {
 					$productName = $row3['productName'];
@@ -64,43 +64,39 @@ if (strlen($_SESSION['login']) == 0) {
 					$allow_ao = $row3['allow_ao'];
 
 					if($productAvailability == "Out of Stock") {
-						$popupText .= "$productName - Out of Stock!!! ";
-						$book_type = "FULL";
-						$book_status = "FAILURE";
+						$popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
+						$errorInd--;
 					} else if($productAvailability == "Against Order") {
-						$popupText .= "$productName - Against Order!!! ";
-						$book_type = "FULL";
-						$book_status = "FAILURE";
+						$popupText .= "<b>$productName - </b>Against Order!!!<BR/>";
+						$errorInd--;
 					} else if(($productAvailability == "In Stock") && ($prod_avail < $quant)) {
 						if($allow_ao == '1') {
 							$new_prod_avail = $prod_avail - $quant;
 							if($new_prod_avail < 0)
 								$new_prod_avail = 0;
 							mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
-							$popupText .= "$productName - The ordered quantity will be placed Against the Order. ";
+							$popupText .= "<b>$productName - </b>The ordered quantity will be placed Against the Order.<BR/>";
 							unset($_SESSION['cart'][$prodId]);
 							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "");
 							mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer')");
-							$book_type = "PARTIAL";
-							$book_status = "SUCCESS";
+							$errorInd++;
 						} else {
-							$popupText .= "$productName - Place the order within the Available Quantity. [Available Quantity - $prod_avail] ";
-							$book_type = "PARTIAL";
-							$book_status = "FAILURE";
+							$popupText .= "<b>$productName - </b>Place the order within the Available Quantity. <b>[Available Quantity - $prod_avail]</b><BR/>";
+							$errorInd--;
 						}
 					} else if(($productAvailability == "In Stock") && ($prod_avail >= $quant)) {
+						$popupText .= "<b>$productName - </b>Your order has been received by Ramana Sweets.<BR/>";
 						$new_prod_avail = $prod_avail - $quant;
 						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
 						unset($_SESSION['cart'][$prodId]);
 						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "'");
 						mysqli_query($con, "insert into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer')");
-						$book_type = "FULL";
-						$book_status = "SUCCESS";
+						$errorInd++;
 					}
 				}
 			}
 
-			if(($book_type == "FULL") && ($book_status = "SUCCESS"))
+			if($totProd == $errorInd)
 			{
 				echo "<script>
 				Swal.fire({
@@ -114,11 +110,13 @@ if (strlen($_SESSION['login']) == 0) {
 					}
 				});
 				</script>";
-			} else if(($book_type == "PARTIAL") && ($book_status = "SUCCESS")) {
+				
+			} else
+			{
 				echo "<script>
 				Swal.fire({
 					title: 'Information!',
-					text: '$popupText',
+					html: '$popupText',
 					icon: 'info',
 					confirmButtonText: 'Ok'
 				}).then((result) => {
@@ -127,21 +125,7 @@ if (strlen($_SESSION['login']) == 0) {
 					}
 				});
 				</script>";
-			} else if($book_status = "FAILURE") {
-				echo "<script>
-				Swal.fire({
-					title: 'Failed!',
-					text: '$popupText',
-					icon: 'error',
-					confirmButtonText: 'Ok'
-				}).then((result) => {
-					if (result.isConfirmed) {
-						document.location = 'my-cart.php';
-					}
-				});
-				</script>";
-			} 
-
+			}
 		} else {
 
 			date_default_timezone_set("Asia/Kolkata");

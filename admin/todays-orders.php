@@ -90,7 +90,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$t1 = "23:59:59";
 											$to = date('Y-m-d') . " " . $t1;
 											$todayDate = date('Y-m-d');
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND DATE(orders.dtSupply) = '$todayDate'AND orderStatus !='Delivered'");
+											$query = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,products.productName AS productname,products.shippingCharge AS shippingcharge,orders.quantity AS quantity,orders.orderDate AS orderdate,products.productPrice AS productprice,orders.id AS id,orders.dtSupply AS dtSupply FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												?>

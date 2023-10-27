@@ -84,7 +84,7 @@ if (strlen($_SESSION['login']) == 0) {
 							$book_type = "PARTIAL";
 							$book_status = "SUCCESS";
 						} else {
-							$popupText .= "$productName - Place the order within the Available Quantity. ";
+							$popupText .= "$productName - Place the order within the Available Quantity. [Available Quantity - $prod_avail] ";
 							$book_type = "PARTIAL";
 							$book_status = "FAILURE";
 						}

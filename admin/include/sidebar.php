@@ -27,7 +27,7 @@
 							$t1 = "23:59:59";
 							$to = date('Y-m-d') . " " . $t1;
 							$todayDate = date('Y-m-d');
-							$result = mysqli_query($con, "SELECT * FROM orders where dtSupply IS NOT NULL AND DATE(orders.dtSupply) = '$todayDate'AND orderStatus !='Delivered'");
+							$result = mysqli_query($con, "SELECT * FROM orders where dtSupply IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%'AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
 							$num_rows1 = mysqli_num_rows($result); {
 							?>
 								<b class="label orange pull-right">

@@ -30,8 +30,8 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
         }
     }
     // Code for Remove a combo from Cart
-    if (isset($_POST['pRemove_code'])) {
-        foreach ($_POST['pRemove_code'] as $key) {
+    if (isset($_POST['cRemove_code'])) {
+        foreach ($_POST['cRemove_code'] as $key) {
             unset($_SESSION['combo'][$key]);
         }
     }

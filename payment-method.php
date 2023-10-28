@@ -12,7 +12,7 @@ if (strlen($_SESSION['login']) == 0) {
         $prodQt = array();
         if (!empty($_SESSION['product'])) {
             $sql = "SELECT * FROM products WHERE id IN(";
-            foreach ($_SESSION['product'] as $id => $value) {
+            foreach ($_SESSION['product'] as $id => $pVal) {
                 $sql .= $id . ",";
             }
             $sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
@@ -41,7 +41,7 @@ if (strlen($_SESSION['login']) == 0) {
         $comboQt = array();
         if (!empty($_SESSION['combo'])) {
             $sql = "SELECT * FROM combo WHERE id IN(";
-            foreach ($_SESSION['combo'] as $id => $value) {
+            foreach ($_SESSION['combo'] as $id => $cVal) {
                 $sql .= $id . ",";
             }
             $sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
@@ -134,10 +134,10 @@ if (strlen($_SESSION['login']) == 0) {
 
 			foreach ($comboVal as $comboId => $comboQty) {
 				$totProd++;
-				$query3 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $comboId . "'");
-				if ($row3 = mysqli_fetch_array($query3)) {
-					$comboName = $row3['comboName'];
-					$comboAvailability = $row3['comboAvailability'];
+				$query1 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $comboId . "'");
+				if ($row1 = mysqli_fetch_array($query1)) {
+					$comboName = $row1['comboName'];
+					$comboAvailability = $row1['comboAvailability'];
 
 					if($comboAvailability == "Out of Stock") {
 						$popupText .= "<b>$comboName - </b>Out of Stock!!!<BR/>";
@@ -194,7 +194,7 @@ if (strlen($_SESSION['login']) == 0) {
 			foreach ($value as $qty => $val34) {
 				mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$receiptNo','$orderId','Customer','$dtSupply')");
 			}
-			foreach ($value as $cQty => $cVal) {
+			foreach ($comboVal as $cQty => $cVal) {
 				mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$cQty','$cVal','".$_POST['paymethod']."','$receiptNo','$orderId','Customer','$dtSupply')");
 			}
 			//echo "<script>$('#loaderIcon').css('visibility', 'hidden'); $('#loaderIcon').hide();</script>";

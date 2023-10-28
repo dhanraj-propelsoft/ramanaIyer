@@ -393,7 +393,7 @@
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
 													<a class="btn btn-primary" data-toggle="tooltip"
-														onclick="WishList('<?php echo $pid; ?>')" data-placement="right"
+														onclick="comboWish('<?php echo $pid; ?>')" data-placement="right"
 														id="WishList" title="Wishlist">
 														<i class="fa fa-heart"></i>
 													</a>
@@ -436,7 +436,7 @@
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')"
+													<a id="CartList" onclick="comboCart('<?php echo $pid; ?>')"
 														class="btn-upper btn btn-primary"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } ?>
@@ -703,13 +703,13 @@
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<a id="CartList" onclick="CartList('<?php $rw['id']; ?>')"
+													<a id="CartList" onclick="comboCart('<?php $rw['id']; ?>')"
 														class="lnk btn btn-primary btn-upper"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> &nbsp; Add to Cart</a>
 												<?php } ?>
 											</li>
 											<li class="lnk wishlist">
-												<a class="add-to-cart" onclick="WishList('<?php echo $rw['id']; ?>')"
+												<a class="add-to-cart" onclick="comboWish('<?php echo $rw['id']; ?>')"
 													title="Wishlist">
 													<i class="icon fa fa-heart"></i>
 												</a>

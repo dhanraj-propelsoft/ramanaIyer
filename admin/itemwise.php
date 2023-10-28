@@ -25,7 +25,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="css/jquery.dataTables.min.css" rel="stylesheet">
 		<link type="text/css" href="css/dataTables.dateTime.min.css" rel="stylesheet">
 		<script src="assets\js\jspdf.min.js_1.5.3\cdnjs\jspdf.min.js"></script>
-		<script src="assets\js\jspdf.min.js_1.5.3\unpkg\jspdf.min.js"></script>
 		<script src="assets\js\jspdf.plugin.autotable.min.js_3.5.6\cdnjs\jspdf.plugin.autotable.min.js"></script>
 		<script language="javascript" type="text/javascript">
 			var popUpWin = 0;
@@ -68,7 +67,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 											<tr>
 											<td>Date Filter:</td>
-											<td><input type="text" id="min" name="min" placeholder="Date [From]"> <input type="text" id="max" name="max" placeholder="Date [Updo]"></td>
+											<td><input type="text" id="min" name="min" placeholder="Choose Date"></td>
 											<td><button id="download-pdf-button" style="float:right" class="btn bt-ri">Download PDF</button></td>
 										</tr>
 									</tbody></table>
@@ -136,24 +135,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 			$(document).ready(function() {
 				$('.datatable-1').DataTable();
 				
-				let minDate, maxDate;
+				let minDate;
  
 				// Custom filtering function which will search data in column four between two values
 				DataTable.ext.search.push( function(settings, data, dataIndex) {
 					let min = minDate.val();
-					let max = maxDate.val();
-					
+					var newmin = moment(min).format("YYYY-MM-DD");
+
 					var mydate = moment(data[1], 'DD-MM-YYYY'); 
 					var newdate = moment(mydate).format("YYYY-MM-DD");
-
-					let date = new Date(newdate);
 				
-					if (
-						(min === null && max === null) ||
-						(min === null && date <= max) ||
-						(min <= date && max === null) ||
-						(min <= date && date <= max)
-					) {
+					if (newmin == newdate) {
 						return true;
 					}
 					return false;
@@ -163,15 +155,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 				minDate = new DateTime('#min', {
 					format: 'MMMM Do YYYY'
 				});
-				maxDate = new DateTime('#max', {
-					format: 'MMMM Do YYYY'
-				});
 				
 				// DataTables initialisation
 				let table = new DataTable('#table-to-pdf');
 				
 				// Refilter the table
-				document.querySelectorAll('#min, #max').forEach((el) => {
+				document.querySelectorAll('#min').forEach((el) => {
 					el.addEventListener('change', () => table.draw());
 				});
 			});

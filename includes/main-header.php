@@ -113,7 +113,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 		
 		
 			<li>
-				<div class="cart-item combo-summary">
+				<div class="cart-item product-summary">
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="image">

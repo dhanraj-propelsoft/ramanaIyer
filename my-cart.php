@@ -212,7 +212,7 @@ $against_order = 0;
 																alt="" style="width: auto; height: 100px; max-width: 130px">
 														</a>
 													</td>
-													<td class="cart-combo-name-info">
+													<td class="cart-product-name-info">
 														<h4 class='cart-combo-description'><a
 																href="combo-details.php?pid=<?php echo htmlentities($pd = $row2['id']); ?>"><?php echo $row2['comboName'];
 
@@ -242,7 +242,7 @@ $against_order = 0;
 														</div><!-- /.row -->
 
 													</td>
-													<td class="cart-combo-quantity">
+													<td class="cart-product-quantity">
 														<div class="quant-input">
 															<div class="arrows">
 																<div class="arrow plus gradient"><span class="ir"><i
@@ -256,14 +256,14 @@ $against_order = 0;
 
 														</div>
 													</td>
-													<td class="cart-combo-sub-total"><span class="cart-sub-total-price">
+													<td class="cart-product-sub-total"><span class="cart-sub-total-price">
 														₹ <?php echo $row2['comboPrice']; ?>.00
 														</span></td>
-													<td class="cart-combo-sub-total"><span class="cart-sub-total-price">
+													<td class="cart-product-sub-total"><span class="cart-sub-total-price">
 														₹ <?php echo $row2['shippingCharge']; ?>.00
 														</span></td>
 
-													<td class="cart-combo-grand-total"><span class="cart-grand-total-price">
+													<td class="cart-product-grand-total"><span class="cart-grand-total-price">
 														₹ <?php echo ((int) $_SESSION['combo'][$row2['id']]['quantity'] * (int) $row2['comboPrice'] + (int) $row2['shippingCharge']); ?>.00
 														</span></td>
 												</tr>
@@ -483,7 +483,7 @@ $against_order = 0;
 
 	</div>
 </div>
-					</form>
+</form>
 <div id="ack"></div>					
 <?php include('includes/footer.php'); ?>
 <script>

@@ -43,14 +43,17 @@ if (isset($_POST['login'])) {
 		$_SESSION['id'] = $num['id'];
 		$_SESSION['username'] = $num['name'];
 
-		//if(empty($_SESSION['cart']))
+		//if(empty($_SESSION['product']))
 		{
 			$sql_p = "SELECT * FROM cart WHERE userId={$_SESSION['id']}";
 			$query_p = mysqli_query($con, $sql_p);
 			if (mysqli_num_rows($query_p) != 0) {
 				while ($row_p = mysqli_fetch_array($query_p)) {
 					//print_r($row_p);exit();
-					$_SESSION['cart'][$row_p['pId']] = array("quantity" => $row_p['pQty'], "price" => $row_p['pPrice']);
+					if(!empty($row_p['pId']))
+						$_SESSION['product'][$row_p['pId']] = array("quantity" => $row_p['pQty'], "price" => $row_p['pPrice']);
+					else if(!empty($row_p['cId']))
+						$_SESSION['combo'][$row_p['cId']] = array("quantity" => $row_p['cQty'], "price" => $row_p['cPrice']);
 				}
 			}
 		}

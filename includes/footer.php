@@ -222,6 +222,37 @@
 		});
 	}
 
+    function comboWish(ele) {
+		var session_id = <?php echo intval($_SESSION['id']); ?>;
+
+		if (session_id) {
+
+			jQuery.ajax({
+				url: "combo-wishlist.php",
+				data: { session_id: session_id, combo_id: ele },
+				type: "POST",
+				success: function (data) {
+					$("#ack").html(data);
+				},
+				error: function () { }
+			});
+		} else {
+			document.location = 'login.php';
+		}
+	}
+
+	function comboCart(ele) {
+		jQuery.ajax({
+			url: "combo-cart.php",
+			data: { combo_id: ele },
+			type: "POST",
+			success: function (data) {
+				$("#ack").html(data);
+			},
+			error: function () { }
+		});
+	}
+
     function pull_st_ct(ele) {
         $.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
             if (data[0].PostOffice && data[0].PostOffice.length) {

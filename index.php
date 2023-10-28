@@ -150,22 +150,19 @@ include('includes/header.php'); ?>
 										</div><!-- /.product-price -->
 
 									</div><!-- /.product-info -->
-									<?php if ($rw['comboAvailability'] == 'In Stock') { ?>
-									<div class="action">
-										<a onclick="CartList('<?php echo $rw['id']; ?>')"
-											class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
-											Add to Cart</a> &nbsp;
-										<a class="btn btn-primary" onclick="WishList('<?php echo $rw['id']; ?>')"
-											data-toggle="tooltip" data-placement="top" id="WishList"
-											title="Wishlist">
-											<i class="fa fa-heart"></i>
-										</a>
-									</div>
-									<?php } else if ($rw['comboAvailability'] == 'Out of Stock') { ?>
+									<?php if ($rw['comboAvailability'] == 'Out of Stock') { ?>
 										<div class="action" style="color:red">Out of Stock
 										</div>
 									<?php } else { ?>
-										<div class="action" style="color:red">Against Order
+										<div class="action">
+											<a onclick="comboCart('<?php echo $rw['id']; ?>')"
+												class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+												Add to Cart</a> &nbsp;
+											<a class="btn btn-primary" onclick="comboWish('<?php echo $rw['id']; ?>')"
+												data-toggle="tooltip" data-placement="top" id="WishList"
+												title="Wishlist">
+												<i class="fa fa-heart"></i>
+											</a>
 										</div>
 									<?php } ?><!-- /.cart -->
 								</div><!-- /.product -->
@@ -251,24 +248,21 @@ include('includes/header.php'); ?>
 													</div>
 												</div>
 												<div id="ack"></div>
-												<?php if ($row['productAvailability'] == 'In Stock') { ?>
-													<div class="action">
-														<a onclick="CartList('<?php echo $row['id']; ?>')"
-															class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
-															Add to Cart</a> &nbsp;
-														<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')"
-															data-toggle="tooltip" data-placement="top" id="WishList"
-															title="Wishlist">
-															<i class="fa fa-heart"></i>
-														</a>
+												<?php if ($row['productAvailability'] == 'Out of Stock') { ?>
+													<div class="action" style="color:red">Out of Stock
 													</div>
-													<?php } else if ($row['productAvailability'] == 'Out of Stock') { ?>
-														<div class="action" style="color:red">Out of Stock
-														</div>
-													<?php } else { ?>
-														<div class="action" style="color:red">Against Order
-														</div>
-													<?php } ?>
+												<?php } else { ?>
+													<div class="action">
+													<a onclick="CartList('<?php echo $row['id']; ?>')"
+														class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+														Add to Cart</a> &nbsp;
+													<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')"
+														data-toggle="tooltip" data-placement="top" id="WishList"
+														title="Wishlist">
+														<i class="fa fa-heart"></i>
+													</a>
+												</div>
+												<?php } ?>
 											</div>
 										</div>
 									</div>

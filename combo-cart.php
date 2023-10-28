@@ -2,20 +2,20 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-$id = intval($_POST['product_id']);
+$id = intval($_POST['combo_id']);
 
 $page = "";
 if (isset($_POST['page']))
     $page = trim($_POST['page']);
 
 if ($page == 'wishlist')
-    mysqli_query($con, "delete from wishlist where productId='$id'");
+    mysqli_query($con, "delete from wishlist where comboId='$id'");
 
-if (isset($_SESSION['product'][$id])) {
-    //$_SESSION['product'][$id]['quantity']++;
+if (isset($_SESSION['combo'][$id])) {
+    //$_SESSION['combo'][$id]['quantity']++;
     echo "<script>
         Swal.fire({
-            title: 'Product Already in Cart!',
+            title: 'Combo Already in Cart!',
             text: 'Do you want to proceed?',
             icon: 'info',
             showCancelButton: true,
@@ -23,21 +23,21 @@ if (isset($_SESSION['product'][$id])) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const expires = new Date(Date.now() + 1000).toUTCString();
-                document.cookie = `qi_id=$id; expires=expires`;
+                document.cookie = `cqi_id=$id; expires=expires`;
                 window.location.href = 'my-cart.php';
             }
         });
     </script>";
 } else {
-    $sql_p = "SELECT * FROM products WHERE id={$id}";
+    $sql_p = "SELECT * FROM combo WHERE id={$id}";
     $query_p = mysqli_query($con, $sql_p);
     if (mysqli_num_rows($query_p) != 0) {
         $row_p = mysqli_fetch_array($query_p);
-        $_SESSION['product'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['productPrice']);
+        $_SESSION['combo'][$row_p['id']] = array("quantity" => 1, "price" => $row_p['comboPrice']);
         echo "<script>
         Swal.fire({
             title: 'Success!',
-            text: 'Product has been added to the cart.',
+            text: 'Combo has been added to the cart.',
             icon: 'success',
             showCancelButton: true,
             confirmButtonText: 'Go to Cart',
@@ -51,7 +51,7 @@ if (isset($_SESSION['product'][$id])) {
         });
     </script>";
     } else {
-        $message = "Product ID is invalid";
+        $message = "Combo ID is invalid";
     }
 }
 ?>

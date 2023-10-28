@@ -80,7 +80,8 @@ if (strlen($_SESSION['login']) == 0) {
                     unset($_SESSION['total_amt']);
 
                     mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
-                    unset($_SESSION['cart']);
+                    unset($_SESSION['product']);
+                    unset($_SESSION['combo']);
 
                     $cust_adrs = "";
                     $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");
@@ -220,7 +221,8 @@ if (strlen($_SESSION['login']) == 0) {
             unset($_SESSION['total_amt']);
     
             mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "'");
-            unset($_SESSION['cart']);
+            unset($_SESSION['product']);
+            unset($_SESSION['combo']);
 
             $cust_adrs = "";
             $query = mysqli_query($con, "select * from users where id='" . $_SESSION['id'] . "'");

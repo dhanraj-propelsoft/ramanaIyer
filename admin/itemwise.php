@@ -22,6 +22,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
 		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
 		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
+		<link type="text/css" href="css/jquery.dataTables.min.css" rel="stylesheet">
+		<link type="text/css" href="css/dataTables.dateTime.min.css" rel="stylesheet">
 		<script src="assets\js\jspdf.min.js_1.5.3\cdnjs\jspdf.min.js"></script>
 		<script src="assets\js\jspdf.min.js_1.5.3\unpkg\jspdf.min.js"></script>
 		<script src="assets\js\jspdf.plugin.autotable.min.js_3.5.6\cdnjs\jspdf.plugin.autotable.min.js"></script>
@@ -50,7 +52,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Itemwise Orders1</h3>
+									<h3>Itemwise Orders1</h3>									
 								</div>
 								<div class="module-body table">
 									<?php if (isset($_GET['del'])) { ?>
@@ -62,10 +64,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 									<?php } ?>
 
-									<br />
-									<button id="download-pdf-button">Download PDF</button>
-
-
+									<table class="table table-responsive" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr>
+											<td>Date Filter:</td>
+											<td><input type="text" id="min" name="min" placeholder="Date [From]"> <input type="text" id="max" name="max" placeholder="Date [Updo]"></td>
+											<td><button id="download-pdf-button" style="float:right" class="btn bt-ri">Download PDF</button></td>
+										</tr>
+									</tbody></table>
 									<table cellpadding="0" id="table-to-pdf" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive" style="width:100%;padding:5px;">
 										<thead>
 											<tr>
@@ -123,14 +129,51 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-		<script src="scripts/datatables/jquery.dataTables.js"></script>
+		<script src="scripts/datatables/jquery.dataTables.min.js"></script>
+		<script src="scripts/moment.min.js"></script>
+		<script src="scripts/datatables/dataTables.dateTime.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				$('.datatable-1').dataTable();
-				$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-				$('.dataTables_paginate > a').wrapInner('<span />');
-				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+				$('.datatable-1').DataTable();
+				
+				let minDate, maxDate;
+ 
+				// Custom filtering function which will search data in column four between two values
+				DataTable.ext.search.push( function(settings, data, dataIndex) {
+					let min = minDate.val();
+					let max = maxDate.val();
+					
+					var mydate = moment(data[1], 'DD-MM-YYYY'); 
+					var newdate = moment(mydate).format("YYYY-MM-DD");
+
+					let date = new Date(newdate);
+				
+					if (
+						(min === null && max === null) ||
+						(min === null && date <= max) ||
+						(min <= date && max === null) ||
+						(min <= date && date <= max)
+					) {
+						return true;
+					}
+					return false;
+				});
+				
+				// Create date inputs
+				minDate = new DateTime('#min', {
+					format: 'MMMM Do YYYY'
+				});
+				maxDate = new DateTime('#max', {
+					format: 'MMMM Do YYYY'
+				});
+				
+				// DataTables initialisation
+				let table = new DataTable('#table-to-pdf');
+				
+				// Refilter the table
+				document.querySelectorAll('#min, #max').forEach((el) => {
+					el.addEventListener('change', () => table.draw());
+				});
 			});
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
@@ -143,7 +186,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 				});
 
 				// Save the PDF with a filename
-				pdf.save("table.pdf");
+				pdf.save("item-wise.pdf");
 			});
 		</script>
 	</body>

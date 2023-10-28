@@ -67,7 +67,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 									<br />
 
-
 									<table cellpadding="0" cellspacing="0" border="0"
 										class="datatable-1 table table-bordered table-striped	 display"
 										style="width:100%;padding:5px;">
@@ -141,6 +140,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.dataTables_paginate > a').wrapInner('<span />');
 				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
 				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+
+				
 			});
 
 			function delPopup(ele) {

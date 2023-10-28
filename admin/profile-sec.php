@@ -130,7 +130,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<label class="control-label" for="basicinput">Pincode</label>
 												<div class="controls">
 													<input type="text" pattern="\d*" maxlength="6" name="shippingpincode"
-														placeholder="Enter Shipping Pincode"
+														placeholder="Enter Shipping Pincode" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														value="<?php echo htmlentities($row['shippingPincode']); ?>"
 														class="span8 tip" required>
 												</div>

@@ -2,21 +2,37 @@
 session_start();
 error_reporting(0);
 
-if (!empty($_SESSION['cart'])) {
-    if (isset($_POST['quantity'])) {
-        foreach ($_POST['quantity'] as $key => $val) {
+if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
+    if (isset($_POST['pQuantity'])) {
+        foreach ($_POST['pQuantity'] as $key => $val) {
             if ($val == 0) {
-                unset($_SESSION['cart'][$key]);
+                unset($_SESSION['product'][$key]);
             } else {
-                $_SESSION['cart'][$key]['quantity'] = $val;
+                $_SESSION['product'][$key]['quantity'] = $val;
 
             }
         }
     }
-    // Code for Remove a Product from Cart
-    if (isset($_POST['remove_code'])) {
-        foreach ($_POST['remove_code'] as $key) {
-            unset($_SESSION['cart'][$key]);
+    // Code for Remove a combo from Cart
+    if (isset($_POST['cRemove_code'])) {
+        foreach ($_POST['cRemove_code'] as $key) {
+            unset($_SESSION['combo'][$key]);
+        }
+    }
+    if (isset($_POST['cQuantity'])) {
+        foreach ($_POST['cQuantity'] as $key => $val) {
+            if ($val == 0) {
+                unset($_SESSION['combo'][$key]);
+            } else {
+                $_SESSION['combo'][$key]['quantity'] = $val;
+
+            }
+        }
+    }
+    // Code for Remove a combo from Cart
+    if (isset($_POST['pRemove_code'])) {
+        foreach ($_POST['pRemove_code'] as $key) {
+            unset($_SESSION['combo'][$key]);
         }
     }
     echo "<script>

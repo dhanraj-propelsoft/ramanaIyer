@@ -436,16 +436,13 @@
 											</div>
 
 											<div class="col-sm-7 col-xs-6">
-												<?php if ($row['productAvailability'] == 'In Stock') { ?>
-													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')"
-														class="btn-upper btn btn-primary"><i
-															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
-												<?php } else if ($row['productAvailability'] == 'Out of Stock') { ?>
+												<?php if ($row['productAvailability'] == 'Out of Stock') { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<div class="action" style="color:red">Against Order
-													</div>
+													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')"
+														class="btn-upper btn btn-primary"><i
+															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } ?>
 											</div>
 
@@ -708,16 +705,13 @@
 									<div class="action">
 										<ul class="list-unstyled">
 											<li class="add-cart-button btn-group">
-												<?php if ($rw['productAvailability'] == 'In Stock') { ?>
-													<a id="CartList" onclick="CartList('<?php $rw['id']; ?>')"
-														class="lnk btn btn-primary btn-upper"><i
-															class="fa fa-shopping-cart inner-right-vs"></i> &nbsp; Add to Cart</a>
-												<?php } else if ($rw['productAvailability'] == 'Out of Stock') { ?>
+												<?php if ($rw['productAvailability'] == 'Out of Stock') { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<div class="action" style="color:red">Against Order
-													</div>
+													<a id="CartList" onclick="CartList('<?php $rw['id']; ?>')"
+														class="lnk btn btn-primary btn-upper"><i
+															class="fa fa-shopping-cart inner-right-vs"></i> &nbsp; Add to Cart</a>
 												<?php } ?>
 											</li>
 											<li class="lnk wishlist">

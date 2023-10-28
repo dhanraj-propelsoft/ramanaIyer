@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['login']) == 0) {
 	header('location:login.php');
@@ -43,8 +43,12 @@ if (strlen($_SESSION['login']) == 0) {
 								<tbody>
 									<div id="ack"></div>
 									<?php
-									$ret = mysqli_query($con, "select products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,products.productAvailability as pAvailability,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");
+									$ret = mysqli_query($con, "SELECT products.productName as pname,products.productName as proid,products.productImage1 as pimage,products.productPrice as pprice,products.productPriceBeforeDiscount as pdiscount,products.productRating as prating,products.productAvailability as pAvailability,wishlist.productId as pid,wishlist.id as wid from wishlist join products on products.id=wishlist.productId where wishlist.userId='" . $_SESSION['id'] . "'");
 									$num = mysqli_num_rows($ret);
+
+									$ret1 = mysqli_query($con, "SELECT combo.comboName as cname,combo.comboImage1 as cimage,combo.comboPrice as cprice,combo.comboPriceBeforeDiscount as cdiscount,combo.comboRating as crating,combo.comboAvailability as cAvailability,wishlist.comboId as cid,wishlist.id as wid from wishlist join combo on combo.id=wishlist.comboId where wishlist.userId='" . $_SESSION['id'] . "'");
+									$num1 = mysqli_num_rows($ret1);
+									
 									if ($num > 0) {
 										$rating = 0;
 										while ($row = mysqli_fetch_array($ret)) {
@@ -87,16 +91,13 @@ if (strlen($_SESSION['login']) == 0) {
 													</div>
 												</td>
 												<td class="col-md-2">
-													<?php if ($row['pAvailability'] == 'In Stock') { ?>
-													<a onclick="CartList('<?php echo $row['pid']; ?>')"
-														class="btn-upper btn btn-primary"><i
-															class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</a>
-													<?php } else if ($row['pAvailability'] == 'Out of Stock') { ?>
+													<?php if ($row['pAvailability'] == 'Out of Stock') { ?>
 														<div class="action" style="color:red">Out of Stock
 														</div>
 													<?php } else { ?>
-														<div class="action" style="color:red">Against Order
-														</div>
+														<a onclick="CartList('<?php echo $row['pid']; ?>')"
+														class="btn-upper btn btn-primary"><i
+															class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</a>
 													<?php } ?>
 												</td>
 												<td class="col-md-2 close-btn">
@@ -105,6 +106,63 @@ if (strlen($_SESSION['login']) == 0) {
 												</td>
 											</tr>
 										<?php }
+									} else if ($num1 > 0) {
+										$rating1 = 0;
+										while ($row1 = mysqli_fetch_array($ret1)) {
+
+											$rating1 = $row1['crating'];
+											?>
+
+											<tr>
+												<td class="col-md-2" style="text-align: center;"><a
+														href="combo-details.php?pid=<?php echo htmlentities($row1['cid']); ?>"><img
+															src="admin/comboimages/<?php echo htmlentities($row1['cid']); ?>/<?php echo htmlentities($row1['cimage']); ?>"
+															alt="<?php echo htmlentities($row1['cname']); ?>"
+															style="width: auto; height: 100px; max-width: 130px" /></a></td>
+												<td class="col-md-6">
+													<div class="combo-name"><a
+															href="combo-details.php?pid=<?php echo htmlentities($pd = $row1['cid']); ?>"><?php echo htmlentities($row1['cname']); ?></a></div>
+													<?php $rt = mysqli_query($con, "select * from comboreviews where comboId='$pd'");
+													$num = mysqli_num_rows($rt); {
+														?>
+
+														<div class="">
+															<?php
+															for ($jctr = 0; $jctr < 5; $jctr++) {
+																if ($jctr < $rating1)
+																	echo '<span class="fa fa-star rate-checked"></span>';
+																else
+																	echo '<span class="fa fa-star"></span>';
+															}
+															?>
+															<!-- <span class="review">(
+																<?php //echo htmlentities($num); ?> Reviews )
+															</span> -->
+														</div>
+													<?php } ?>
+													<div class="price">₹ 
+														<?php echo htmlentities($row1['cprice']); ?>.00
+														<span>₹ 
+															<?php echo htmlentities($row1['cdiscount']); ?>
+														</span>
+													</div>
+												</td>
+												<td class="col-md-2">
+													<?php if ($row1['cAvailability'] == 'Out of Stock') { ?>
+														<div class="action" style="color:red">Out of Stock
+														</div>
+													<?php } else { ?>
+														<a onclick="comboCart('<?php echo $row1['cid']; ?>')"
+														class="btn-upper btn btn-primary"><i
+															class="fa fa-shopping-cart inner-right-vs"></i> Add to cart</a>
+													<?php } ?>
+												</td>
+												<td class="col-md-2 close-btn">
+													<a style="cursor: pointer;" onClick="DelWish('<?php echo htmlentities($row1['wid']); ?>')"><i
+															class="fa fa-trash"></i></a>
+												</td>
+											</tr>
+										<?php } 
 									} else { ?>
 										<tr>
 											<td style="font-size: 18px; font-weight:bold ">Your Wishlist is Empty</td>

@@ -1,16 +1,45 @@
 <?php
 session_start();
 error_reporting(0);
-
+include('includes/config.php');
 if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
     if (isset($_POST['pQuantity'])) {
+        $popupText = "";
         foreach ($_POST['pQuantity'] as $key => $val) {
             if ($val == 0) {
                 unset($_SESSION['product'][$key]);
             } else {
+                $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $key . "'");
+                if ($row3 = mysqli_fetch_array($query3)) {
+                    $productName = $row3['productName'];
+                    $productAvailability = $row3['productAvailability'];
+                    $prod_avail = $row3['prod_avail'];
+                    $allow_ao = $row3['allow_ao'];
+
+                    if($productAvailability == "Out of Stock") {
+                        $popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
+                    } else if($productAvailability == "In Stock") {
+                        if(($allow_ao == 0) && ($prod_avail == 0))
+                            $popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
+                        else if(($allow_ao == 0) && ($prod_avail < $val))
+                            $popupText .= "<b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b><BR/>";
+                    }
+                }
                 $_SESSION['product'][$key]['quantity'] = $val;
 
             }
+        }
+        
+        if(!empty($popupText)) {
+            echo "<script>
+            Swal.fire({
+                title: 'Attention!',
+                html: '$popupText',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            </script>";
+            return;
         }
     }
     // Code for Remove a combo from Cart
@@ -20,13 +49,35 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
         }
     }
     if (isset($_POST['cQuantity'])) {
+        $popupText = "";
         foreach ($_POST['cQuantity'] as $key => $val) {
             if ($val == 0) {
                 unset($_SESSION['combo'][$key]);
             } else {
+                $query3 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $key . "'");
+                if ($row3 = mysqli_fetch_array($query3)) {
+                    $comboName = $row3['comboName'];
+                    $comboAvailability = $row3['comboAvailability'];
+
+                    if($comboAvailability == "Out of Stock") {
+                        $popupText .= "<b>$comboName - </b>Out of Stock!!!<BR/>";
+                    }
+                }
                 $_SESSION['combo'][$key]['quantity'] = $val;
 
             }
+        }
+
+        if(!empty($popupText)) {
+            echo "<script>
+            Swal.fire({
+                title: 'Attention!',
+                html: '$popupText',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            </script>";
+            return;
         }
     }
     // Code for Remove a combo from Cart

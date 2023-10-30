@@ -4,7 +4,7 @@
 
 		<ul class="widget widget-menu unstyled">
 			<li>
-				<a class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise")) {
+				<a class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise") ||($actmenu == "orderwise")) {
 								echo "act-menu-icon";
 							} else {
 								echo "collapsed";
@@ -12,7 +12,7 @@
 					<i class="menu-icon icon-shopping-cart"></i>
 					<i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>Order Management
 				</a>
-				<ul id="togglePages" class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise")) {
+				<ul id="togglePages" class="<?php if (($actmenu == "orders") || ($actmenu == "pending") || ($actmenu == "delivered") || ($actmenu == "itemwise") || ($actmenu == "orderwise")) {
 												echo "in ";
 											} ?>collapse unstyled">
 					<li>
@@ -68,10 +68,25 @@
 						</a>
 					</li>
 					<li>
+						<a href="orderwise.php" class="<?php if ($actmenu == "orderwise") {
+															echo "act-menu-icon";
+														} ?>">
+							<i class="icon-check-empty"></i>
+							Order Wise
+							<?php
+							$status = 'Delivered';
+							$rt2 = mysqli_query($con, "SELECT orders.orderId AS orderId FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
+							$num2 = mysqli_num_rows($rt2); { ?><b class="label green pull-right">
+									<?php echo htmlentities($num2); ?>
+								</b>
+							<?php } ?>
+						</a>
+					</li>
+					<li>
 						<a href="itemwise.php" class="<?php if ($actmenu == "itemwise") {
 															echo "act-menu-icon";
 														} ?>">
-							<i class="icon-check"></i>
+							<i class="icon-sign-blank"></i>
 							Itemwise Order
 						</a>
 					</li>
@@ -108,7 +123,7 @@
 														} ?>"><i class="menu-icon icon-tag"></i>Products</a></li>
 			<li><a href="product-avail.php" class="<?php if ($actmenu == "prod_avail") {
 														echo "act-menu-icon";
-													} ?>"><i class="menu-icon icon-tag"></i>Manage Products</a></li>
+													} ?>"><i class="menu-icon icon-th-large"></i>Manage Products</a></li>
 			
 		</ul><!--/.widget-nav-->
 

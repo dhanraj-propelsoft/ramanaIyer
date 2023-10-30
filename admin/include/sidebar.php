@@ -27,7 +27,7 @@
 							$t1 = "23:59:59";
 							$to = date('Y-m-d') . " " . $t1;
 							$todayDate = date('Y-m-d');
-							$result = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,products.productName AS productname,products.shippingCharge AS shippingcharge,orders.quantity AS quantity,orders.orderDate AS orderdate,products.productPrice AS productprice,orders.id AS id,orders.dtSupply AS dtSupply FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
+							$result = mysqli_query($con, "SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL) UNION SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN combo ON combo.id=orders.comboId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
 							$num_rows1 = mysqli_num_rows($result); {
 							?>
 								<b class="label orange pull-right">
@@ -44,7 +44,7 @@
 							Order Request
 							<?php
 							$status = 'Delivered';
-							$ret = mysqli_query($con, "SELECT * FROM orders join users on orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
+							$ret = mysqli_query($con, "SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) UNION SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN combo ON combo.id=orders.comboId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
 							$num = mysqli_num_rows($ret); { ?><b class="label orange pull-right">
 									<?php echo htmlentities($num); ?>
 								</b>
@@ -59,7 +59,7 @@
 							Delivered Orders
 							<?php
 							$status = 'Delivered';
-							$rt = mysqli_query($con, "SELECT * FROM orders join users on orders.userId=users.id join products on products.id=orders.productId where orders.orderId IS NOT NULL AND orders.orderStatus='$status'");
+							$rt = mysqli_query($con, "SELECT orders.id FROM orders join users on orders.userId=users.id join products on products.id=orders.productId where orders.orderId IS NOT NULL AND orders.orderStatus='$status' UNION SELECT orders.id FROM orders join users on orders.userId=users.id join combo on combo.id=orders.comboId where orders.orderId IS NOT NULL AND orders.orderStatus='$status'");
 							$num1 = mysqli_num_rows($rt); { ?><b class="label green pull-right">
 									<?php echo htmlentities($num1); ?>
 								</b>

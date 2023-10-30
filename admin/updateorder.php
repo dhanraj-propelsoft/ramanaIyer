@@ -68,7 +68,7 @@
 
               <div class="module">
                 <div class="module-head">
-                  <h3>Order ID =>
+                  <h3>Order Number =>
                     <?php echo $oid; ?>
                   </h3>
                 </div>
@@ -82,7 +82,7 @@
                           <th>At Date</th>
                           <th>Status <span style="color: red;">*</span></th>
                           <th width="300px">Remark <span style="color: red;">*</span></th>
-
+                          <th>Order Id</th>
                         </tr>
                       </thead>
 
@@ -103,6 +103,9 @@
                               <td>
                                 <?php echo htmlentities($row['remark']); ?>
                               </td>
+                              <td>
+                                <?php echo htmlentities($row['orderId']); ?>
+                              </td>
                             </tr>
                           <?php 
                             }
@@ -116,11 +119,11 @@
                         }
                         if ($st == $currrentSt) { ?>
                           <tr>
-                            <td colspan="3"><b>
+                            <td colspan="4"><b>
                                 Product Delivered </b></td>
                           </tr>
                           <tr>
-                            <td colspan="3"><input class="btn" type="button" value="Back"
+                            <td colspan="4"><input class="btn" type="button" value="Back"
                                 onclick="window.location.href = 'delivered-orders.php'; return false;" /> </td>
                           </tr>
                         <?php } else {
@@ -139,9 +142,10 @@
                             <td class="fontkink" align="justify"><span class="fontkink">
                                 <textarea cols="100" rows="7" name="remark" required="required"></textarea>
                               </span></td>
+                            <td></td>
                           </tr>
                           <tr>
-                            <td colspan="3"><input class="btn" type="button" value="Back"
+                            <td colspan="4"><input class="btn" type="button" value="Back"
                                 onclick="window.history.go(-1); return false;" />
                               <input type="submit" name="submit2" value="Update" class="btn" />
                             </td>

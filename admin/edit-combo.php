@@ -350,7 +350,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 }
                 if(validInd == 1)
                 {
-                    $("#prodErr").html("<br/><div class='alert alert-error'><strong>Caution!</strong> Please fill below Mandatory (*) fields.</div>");
+                    $("#prodErr").html("<br/><div class='alert alert-error'><strong>Attention!</strong> Please fill below Mandatory (*) fields.</div>");
                     $("#prodErr").fadeTo(5000, 500).slideUp(500, function(){
                         $("#prodErr").slideUp(500);
                     });

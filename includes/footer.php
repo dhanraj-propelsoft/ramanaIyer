@@ -263,7 +263,7 @@
                 }
             }
             else {
-                $(ele).next().html("<div class='alert alert-danger'><strong>Caution!</strong> Enter Valid Pincode</div>");
+                $(ele).next().html("<div class='alert alert-danger'><strong>Attention!</strong> Enter Valid Pincode</div>");
                 $(ele).next().fadeTo(5000, 500).slideUp(500, function(){
                     $(ele).next().slideUp(500);
                 });

@@ -103,6 +103,39 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </tr>
                                                 <?php 
                                                 $cnt++;
+                                                }
+                                                $query1 = mysqli_query($con, "select orders.quantity AS oQuantity,orders.price AS oPrice,orders.dtSupply AS oDtSupply,orders.remarks AS oRemarks,combo.comboName AS cName,combo.comboPrice AS cPrice from orders JOIN combo WHERE combo.id=orders.comboId AND orders.orderId='".$oid."'");
+                                                while ($row1 = mysqli_fetch_array($query1)) { 
+                                                    $dtSupply = str_replace(" ","T",$row1['oDtSupply']);
+                                                    $remarks = $row1['oRemarks'];
+                                                    if(intval($row1['oPrice']) > 0) {
+                                                        $totAmt += intval($row1['oPrice']);
+                                                        $amount = $row1['oPrice'];
+                                                    } else {
+                                                        $totAmt += intval($row1['cPrice']);
+                                                        $amount = $row1['cPrice'];
+                                                    }
+                                                    ?>
+                                                <tr>
+                                                    <td><?=$cnt?></td>
+                                                    <td>
+                                                        <select name="productId[]" class="productId span8 tip" required readonly>
+                                                            <option value="" selected disabled>Select</option>
+                                                            <option value="" selected><?=$row1['cName']; ?></option>
+                                                        </select>
+                                                    </td>
+                                                    <td><label style="font-weight: bold;" class="price"><?=$row1['cPrice']; ?></label></td>
+                                                    <td><input type="text" readonly
+                                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                    name="quantity[]" placeholder="Enter Quantity" value="<?=$row1['oQuantity']; ?>"
+                                                    class="quantity span8 tip" required></td>
+                                                    <td><input type="text" value="<?=$amount; ?>" readonly
+                                                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                    name="amount[]" placeholder="Enter Amount"
+                                                    class="amount span8 tip" required></td>
+                                                </tr>
+                                                <?php 
+                                                $cnt++;
                                                 } ?>
                                                 
                                             </tbody>

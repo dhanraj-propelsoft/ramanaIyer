@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -115,6 +115,43 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo date("d-m-Y h:i:s A", strtotime($row['orderdate'])); ?>
 													</td>
 													<td><a href="updateorder.php?oid=<?php echo htmlentities($row['orderId']); ?>&sm=delivered"
+															title="Update order"><i class="icon-eye-open"></i></a>
+													</td>
+												</tr>
+
+												<?php $cnt = $cnt + 1;
+											}
+											$query1 = mysqli_query($con, "SELECT users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,combo.comboName as comboname,combo.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,combo.comboPrice as comboprice,orders.id as id,orders.orderId AS orderId from orders join users on orders.userId=users.id join combo on combo.id=orders.comboId where orders.orderId IS NOT NULL AND orders.orderStatus='$st'");
+											while ($row1 = mysqli_fetch_array($query1)) {
+												?>
+												<tr style="cursor:pointer" onclick="window.location.href = 'updateorder.php?oid=<?=$row1['orderId'];?>&sm=delivered'">
+													<td>
+														<?php echo htmlentities($cnt); ?>
+													</td>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row1['username']); ?>
+													</td>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row1['useremail']); ?>/
+														<?php echo htmlentities($row1['usercontact']); ?>
+													</td>
+
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row1['shippingaddress'] . "," . $row1['shippingcity'] . "," . $row1['shippingstate'] . "-" . $row1['shippingpincode']); ?>
+													</td>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row1['comboname']); ?>
+													</td>
+													<td class="wrap_td_25">
+														<?php echo htmlentities($row1['quantity']); ?>
+													</td>
+													<td class="wrap_td_25">
+														<?php echo htmlentities($row1['quantity'] * $row1['comboprice'] + $row1['shippingcharge']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
+													</td>
+													<td><a href="updateorder.php?oid=<?php echo htmlentities($row1['orderId']); ?>&sm=delivered"
 															title="Update order"><i class="icon-eye-open"></i></a>
 													</td>
 												</tr>

@@ -24,7 +24,7 @@ if((!empty($baddress)) && (!empty($bstate)) && (!empty($bcity)) && (!empty($bpin
     }
 } else {
     echo "<div class='alert alert-danger'>
-            <strong>Caution!</strong> Please enter Mandatory (*) fields.
+            <strong>Attention!</strong> Please enter Mandatory (*) fields.
         </div>";
 }
 ?>

@@ -130,6 +130,46 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</tr>
 
 												<?php $cnt = $cnt + 1;
+											}
+											$query1 = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,combo.comboName AS comboname,combo.shippingCharge AS shippingcharge,orders.quantity AS quantity,orders.orderDate AS orderdate,combo.comboPrice AS comboprice,orders.id AS id,orders.orderId AS orderId,orders.dtSupply AS dtSupply FROM orders JOIN users ON orders.userId=users.id JOIN combo ON combo.id=orders.comboId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND DATE(orders.dtSupply) LIKE '%$todayDate%' AND (orders.orderStatus!='Delivered' OR orders.orderStatus IS NULL)");
+											while ($row1 = mysqli_fetch_array($query1)) {
+												?>
+												<tr style="cursor:pointer" onclick="window.location.href = 'updateorder.php?oid=<?=$row1['orderId'];?>&sm=orders'">
+													<td>
+														<?php echo htmlentities($cnt); ?>
+													</td>
+													<td class="wrap_td_75">
+														<?php echo htmlentities($row1['username']); ?>
+													</td>
+													<td class="wrap_td_75">
+														<?php echo htmlentities($row1['useremail']); ?>/
+														<?php echo htmlentities($row1['usercontact']); ?>
+													</td>
+
+													<td class="wrap_td_75">
+														<?php echo htmlentities($row1['shippingaddress'] . "," . $row1['shippingcity'] . "," . $row1['shippingstate'] . "-" . $row1['shippingpincode']); ?>
+													</td>
+													<td class="wrap_td_75">
+														<?php echo htmlentities($row1['comboname']); ?>
+													</td>
+													<td class="wrap_td_25">
+														<?php echo htmlentities($row1['quantity']); ?>
+													</td>
+													<td class="wrap_td_25">
+														<?php echo htmlentities($row1['quantity'] * $row1['comboprice'] + $row1['shippingcharge']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo date("d-m-Y h:i:s A", strtotime($row1['dtSupply'])); ?>
+													</td>
+													<td><a href="updateorder.php?oid=<?php echo htmlentities($row1['orderId']); ?>&sm=orders"
+															title="Update order"><i class="icon-edit"></i></a>
+													</td>
+												</tr>
+
+												<?php $cnt = $cnt + 1;
 											} ?>
 										</tbody>
 									</table>

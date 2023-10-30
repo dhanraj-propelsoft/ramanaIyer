@@ -8,6 +8,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	$uid = intval($_GET['id']); // product id
 	if (isset($_POST['submit'])) {
 		$productIds = $_POST['productId'];
+		$table = $_POST['table'];
 		$quantity = $_POST['quantity'];
 		$amount = $_POST['amount'];
 		$dateTime = date("Y-m-d H:i:s", strtotime($_POST["dateTime"]));
@@ -18,7 +19,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         $ictr=0;
         foreach($productIds as $productId) {
-            $sql = mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            if($table[$ictr] == "combo")
+                mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            else
+                mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
             $ictr++;
         }
 		
@@ -112,18 +116,24 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     <td>
                                                         <select name="productId[]" class="productId span8 tip" required>
                                                             <option value="" selected disabled>Select</option>
-                                                            <?php $query = mysqli_query($con, "select * from products");
+                                                            <?php $query = mysqli_query($con, "select products.* from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
                                                             while ($row = mysqli_fetch_array($query)) { 
-                                                                if(($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) {
-                                                                ?>
-
-                                                                <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
+                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) { ?>
+                                                                <option price="<?php echo $row['productPrice']; ?>" table="products" value="<?php echo $row['id']; ?>">
                                                                     <?php echo $row['productName']; ?>
                                                                 </option>
-                                                            <?php }} ?>
+                                                            <?php } }
+                                                            
+                                                            $query1 = mysqli_query($con, "select * from combo");
+                                                            while ($row1 = mysqli_fetch_array($query1)) { 
+                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) { ?>
+                                                                <option price="<?php echo $row1['comboPrice']; ?>" table="combo" value="<?php echo $row1['id']; ?>">
+                                                                    <?php echo $row1['comboName']; ?>
+                                                                </option>
+                                                            <?php } } ?>
                                                         </select>
                                                     </td>
-                                                    <td><label style="font-weight: bold;" class="price"></label></td>
+                                                    <td><label style="font-weight: bold;" class="price"></label><input type="hidden" name="table[]" class="frmTbl"></td>
                                                     <td><input type="text"
                                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                                     name="quantity[]" placeholder="Enter Quantity"
@@ -137,19 +147,26 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </tr>
                                                 <tr style="display: none;" id="prodRow">
                                                     <td>
-                                                        <select name="productId[]" class="productId span8 tip"  onchange="pushPrice(this, this.options[this.selectedIndex].getAttribute('price'))">
+                                                        <select name="productId[]" class="productId span8 tip"  onchange="pushPrice(this, this.options[this.selectedIndex].getAttribute('price'), this.options[this.selectedIndex].getAttribute('table'))">
                                                             <option value="" selected disabled>Select</option>
-                                                            <?php $query = mysqli_query($con, "select * from products");
+                                                            <?php $query = mysqli_query($con, "select products.* from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
                                                             while ($row = mysqli_fetch_array($query)) { 
-                                                                if(($row['productAvailability'] != 'Out of Stock') || ($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) { ?>
-
-                                                                <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
+                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) { ?>
+                                                                <option price="<?php echo $row['productPrice']; ?>" table="products" value="<?php echo $row['id']; ?>">
                                                                     <?php echo $row['productName']; ?>
+                                                                </option>
+                                                            <?php } } 
+                                                            
+                                                            $query1 = mysqli_query($con, "select * from combo");
+                                                            while ($row1 = mysqli_fetch_array($query1)) { 
+                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) { ?>
+                                                                <option price="<?php echo $row1['comboPrice']; ?>" table="combo" value="<?php echo $row1['id']; ?>">
+                                                                    <?php echo $row1['comboName']; ?>
                                                                 </option>
                                                             <?php } } ?>
                                                         </select>
                                                     </td>
-                                                    <td><label style="font-weight: bold;" class="price"></label></td>
+                                                    <td><label style="font-weight: bold;" class="price"></label><input type="hidden" name="table[]" class="frmTbl"></td>
                                                     <td><input type="text" onkeyup="calAmount(this)"
                                                     onkeypress="return event.charCode >= 48 && event.charCode <= 57"
                                                     name="quantity[]" placeholder="Enter Quantity"
@@ -208,7 +225,8 @@ if (strlen($_SESSION['alogin']) == 0) {
             let number = 2; 
             $(".productId").on('change',function() {
                 let price = $('option:selected', this).attr('price');
-                pushPrice(this, price);
+                let table = $('option:selected', this).attr('table');
+                pushPrice(this, price, table);
             });
             $(document).on('click','.remove',function(){
                 $(this).parents('tr').remove();
@@ -231,7 +249,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                 }
                 if(validInd == 1)
                 {
-                    $("#prodErr").html("<div class='alert alert-error'><strong>Caution!</strong> Please fill below Mandatory (*) fields.</div>");
+                    $("#prodErr").html("<div class='alert alert-error'><strong>Attention!</strong> Please fill below Mandatory (*) fields.</div>");
                     $("#prodErr").fadeTo(5000, 500).slideUp(500, function(){
                         $("#prodErr").slideUp(500);
                     });
@@ -244,8 +262,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                     $("#prodRow").before("<tr><td class='slNo'>"+`${number++}`+"</td>" + todoValue + "</tr>");
                 }
             });
-            function pushPrice(ele, val) {
+            function pushPrice(ele, val, tbl) {
                 $(ele).parents('tr').children().find(".price").html(val);
+                $(ele).parents('tr').children().find(".frmTbl").val(tbl);
                 let quantity = $(ele).parents('tr').children().find(".quantity").val();
                 let calAmt = parseInt(quantity * val);
                 $(ele).parents('tr').children().find(".amount").val(calAmt);

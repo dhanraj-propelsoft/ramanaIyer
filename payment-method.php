@@ -11,8 +11,8 @@ if (strlen($_SESSION['login']) == 0) {
 		//echo "<script>$('#loaderIcon').css('visibility', 'visible'); $('#loaderIcon').show();</script>";
 		$prodid = array();
         $prodQt = array();
-        if (!empty($_SESSION['product'])) {
-            $sql = "SELECT * FROM products WHERE id IN(";
+        if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
+			$sql = "SELECT * FROM products WHERE id IN(";
             foreach ($_SESSION['product'] as $id => $pVal) {
                 $sql .= $id . ",";
             }
@@ -40,7 +40,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 		$comboid = array();
         $comboQt = array();
-        if (!empty($_SESSION['combo'])) {
+        if((isset($_SESSION['combo'])) && (!empty($_SESSION['combo']))){
             $sql = "SELECT * FROM combo WHERE id IN(";
             foreach ($_SESSION['combo'] as $id => $cVal) {
                 $sql .= $id . ",";
@@ -117,7 +117,7 @@ if (strlen($_SESSION['login']) == 0) {
 							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
 							mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
 							$errorInd++;
-						} else if(($allow_ao != '1') && ($prod_avail == 0)) {
+						} else if(($allow_ao == 0) && ($prod_avail == 0)) {
 							$popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
 							$errorInd--;
 						} else {
@@ -210,7 +210,7 @@ if (strlen($_SESSION['login']) == 0) {
 		<div class="container">
 			<div class="breadcrumb-inner">
 				<ul class="list-inline list-unstyled">
-					<li><a href="home.html">Home</a></li>
+					<li><a href="index.php">Home</a></li>
 					<li class='active'>Payment Method</li>
 				</ul>
 			</div><!-- /.breadcrumb-inner -->

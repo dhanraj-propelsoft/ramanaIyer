@@ -62,7 +62,7 @@ if (strlen($_SESSION['login']) == 0) {
 														<?php echo $cnt; ?>
 													</td>
 													<td class="cart-image">
-														<a class="entry-thumbnail" href="detail.html">
+														<a class="entry-thumbnail" href="product-details.php?pid=<?php echo $row['opid']; ?>">
 															<img src="admin/productimages/<?php echo $row['c']; ?>/<?php echo $row['pimg1']; ?>"
 																alt="" width="84" height="auto">
 														</a>

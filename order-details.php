@@ -55,7 +55,7 @@ include('includes/header.php');
 													<?php echo $cnt; ?>
 												</td>
 												<td class="cart-image">
-													<a class="entry-thumbnail" href="detail.html">
+													<a class="entry-thumbnail" href="product-details.php?pid=<?php echo $row['opid']; ?>">
 														<img src="admin/productimages/<?php echo $row['opid']; ?>/<?php echo $row['pimg1']; ?>"
 															alt="" width="84" height="146">
 													</a>

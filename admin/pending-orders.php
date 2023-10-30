@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('include/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -105,7 +105,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 											<?php
 											$status = 'Delivered';
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.orderId as orderId,orders.orderBy as orderBy,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
+											$query = mysqli_query($con, "SELECT users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id,orders.orderId as orderId,orders.orderBy as orderBy,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
 											$cnt = 1;
 											while ($row = mysqli_fetch_array($query)) {
 												$oid = $row['orderId'];
@@ -114,7 +114,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
-													<td class="wrap_td_50">
+													<td class="wrap_td_100">
 														<?php echo htmlentities($row['orderId']); ?>
 													</td>
 													<td class="wrap_td_50">
@@ -144,6 +144,53 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</td>
 													<td>
 														<?php echo htmlentities($row['orderBy']); ?>
+													</td>
+													<td>
+													<a href="view-order.php?oid=<?=$oid?>"
+															title="view order"><i class="icon-eye-open"></i></a>
+													</td>
+												</tr>
+
+												<?php $cnt = $cnt + 1;
+											}
+											$query1 = mysqli_query($con, "SELECT users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingAddress as shippingaddress,users.shippingCity as shippingcity,users.shippingState as shippingstate,users.shippingPincode as shippingpincode,combo.comboName as comboname,combo.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,combo.comboPrice as comboprice,orders.id as id,orders.orderId as orderId,orders.orderBy as orderBy,orders.dtSupply as dtSupply  from orders join users on  orders.userId=users.id join combo on combo.id=orders.comboId where orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
+											while ($row1 = mysqli_fetch_array($query1)) {
+												$oid = $row1['orderId'];
+												?>
+												<tr style="cursor: pointer;" onclick="window.location.href = 'view-order.php?oid=<?=$oid?>'">
+													<td>
+														<?php echo htmlentities($cnt); ?>
+													</td>
+													<td class="wrap_td_100">
+														<?php echo htmlentities($row1['orderId']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php 
+														if(!empty($row1['dtSupply'])) {
+														echo date("d-m-Y h:i A", strtotime($row1['dtSupply']));
+														} ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo htmlentities($row1['username']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo htmlentities($row1['useremail']); ?>/
+														<?php echo htmlentities($row1['usercontact']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo htmlentities($row1['shippingaddress'] . "," . $row1['shippingcity'] . "," . $row1['shippingstate'] . "-" . $row1['shippingpincode']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo htmlentities($row1['comboname']); ?>
+													</td>
+													<td class="wrap_td_10">
+														<?php echo htmlentities($row1['quantity']); ?>
+													</td>
+													<td class="wrap_td_50">
+														<?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
+													</td>
+													<td>
+														<?php echo htmlentities($row1['orderBy']); ?>
 													</td>
 													<td>
 													<a href="view-order.php?oid=<?=$oid?>"

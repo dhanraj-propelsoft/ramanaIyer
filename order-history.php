@@ -47,10 +47,13 @@ if (strlen($_SESSION['login']) == 0) {
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentId is not null");
-                                        $cnt = 1;
+                                        <?php 
+                                        $query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentId is not null");
                                         $num = mysqli_num_rows($query);
-                                        if ($num > 0) {
+                                        $query1 = mysqli_query($con, "select combo.comboImage1 as cimg1,combo.comboName as cname,combo.id as comid,orders.comboId as opid,orders.quantity as qty,combo.comboPrice as cprice,combo.shippingCharge as shippingcharge,orders.paymentMethod as cpaym,orders.orderDate as odate,orders.id as orderid from orders join combo on orders.comboId=combo.id where orders.userId='" . $_SESSION['id'] . "' and orders.paymentId is not null");
+                                        $num1 = mysqli_num_rows($query1);
+                                        $cnt = 1;
+                                        if (($num > 0) || ($num1 > 0)) {
                                             while ($row = mysqli_fetch_array($query)) {
                                                 ?>
                                                 <tr>
@@ -92,6 +95,53 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <td>
                                                         <a href="javascript:void(0);"
                                                             onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row['orderid']); ?>');"
+                                                            title="Track order">
+                                                            Track
+                                                    </td>
+                                                </tr>
+                                                <?php $cnt = $cnt + 1;
+                                            }
+                                            while ($row1 = mysqli_fetch_array($query1)) {
+                                                ?>
+                                                <tr>
+                                                    <td>
+                                                        <?php echo $cnt; ?>
+                                                    </td>
+                                                    <td class="cart-image">
+                                                        <a class="entry-thumbnail" href="detail.html">
+                                                            <img src="admin/comboimages/<?php echo $row1['comid']; ?>/<?php echo $row1['cimg1']; ?>"
+                                                                alt="" width="84" height="auto">
+                                                        </a>
+                                                    </td>
+                                                    <td class="cart-product-name-info">
+                                                        <h4 class='cart-product-description'><a
+                                                                href="combo-details.php?pid=<?php echo $row1['opid']; ?>">
+                                                                <?php echo $row1['cname']; ?></a></h4>
+
+
+                                                    </td>
+                                                    <td class="cart-product-quantity">
+                                                        <?php echo $qty = $row1['qty']; ?>
+                                                    </td>
+                                                    <td class="cart-product-sub-total">
+                                                        <?php echo $price = $row1['cprice']; ?>
+                                                    </td>
+                                                    <td class="cart-product-sub-total">
+                                                        <?php echo $shippcharge = $row1['shippingcharge']; ?>
+                                                    </td>
+                                                    <td class="cart-product-grand-total">
+                                                        <?php echo (($qty * $price) + $shippcharge); ?>
+                                                    </td>
+                                                    <td class="cart-product-sub-total">
+                                                        <?php echo $row1['cpaym']; ?>
+                                                    </td>
+                                                    <td class="cart-product-sub-total">
+                                                        <?php echo $row1['odate']; ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="javascript:void(0);"
+                                                            onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row1['orderid']); ?>');"
                                                             title="Track order">
                                                             Track
                                                     </td>

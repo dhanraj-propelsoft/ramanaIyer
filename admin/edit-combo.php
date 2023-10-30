@@ -269,9 +269,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <div class="control-group">
                                                 <label class="control-label" for="basicinput">Combo Image2</label>
                                                 <div class="controls">
-                                                    <img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage2']); ?>"
+                                                    <?php if (!empty($row['comboImage2'])) { ?>
+													<img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage2']); ?>"
                                                         width="200" height="100"> <a
                                                         href="upd-combo-img2.php?id=<?php echo $row['id']; ?>">Change Image</a>
+													<?php } else { echo '<a
+														href="upd-combo-img2.php?id='.$row['id'].'">Add Image</a>'; } ?>
                                                 </div>
                                             </div>
 
@@ -280,9 +283,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <div class="control-group">
                                                 <label class="control-label" for="basicinput">Combo Image3</label>
                                                 <div class="controls">
-                                                    <img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage3']); ?>"
+                                                    <?php if (!empty($row['comboImage3'])) { ?>
+													<img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage3']); ?>"
                                                         width="200" height="100"> <a
                                                         href="upd-combo-img3.php?id=<?php echo $row['id']; ?>">Change Image</a>
+													<?php } else { echo '<a
+														href="upd-combo-img3.php?id='.$row['id'].'">Add Image</a>'; } ?>
                                                 </div>
                                             </div>
                                         <?php } ?>

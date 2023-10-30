@@ -83,9 +83,9 @@ if (strlen($_SESSION['login']) == 0) {
                 $cust_adrs = $row2['shippingAddress'].", ".$row2['shippingState'].", ".$row2['shippingCity'].", ".$row2['shippingPincode'];
             }
 
-			foreach ($value as $prodId => $quant) {
+			foreach ($value as $prdtId => $quant) {
 				$totProd++;
-				$query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $prodId . "'");
+				$query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $prdtId . "'");
 				if ($row3 = mysqli_fetch_array($query3)) {
 					$productName = $row3['productName'];
 					$productAvailability = $row3['productAvailability'];
@@ -99,23 +99,26 @@ if (strlen($_SESSION['login']) == 0) {
 						$new_prod_avail = $prod_avail - $quant;
 						if($new_prod_avail < 0)
 							$new_prod_avail = 0;
-						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
+						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prdtId . "'");
 						$popupText .= "<b>$productName - </b>The ordered quantity will be placed Against the Order.<BR/>";
-						unset($_SESSION['product'][$prodId]);
-						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "");
-						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
+						unset($_SESSION['product'][$prdtId]);
+						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
+						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
 						$errorInd++;
 					} else if(($productAvailability == "In Stock") && ($prod_avail < $quant)) {
 						if($allow_ao == '1') {
 							$new_prod_avail = $prod_avail - $quant;
 							if($new_prod_avail < 0)
 								$new_prod_avail = 0;
-							mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
+							mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prdtId . "'");
 							$popupText .= "<b>$productName - </b>The ordered quantity will be placed Against the Order.<BR/>";
-							unset($_SESSION['product'][$prodId]);
-							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "");
-							mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
+							unset($_SESSION['product'][$prdtId]);
+							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
+							mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
 							$errorInd++;
+						} else if(($allow_ao != '1') && ($prod_avail == 0)) {
+							$popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
+							$errorInd--;
 						} else {
 							$popupText .= "<b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b><BR/>";
 							$errorInd--;
@@ -123,10 +126,10 @@ if (strlen($_SESSION['login']) == 0) {
 					} else if(($productAvailability == "In Stock") && ($prod_avail >= $quant)) {
 						$popupText .= "<b>$productName - </b>Your order has been received by Ramana Sweets.<BR/>";
 						$new_prod_avail = $prod_avail - $quant;
-						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prodId . "'");
-						unset($_SESSION['product'][$prodId]);
-						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prodId . "'");
-						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prodId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
+						mysqli_query($con, "UPDATE products SET prod_avail='$new_prod_avail' WHERE id='" . $prdtId . "'");
+						unset($_SESSION['product'][$prdtId]);
+						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
+						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
 						$errorInd++;
 					}
 				}
@@ -145,7 +148,7 @@ if (strlen($_SESSION['login']) == 0) {
 					} else if($comboAvailability == "Against Order") {
 						$popupText .= "<b>$comboName - </b>The ordered quantity will be placed Against the Order.<BR/>";
 						unset($_SESSION['combo'][$comboId]);
-						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND cId = '" . $comboId . "");
+						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND cId = '" . $comboId . "'");
 						mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$comboId','$comboQty','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
 						$errorInd++;
 					} else if($comboAvailability == "In Stock") {

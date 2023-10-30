@@ -113,12 +113,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <select name="productId[]" class="productId span8 tip" required>
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select * from products");
-                                                            while ($row = mysqli_fetch_array($query)) { ?>
+                                                            while ($row = mysqli_fetch_array($query)) { 
+                                                                if(($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) {
+                                                                ?>
 
                                                                 <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
                                                                     <?php echo $row['productName']; ?>
                                                                 </option>
-                                                            <?php } ?>
+                                                            <?php }} ?>
                                                         </select>
                                                     </td>
                                                     <td><label style="font-weight: bold;" class="price"></label></td>
@@ -138,12 +140,13 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <select name="productId[]" class="productId span8 tip"  onchange="pushPrice(this, this.options[this.selectedIndex].getAttribute('price'))">
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select * from products");
-                                                            while ($row = mysqli_fetch_array($query)) { ?>
+                                                            while ($row = mysqli_fetch_array($query)) { 
+                                                                if(($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) { ?>
 
                                                                 <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
                                                                     <?php echo $row['productName']; ?>
                                                                 </option>
-                                                            <?php } ?>
+                                                            <?php } } ?>
                                                         </select>
                                                     </td>
                                                     <td><label style="font-weight: bold;" class="price"></label></td>

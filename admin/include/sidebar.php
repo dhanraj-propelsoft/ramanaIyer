@@ -100,16 +100,16 @@
 			<li><a href="subcategory.php" class="<?php if ($actmenu == "subcategory") {
 														echo "act-menu-icon";
 													} ?>"><i class="menu-icon icon-tasks"></i>Sub Category </a></li>
-			<li><a href="product-avail.php" class="<?php if ($actmenu == "prod_avail") {
-														echo "act-menu-icon";
-													} ?>"><i class="menu-icon icon-tag"></i>Manage Product</a></li>
 			<li><a href="manage-combos.php" class="<?php if ($actmenu == "ins_combo") {
 														echo "act-menu-icon";
 													} ?>"><i class="menu-icon icon-tags"></i>Combo Offer</a></li>
 			<li><a href="manage-products.php" class="<?php if ($actmenu == "all_product") {
 															echo "act-menu-icon";
 														} ?>"><i class="menu-icon icon-tag"></i>Products</a></li>
-
+			<li><a href="product-avail.php" class="<?php if ($actmenu == "prod_avail") {
+														echo "act-menu-icon";
+													} ?>"><i class="menu-icon icon-tag"></i>Manage Products</a></li>
+			
 		</ul><!--/.widget-nav-->
 
 		<ul class="widget widget-menu unstyled">

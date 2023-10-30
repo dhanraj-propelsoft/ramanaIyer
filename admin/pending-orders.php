@@ -77,7 +77,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<td>
 													<input type="text" id="min" name="min" placeholder="Choose Delivery Date">
 												</td>
-												<td><button id="download-pdf-button" style="float:right" class="btn bt-ri">Download PDF</button></td>
+												<td><a class="btn btn-ri" onclick="window.location.reload();">Reset Filters</a></td>
+												<td><button id="download-pdf-button" style="float:right" class="btn btn-ri">Download PDF</button></td>
 											</tr>
 										</tbody>
 									</table>

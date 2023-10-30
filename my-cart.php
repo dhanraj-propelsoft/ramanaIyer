@@ -184,8 +184,6 @@ $against_order = 0;
 										}
 										$sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
 										$query = mysqli_query($con, $sql);
-										$totalprice = 0;
-										$totalqunty = 0;
 										if (!empty($query)) {
 											$rating = 0;
 											while ($row2 = mysqli_fetch_array($query)) {

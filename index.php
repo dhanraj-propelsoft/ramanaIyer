@@ -248,7 +248,7 @@ include('includes/header.php'); ?>
 													</div>
 												</div>
 												<div id="ack"></div>
-												<?php if ($row['productAvailability'] == 'Out of Stock') { ?>
+												<?php if (($row['productAvailability'] == 'Out of Stock') || (($row['prod_avail'] == '0') && ($row['allow_ao'] != '1'))) { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>

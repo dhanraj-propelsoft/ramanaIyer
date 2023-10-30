@@ -68,7 +68,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<tr>
 											<td>Date Filter:</td>
 											<td><input type="text" id="min" name="min" placeholder="Choose Date"></td>
-											<td><button id="download-pdf-button" style="float:right" class="btn bt-ri">Download PDF</button></td>
+											<td><a class="btn btn-ri" onclick="window.location.reload();">Reset Filters</a></td>
+											<td><button id="download-pdf-button" style="float:right" class="btn btn-ri">Download PDF</button></td>
 										</tr>
 									</tbody></table>
 									<table cellpadding="0" id="table-to-pdf" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive" style="width:100%;padding:5px;">

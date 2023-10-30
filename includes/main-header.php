@@ -94,6 +94,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 			
 				<?php } } }?>
 				<?php 
+				if(isset($_SESSION['combo'])){
 					$sql1 = "SELECT * FROM combo WHERE id IN(";
 					foreach($_SESSION['combo'] as $id => $value){
 					$sql1 .=$id. ",";
@@ -129,7 +130,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 					</div>
 				</div><!-- /.cart-item -->
 			
-				<?php } }?>
+				<?php } } }?>
 				<div class="clearfix"></div>
 			<hr>
 		

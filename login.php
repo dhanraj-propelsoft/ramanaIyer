@@ -38,7 +38,11 @@ if (isset($_POST['login'])) {
 	$query = mysqli_query($con, "SELECT * FROM users WHERE contactno='$contactno' and password='$password'");
 	$num = mysqli_fetch_array($query);
 	if ($num > 0) {
-		$extra = "index.php";
+		$extra = "";
+		if((isset($_SESSION['lastSeen'])) && (!empty($_SESSION['lastSeen'])))
+			$extra = $_SESSION['lastSeen'];
+		else
+			$extra = "index.php";
 		$_SESSION['login'] = $_POST['contactno'];
 		$_SESSION['id'] = $num['id'];
 		$_SESSION['username'] = $num['name'];

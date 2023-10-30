@@ -141,7 +141,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select * from products");
                                                             while ($row = mysqli_fetch_array($query)) { 
-                                                                if(($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) { ?>
+                                                                if(($row['productAvailability'] != 'Out of Stock') || ($row['prod_avail'] > 0) || (($row['prod_avail'] == '0') && ($row['allow_ao'] == '1'))) { ?>
 
                                                                 <option price="<?php echo $row['productPrice']; ?>" value="<?php echo $row['id']; ?>">
                                                                     <?php echo $row['productName']; ?>

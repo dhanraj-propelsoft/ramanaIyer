@@ -55,7 +55,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 		<ul class="dropdown-menu">
 		
 		 <?php 
-			if(isset($_SESSION['product'])){
+			if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
 		 
 		 	$sql = "SELECT * FROM products WHERE id IN(";
 			foreach($_SESSION['product'] as $id => $value){
@@ -94,7 +94,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 			
 				<?php } } }?>
 				<?php 
-				if(isset($_SESSION['combo'])){
+				if((isset($_SESSION['combo'])) && (!empty($_SESSION['combo']))){
 					$sql1 = "SELECT * FROM combo WHERE id IN(";
 					foreach($_SESSION['combo'] as $id => $value){
 					$sql1 .=$id. ",";

@@ -132,12 +132,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             </tbody>
                                         </table>
                                         <br/>
-										<div class="control-group">
-											<div class="controls" style="float:left">
-												<input class="btn btn-primary" type="button" value="Back"
+										<input class="btn btn-primary" type="button" value="Back"
 													onclick="window.location.href = 'orderwise.php'" />
-											</div>
-										</div>
 									</form>
 								</div>
 							</div>

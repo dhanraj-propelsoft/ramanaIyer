@@ -8,10 +8,17 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     $_SESSION['lastSeen'] = '';
     if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
+        // Code for Remove a Product from Cart
+        if (isset($_POST['pRemove_code'])) {
+            foreach ($_POST['pRemove_code'] as $key) {
+                unset($_SESSION['product'][$key]);
+            }
+        }
         if (isset($_POST['pQuantity'])) {
             $popupText = "";
+            $ictr = 0;
             foreach ($_POST['pQuantity'] as $key => $val) {
-                if ($val == 0) {
+                if (($val == 0) || ($_POST['pRemove_code'][$ictr] == $key)) {
                     unset($_SESSION['product'][$key]);
                 } else {
                     $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $key . "'");
@@ -32,6 +39,7 @@ if (strlen($_SESSION['login']) == 0) {
                     }
                     $_SESSION['product'][$key]['quantity'] = $val;
                 }
+                $ictr++;
             }
 
             if(!empty($popupText)) {
@@ -41,21 +49,26 @@ if (strlen($_SESSION['login']) == 0) {
                     html: '$popupText',
                     icon: 'error',
                     confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(true);
+                    }
                 });
                 </script>";
                 return;
             }
         }
-        // Code for Remove a Product from Cart
-        if (isset($_POST['pRemove_code'])) {
-            foreach ($_POST['pRemove_code'] as $key) {
-                unset($_SESSION['product'][$key]);
+        // Code for Remove a combo from Cart
+        if (isset($_POST['cRemove_code'])) {
+            foreach ($_POST['cRemove_code'] as $key) {
+                unset($_SESSION['combo'][$key]);
             }
         }
         if (isset($_POST['cQuantity'])) {
             $popupText = "";
+            $ictr = 0;
             foreach ($_POST['cQuantity'] as $key => $val) {
-                if ($val == 0) {
+                if (($val == 0) || ($_POST['cRemove_code'][$ictr] == $key)) {
                     unset($_SESSION['combo'][$key]);
                 } else {
                     $query3 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $key . "'");
@@ -69,6 +82,7 @@ if (strlen($_SESSION['login']) == 0) {
                     }
                     $_SESSION['combo'][$key]['quantity'] = $val;
                 }
+                $ictr++;
             }
 
             if(!empty($popupText)) {
@@ -78,15 +92,13 @@ if (strlen($_SESSION['login']) == 0) {
                     html: '$popupText',
                     icon: 'error',
                     confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(true);
+                    }
                 });
                 </script>";
                 return;
-            }
-        }
-        // Code for Remove a combo from Cart
-        if (isset($_POST['cRemove_code'])) {
-            foreach ($_POST['cRemove_code'] as $key) {
-                unset($_SESSION['combo'][$key]);
             }
         }
 
@@ -105,7 +117,23 @@ if (strlen($_SESSION['login']) == 0) {
             $_SESSION['dtSupply'] = $dateTime;
             mysqli_query($con, "update users set billingAddress='$baddress',billingState='$bstate',billingCity='$bcity',billingPincode='$bpincode' where id='" . $_SESSION['id'] . "'");
             mysqli_query($con, "update users set shippingAddress='$saddress',shippingState='$sstate',shippingCity='$scity',shippingPincode='$spincode' where id='" . $_SESSION['id'] . "'");
-            echo "<script>location.href='payment-method.php';</script>";
+            
+            if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
+                echo "<script>location.href='payment-method.php';</script>";
+            } else {
+                echo "<script>
+                Swal.fire({
+                    title: 'Attention!',
+                    html: 'Your Shopping Cart is empty!!!',
+                    icon: 'info',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(true);
+                    }
+                });
+                </script>";
+            }
         } else {
 
             echo "<script>

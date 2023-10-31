@@ -3,10 +3,17 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
+    // Code for Remove a Product from Cart
+    if (isset($_POST['pRemove_code'])) {
+        foreach ($_POST['pRemove_code'] as $key) {
+            unset($_SESSION['product'][$key]);
+        }
+    }
     if (isset($_POST['pQuantity'])) {
         $popupText = "";
+        $ictr = 0;
         foreach ($_POST['pQuantity'] as $key => $val) {
-            if ($val == 0) {
+            if (($val == 0) || ($_POST['pRemove_code'][$ictr] == $key)) {
                 unset($_SESSION['product'][$key]);
             } else {
                 $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $key . "'");
@@ -28,6 +35,7 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
                 $_SESSION['product'][$key]['quantity'] = $val;
 
             }
+            $ictr++;
         }
         
         if(!empty($popupText)) {
@@ -37,6 +45,10 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
                 html: '$popupText',
                 icon: 'error',
                 confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload(true);
+                }
             });
             </script>";
             return;
@@ -50,8 +62,9 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
     }
     if (isset($_POST['cQuantity'])) {
         $popupText = "";
+        $ictr = 0;
         foreach ($_POST['cQuantity'] as $key => $val) {
-            if ($val == 0) {
+            if (($val == 0) || ($_POST['cRemove_code'][$ictr] == $key)) {
                 unset($_SESSION['combo'][$key]);
             } else {
                 $query3 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $key . "'");
@@ -66,6 +79,7 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
                 $_SESSION['combo'][$key]['quantity'] = $val;
 
             }
+            $ictr++;
         }
 
         if(!empty($popupText)) {
@@ -75,17 +89,16 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
                 html: '$popupText',
                 icon: 'error',
                 confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.reload(true);
+                }
             });
             </script>";
             return;
         }
     }
     // Code for Remove a combo from Cart
-    if (isset($_POST['cRemove_code'])) {
-        foreach ($_POST['cRemove_code'] as $key) {
-            unset($_SESSION['combo'][$key]);
-        }
-    }
     echo "<script>
         Swal.fire({
             title: 'Success!',

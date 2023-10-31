@@ -154,13 +154,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             </tbody>
                                         </table>
                                         <br/>
-										<div class="control-group">
-											<div class="controls">
-												<input class="btn btn-primary" type="button" value="Back"
+										<input class="btn btn-primary" type="button" value="Back"
 													onclick="window.location.href = 'pending-orders.php'" />
-												<a href="edit-order.php?oid=<?=$oid?>" class="btn btn-ri">Edit Order</a>
-											</div>
-										</div>
+												<a style="float: right" href="edit-order.php?oid=<?=$oid?>" class="btn btn-ri">Edit Order</a>
 									</form>
 								</div>
 							</div>

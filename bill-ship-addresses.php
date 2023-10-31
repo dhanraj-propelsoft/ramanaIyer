@@ -6,6 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$_SESSION['lastSeen'] = 'bill-ship-addresses.php';
 	header('location:login.php');
 } else {
+	$_SESSION['lastSeen'] = '';
 	include('includes/header.php'); 
 	// code for billing address updation
 	if (isset($_POST['update'])) {

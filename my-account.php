@@ -6,6 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$_SESSION['lastSeen'] = 'my-account.php';
 	header('location:login.php');
 } else {
+	$_SESSION['lastSeen'] = '';
 	include('includes/header.php');
 	if (isset($_POST['update'])) {
 		$name = $_POST['name'];

@@ -48,7 +48,7 @@ include('includes/header.php');
 									if ($num > 0) {
 										$query = mysqli_query($con, "select products.productImage1 as pimg1,products.productName as pname,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.id='$orderid' and orders.paymentMethod is not null");
 										$cnt = 1;
-										while ($row = mysqli_fetch_array($query)) {
+										if ($row = mysqli_fetch_array($query)) {
 											?>
 											<tr>
 												<td>
@@ -86,6 +86,51 @@ include('includes/header.php');
 												<td>
 													<a href="javascript:void(0);"
 														onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row['orderid']); ?>');"
+														title="Track order">
+														Track
+												</td>
+											</tr>
+											<?php $cnt = $cnt + 1;
+										}
+										$query1 = mysqli_query($con, "select combo.comboImage1 as cimg1,combo.comboName as cname,orders.comboId as opid,orders.quantity as qty,combo.comboPrice as cprice,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join combo on orders.comboId=combo.id where orders.id='$orderid' and orders.paymentMethod is not null");
+										if ($row1 = mysqli_fetch_array($query1)) {
+											?>
+											<tr>
+												<td>
+													<?php echo $cnt; ?>
+												</td>
+												<td class="cart-image">
+													<a class="entry-thumbnail" href="combo-details.php?pid=<?php echo $row1['opid']; ?>">
+														<img src="admin/comboimages/<?php echo $row1['opid']; ?>/<?php echo $row1['cimg1']; ?>"
+															alt="" width="84" height="146">
+													</a>
+												</td>
+												<td class="cart-product-name-info">
+													<h4 class='cart-product-description'><a
+															href="combo-details.php?pid=<?php echo $row1['opid']; ?>">
+															<?php echo $row1['cname']; ?></a></h4>
+
+
+												</td>
+												<td class="cart-product-quantity">
+													<?php echo $qty = $row1['qty']; ?>
+												</td>
+												<td class="cart-product-sub-total">
+													<?php echo $price = $row1['cprice']; ?>
+												</td>
+												<td class="cart-product-grand-total">
+													<?php echo $qty * $price; ?>
+												</td>
+												<td class="cart-product-sub-total">
+													<?php echo $row1['paym']; ?>
+												</td>
+												<td class="cart-product-sub-total">
+													<?php echo $row1['odate']; ?>
+												</td>
+
+												<td>
+													<a href="javascript:void(0);"
+														onClick="popUpWindow('track-order.php?oid=<?php echo htmlentities($row1['orderid']); ?>');"
 														title="Track order">
 														Track
 												</td>

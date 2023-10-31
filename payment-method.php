@@ -6,6 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$_SESSION['lastSeen'] = 'payment-method.php';
 	header('location:login.php');
 } else {
+	$_SESSION['lastSeen'] = '';
 	include('includes/header.php');
 	if (isset($_POST['submit'])) {
 		//echo "<script>$('#loaderIcon').css('visibility', 'visible'); $('#loaderIcon').show();</script>";

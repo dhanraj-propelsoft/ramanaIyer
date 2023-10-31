@@ -6,6 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$_SESSION['lastSeen'] = 'order-history.php';
     header('location:login.php');
 } else {
+    $_SESSION['lastSeen'] = '';
     include('includes/header.php');
     ?>
     <div class="breadcrumb">

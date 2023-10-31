@@ -6,7 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
     $_SESSION['lastSeen'] = 'my-cart.php';
 	echo "<script>location.href='login.php';</script>";
 } else {
-
+    $_SESSION['lastSeen'] = '';
     if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
         if (isset($_POST['pQuantity'])) {
             $popupText = "";

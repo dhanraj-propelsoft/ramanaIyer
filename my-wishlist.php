@@ -6,6 +6,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$_SESSION['lastSeen'] = 'my-wishlist.php';
 	header('location:login.php');
 } else {
+	$_SESSION['lastSeen'] = '';
 	include('includes/header.php');
 	// Code forProduct deletion from  wishlist	
 	

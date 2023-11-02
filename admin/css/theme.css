@@ -924,8 +924,17 @@ transition: all .2s ease-in-out;
 .widget-menu .label.green {
 	background: #78ba00
 }
+.widget-menu .label.grey {
+	background: #618685
+}
 .widget-menu .label.orange {
-	background: #d74f2a
+	background: #ff7b25
+}
+.widget-menu .label.violet {
+	background: #6b5b95
+}
+.widget-menu .label.brown {
+	background: #674d3c
 }
 .widget-menu>li+li {
 	border-top: 1px solid #555

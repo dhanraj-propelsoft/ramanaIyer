@@ -72,6 +72,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 		$popupText = "";
 		$totProd = 0;
+		$succsInd = 0;
 		$errorInd = 0;
 		$dtSupply = $_SESSION['dtSupply'];
 		date_default_timezone_set("Asia/Kolkata");
@@ -96,7 +97,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 					if($productAvailability == "Out of Stock") {
 						$popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
-						$errorInd--;
+						$errorInd++;
 					} else if($productAvailability == "Against Order") {
 						$new_prod_avail = $prod_avail - $quant;
 						if($new_prod_avail < 0)
@@ -106,7 +107,7 @@ if (strlen($_SESSION['login']) == 0) {
 						unset($_SESSION['product'][$prdtId]);
 						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
 						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
-						$errorInd++;
+						$succsInd++;
 					} else if(($productAvailability == "In Stock") && ($prod_avail < $quant)) {
 						if($allow_ao == '1') {
 							$new_prod_avail = $prod_avail - $quant;
@@ -117,13 +118,13 @@ if (strlen($_SESSION['login']) == 0) {
 							unset($_SESSION['product'][$prdtId]);
 							mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
 							mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
-							$errorInd++;
+							$succsInd++;
 						} else if(($allow_ao == 0) && ($prod_avail == 0)) {
 							$popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
-							$errorInd--;
+							$errorInd++;
 						} else {
 							$popupText .= "<b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b><BR/>";
-							$errorInd--;
+							$errorInd++;
 						}
 					} else if(($productAvailability == "In Stock") && ($prod_avail >= $quant)) {
 						$popupText .= "<b>$productName - </b>Your order has been received by Ramana Sweets.<BR/>";
@@ -132,7 +133,7 @@ if (strlen($_SESSION['login']) == 0) {
 						unset($_SESSION['product'][$prdtId]);
 						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND pId = '" . $prdtId . "'");
 						mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$prdtId','$quant','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
-						$errorInd++;
+						$succsInd++;
 					}
 				}
 			}
@@ -146,29 +147,30 @@ if (strlen($_SESSION['login']) == 0) {
 
 					if($comboAvailability == "Out of Stock") {
 						$popupText .= "<b>$comboName - </b>Out of Stock!!!<BR/>";
-						$errorInd--;
+						$errorInd++;
 					} else if($comboAvailability == "Against Order") {
 						$popupText .= "<b>$comboName - </b>The ordered quantity will be placed Against the Order.<BR/>";
 						unset($_SESSION['combo'][$comboId]);
 						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND cId = '" . $comboId . "'");
 						mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$comboId','$comboQty','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
-						$errorInd++;
+						$succsInd++;
 					} else if($comboAvailability == "In Stock") {
 						$popupText .= "<b>$comboName - </b>Your order has been received by Ramana Sweets.<BR/>";
 						unset($_SESSION['combo'][$comboId]);
 						mysqli_query($con, "DELETE FROM cart WHERE userId='" . $_SESSION['id'] . "' AND cId = '" . $comboId . "'");
 						mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,paymentId,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$comboId','$comboQty','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','$dtSupply')");
-						$errorInd++;
+						$succsInd++;
 					}
 				}
 			}
 
-			if($totProd == $errorInd)
+			if(($succsInd > 0) && ($errorInd == 0))
 			{
+				mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('" . $_SESSION['id'] . "','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','40','$dtSupply','Shipping Charge')");
 				echo "<script>
 				Swal.fire({
 					title: 'Success!',
-					text: 'Your order has been received by Ramana Sweets. Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
+					html: '$popupText Your sweets will be delivered to mentioned shipping address! ($cust_adrs)',
 					icon: 'success',
 					confirmButtonText: 'Ok'
 				}).then((result) => {
@@ -178,13 +180,28 @@ if (strlen($_SESSION['login']) == 0) {
 				});
 				</script>";
 				
-			} else
+			} else if(($succsInd > 0) && ($errorInd > 0))
 			{
+				mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('" . $_SESSION['id'] . "','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','40','$dtSupply','Shipping Charge')");
 				echo "<script>
 				Swal.fire({
 					title: 'Attention!',
 					html: '$popupText',
 					icon: 'info',
+					confirmButtonText: 'Ok'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						document.location = 'my-cart.php';
+					}
+				});
+				</script>";
+			} else if(($succsInd == 0) && ($errorInd > 0))
+			{
+				echo "<script>
+				Swal.fire({
+					title: 'Attention!',
+					html: '$popupText',
+					icon: 'error',
 					confirmButtonText: 'Ok'
 				}).then((result) => {
 					if (result.isConfirmed) {
@@ -202,6 +219,7 @@ if (strlen($_SESSION['login']) == 0) {
 			foreach ($comboVal as $cQty => $cVal) {
 				mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$cQty','$cVal','".$_POST['paymethod']."','$receiptNo','$orderId','Customer','$dtSupply')");
 			}
+			mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('" . $_SESSION['id'] . "','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','40','$dtSupply','Shipping Charge')");
 			//echo "<script>$('#loaderIcon').css('visibility', 'hidden'); $('#loaderIcon').hide();</script>";
 			echo "<script>window.location.href = 'pg-redirect.php';</script>";
 		}

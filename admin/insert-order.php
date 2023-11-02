@@ -18,16 +18,74 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$orderId = "OID_".$uid."_".date("ymdHis");
 
         $ictr=0;
+        $errorText = "";
+        $pdtArray = array();
+        $cmbArray = array();
         foreach($productIds as $productId) {
             if($table[$ictr] == "combo")
-                mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            {
+                $cmbData = array(
+                    "comboId"=> $productId,
+                    "quantity"=> $quantity[$ictr],
+                    "price"=> $amount[$ictr]
+                );
+                $cmbArray[] = $cmbData;
+            }
             else
-                mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','$productId','$quantity[$ictr]','$amount[$ictr]','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            {
+                $prod_avail = 0;
+                $quant = $quantity[$ictr];
+                $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $productId . "'");
+                if ($row3 = mysqli_fetch_array($query3)) {
+                    $productName = $row3['productName'];
+                    $productAvailability = $row3['productAvailability'];
+                    $prod_avail = $row3['prod_avail'];
+                    $allow_ao = $row3['allow_ao'];
+
+                    if($productAvailability == "Out of Stock") {
+                        $errorText .= "<BR/><b>$productName - </b>Out of Stock!!!";
+                    } else if($productAvailability == "In Stock") {
+                        if(($allow_ao == 0) && ($prod_avail == 0))
+                            $errorText .= "<BR/><b>$productName - </b>Out of Stock!!!";
+                        else if(($allow_ao == 0) && ($prod_avail < $quant))
+                            $errorText .= "<BR/><b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b>";
+                    }
+                }
+                if($errorText == "")
+                {
+                    $new_prod_avail = $prod_avail - $quant;
+                    if($new_prod_avail < 0)
+                        $new_prod_avail = 0;
+
+                    $pdtData = array(
+                        "productId"=> $productId,
+                        "quantity"=> $quant,
+                        "price"=> $amount[$ictr],
+                        "new_prod_avail"=> $new_prod_avail
+                    );
+                    $pdtArray[] = $pdtData;
+                }
+            }
             $ictr++;
         }
-		
-		header("Location: pending-orders.php");
-        exit;
+        
+        if($errorText == "")
+        {
+            foreach($pdtArray as $pdtArr) {
+                //echo $pdtArr["productId"].",".$pdtArr["quantity"].",".$pdtArr["price"].",".$pdtArr["new_prod_avail"];
+                mysqli_query($con, "UPDATE products SET prod_avail='".$pdtArr["new_prod_avail"]."' WHERE id='" . $pdtArr["productId"] . "'");
+                mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','".$pdtArr["productId"]."','".$pdtArr["quantity"]."','".$pdtArr["price"]."','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            }
+            foreach($cmbArray as $cmbArr) {
+                //echo $cmbArr["comboId"].",".$cmbArr["quantity"].",".$cmbArr["price"];
+                mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','".$cmbArr["comboId"]."','".$cmbArr["quantity"]."','".$cmbArr["price"]."','$dateTime','$remarks','ADMIN','$orderId','Admin')");
+            }
+            
+            mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('$uid','ADMIN','ADMIN','$orderId','Admin','40','$dtSupply','Shipping Charge')");
+			
+            header("Location: pending-orders.php");
+            exit;
+        }
 	}
 
 
@@ -72,26 +130,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 								</div>
 								<div class="module-body">
 
-									<?php if (isset($_POST['submit'])) { ?>
-										<div class="alert alert-success">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong>Well done!</strong>
-											<?php echo htmlentities($_SESSION['msg']); ?>
-											<?php echo htmlentities($_SESSION['msg'] = ""); ?>
-										</div>
-									<?php } ?>
-
-
-									<?php if (isset($_GET['del'])) { ?>
+									<?php if ((isset($_POST['submit'])) && (!empty($errorText))) { ?>
 										<div class="alert alert-error">
 											<button type="button" class="close" data-dismiss="alert">×</button>
 											<strong>Oh snap!</strong>
-											<?php echo htmlentities($_SESSION['delmsg']); ?>
-											<?php echo htmlentities($_SESSION['delmsg'] = ""); ?>
+											<?php echo $errorText; ?>
 										</div>
 									<?php } ?>
-
-									<br />
 
 									<form class="form-horizontal row-fluid" name="insertproduct" method="post"
 										enctype="multipart/form-data">
@@ -118,19 +163,29 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select products.* from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
                                                             while ($row = mysqli_fetch_array($query)) { 
-                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) { ?>
-                                                                <option price="<?php echo $row['productPrice']; ?>" table="products" value="<?php echo $row['id']; ?>">
-                                                                    <?php echo $row['productName']; ?>
-                                                                </option>
-                                                            <?php } }
+                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) {
+                                                                echo '<option price="'.$row['productPrice'].'" table="products" value="'.$row['id'].'">
+                                                                        '.$row['productName'].'
+                                                                    </option>';
+                                                                } else { 
+                                                                    echo '<option price="'.$row['productPrice'].'" table="products" value="'.$row['id'].'" disabled>
+                                                                        '.$row['productName'].'
+                                                                    </option>';
+                                                                }
+                                                            }
                                                             
                                                             $query1 = mysqli_query($con, "select * from combo");
                                                             while ($row1 = mysqli_fetch_array($query1)) { 
-                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) { ?>
-                                                                <option price="<?php echo $row1['comboPrice']; ?>" table="combo" value="<?php echo $row1['id']; ?>">
-                                                                    <?php echo $row1['comboName']; ?>
-                                                                </option>
-                                                            <?php } } ?>
+                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) {
+                                                                echo '<option price="'.$row1['comboPrice'].'" table="combo" value="'.$row1['id'].'">
+                                                                        '.$row1['comboName'].'
+                                                                    </option>';
+                                                                } else { 
+                                                                    echo '<option price="'.$row1['comboPrice'].'" table="combo" value="'.$row1['id'].'" disabled>
+                                                                        '.$row1['comboName'].'
+                                                                    </option>';
+                                                                }
+                                                            } ?>
                                                         </select>
                                                     </td>
                                                     <td><label style="font-weight: bold;" class="price"></label><input type="hidden" name="table[]" class="frmTbl"></td>
@@ -151,19 +206,29 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             <option value="" selected disabled>Select</option>
                                                             <?php $query = mysqli_query($con, "select products.* from products join category on category.id=products.category join subcategory on subcategory.id=products.subCategory");
                                                             while ($row = mysqli_fetch_array($query)) { 
-                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) { ?>
-                                                                <option price="<?php echo $row['productPrice']; ?>" table="products" value="<?php echo $row['id']; ?>">
-                                                                    <?php echo $row['productName']; ?>
-                                                                </option>
-                                                            <?php } } 
+                                                                if(($row['productAvailability'] == 'Against Order') || (($row['productAvailability'] == 'In Stock') && ((intval($row['prod_avail']) > 0) || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) == 1))))) {
+                                                                echo '<option price="'.$row['productPrice'].'" table="products" value="'.$row['id'].'">
+                                                                        '.$row['productName'].'
+                                                                    </option>';
+                                                                } else { 
+                                                                    echo '<option price="'.$row['productPrice'].'" table="products" value="'.$row['id'].'" disabled>
+                                                                        '.$row['productName'].'
+                                                                    </option>';
+                                                                }
+                                                            } 
                                                             
                                                             $query1 = mysqli_query($con, "select * from combo");
                                                             while ($row1 = mysqli_fetch_array($query1)) { 
-                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) { ?>
-                                                                <option price="<?php echo $row1['comboPrice']; ?>" table="combo" value="<?php echo $row1['id']; ?>">
-                                                                    <?php echo $row1['comboName']; ?>
-                                                                </option>
-                                                            <?php } } ?>
+                                                                if(($row1['comboAvailability'] == 'Against Order') || (($row1['comboAvailability'] == 'In Stock'))) {
+                                                                echo '<option price="'.$row1['comboPrice'].'" table="combo" value="'.$row1['id'].'">
+                                                                        '.$row1['comboName'].'
+                                                                    </option>';
+                                                                } else { 
+                                                                    echo '<option price="'.$row1['comboPrice'].'" table="combo" value="'.$row1['id'].'" disabled>
+                                                                        '.$row1['comboName'].'
+                                                                    </option>';
+                                                                }
+                                                            } ?>
                                                         </select>
                                                     </td>
                                                     <td><label style="font-weight: bold;" class="price"></label><input type="hidden" name="table[]" class="frmTbl"></td>
@@ -194,13 +259,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             </tbody>
                                         </table>
                                         <br/>
-										<div class="control-group">
-											<div class="controls">
-												<input class="btn btn-primary" type="button" value="Back"
+										<input class="btn btn-primary" type="button" value="Back"
 													onclick="window.location.href = 'check-contact.php'" />
-												<button type="submit" name="submit" class="btn btn-ri">Add Order</button>
-											</div>
-										</div>
+										<button type="submit" style="float:right" name="submit" class="btn btn-ri">Add Order</button>
 									</form>
 								</div>
 							</div>

@@ -2,8 +2,10 @@
 session_start();
 //error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
+	$_SESSION['lastSeen'] = 'payment-status.php';
     header('location:login.php');
 } else {
+    $_SESSION['lastSeen'] = '';
     // Code forProduct deletion from  wishlist	
     if (isset($_POST)) {
         $pgAmount = "";

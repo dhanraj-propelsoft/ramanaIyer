@@ -45,7 +45,7 @@
 							<?php
 							$status = 'Delivered';
 							$ret = mysqli_query($con, "SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN products ON products.id=orders.productId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) UNION SELECT orders.id FROM orders JOIN users ON orders.userId=users.id JOIN combo ON combo.id=orders.comboId WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL)");
-							$num = mysqli_num_rows($ret); { ?><b class="label orange pull-right">
+							$num = mysqli_num_rows($ret); { ?><b class="label violet pull-right">
 									<?php echo htmlentities($num); ?>
 								</b>
 							<?php } ?>
@@ -76,7 +76,7 @@
 							<?php
 							$status = 'Delivered';
 							$rt2 = mysqli_query($con, "SELECT orders.orderId AS orderId FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
-							$num2 = mysqli_num_rows($rt2); { ?><b class="label green pull-right">
+							$num2 = mysqli_num_rows($rt2); { ?><b class="label brown pull-right">
 									<?php echo htmlentities($num2); ?>
 								</b>
 							<?php } ?>

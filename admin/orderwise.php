@@ -102,7 +102,9 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <?php echo htmlentities($row1['orderId']); ?>
                                                     </td>
                                                     <td class="wrap_td_50">
-                                                        <?php echo htmlentities($row1['dtSupply']); ?>
+                                                        <?php if(!empty($row1['dtSupply'])) {
+														echo date("d-m-Y h:i A", strtotime($row1['dtSupply']));
+														} ?>
                                                     </td>
                                                     <td class="wrap_td_50">
                                                         <?php echo htmlentities($row1['username']); ?>
@@ -117,7 +119,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <?php echo htmlentities($row1['billingaddress'].", ".$row1['billingstate'].", ".$row1['billingcity'].", ".$row1['billingpincode']); ?>
                                                     </td>
                                                     <td class="wrap_td_50">
-                                                        <?php echo htmlentities($row1['orderdate']); ?>
+                                                        <?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
                                                     </td>
                                                     <td>
                                                         <a href="view-orderwise.php?oid=<?=$row1['orderId']?>"
@@ -154,32 +156,30 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.datatable-1').DataTable();
 				
 				let minDate;
- 
-				// Custom filtering function which will search data in column four between two values
-				DataTable.ext.search.push( function(settings, data, dataIndex) {
-					let min = minDate.val();
-					var newmin = moment(min).format("YYYY-MM-DD");
-
-					var mydate = moment(data[2], 'DD-MM-YYYY'); 
-					var newdate = moment(mydate).format("YYYY-MM-DD");
-				
-					if (newmin == newdate) {
-						return true;
-					}
-					return false;
-				});
 				
 				// Create date inputs
 				minDate = new DateTime('#min', {
 					format: 'MMMM Do YYYY'
 				});
-				
-				// DataTables initialisation
-				let table = new DataTable('#table-to-pdf');
-				
-				// Refilter the table
-				document.querySelectorAll('#min').forEach((el) => {
-					el.addEventListener('change', () => table.draw());
+
+				$("#min").change(function(){
+					DataTable.ext.search.push( function(settings, data, dataIndex) {
+						let min = minDate.val();
+						var newmin = moment(min).format("YYYY-MM-DD");
+
+						var mydate = moment(data[2], 'DD-MM-YYYY'); 
+						var newdate = moment(mydate).format("YYYY-MM-DD");
+						
+						if (newmin == newdate) {
+							return true;
+						}
+						return false;
+					});
+					
+					// DataTables initialisation
+					let table = new DataTable('#table-to-pdf');
+
+					table.draw();
 				});
 			});
 

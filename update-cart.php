@@ -13,7 +13,7 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
         $popupText = "";
         $ictr = 0;
         foreach ($_POST['pQuantity'] as $key => $val) {
-            if (($val == 0) || ($_POST['pRemove_code'][$ictr] == $key)) {
+            if (($val == 0) || ((isset($_POST['pRemove_code'])) && (in_array($key, $_POST['pRemove_code'])))) {
                 unset($_SESSION['product'][$key]);
             } else {
                 $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $key . "'");
@@ -64,7 +64,7 @@ if ((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))) {
         $popupText = "";
         $ictr = 0;
         foreach ($_POST['cQuantity'] as $key => $val) {
-            if (($val == 0) || ($_POST['cRemove_code'][$ictr] == $key)) {
+            if (($val == 0) || ((isset($_POST['cRemove_code'])) && (in_array($key, $_POST['cRemove_code'])))) {
                 unset($_SESSION['combo'][$key]);
             } else {
                 $query3 = mysqli_query($con, "SELECT comboName,comboAvailability from combo where id='" . $key . "'");

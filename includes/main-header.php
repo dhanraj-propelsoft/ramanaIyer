@@ -86,7 +86,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 						<div class="col-xs-7">
 							
 							<h3 class="name"><a href="product-details.php?pid=<?php echo $row['id'];?>"><?php echo $row['productName']; ?></a></h3>
-							<div class="price">Rs.<?php echo ($row['productPrice']+$row['shippingCharge']); ?>*<?php echo $_SESSION['product'][$row['id']]['quantity']; ?></div>
+							<div class="price">₹<?php echo ($row['productPrice']+$row['shippingCharge']); ?>*<?php echo $_SESSION['product'][$row['id']]['quantity']; ?></div>
 						</div>
 						
 					</div>
@@ -124,20 +124,38 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 						<div class="col-xs-7">
 							
 							<h3 class="name"><a href="combo-details.php?pid=<?php echo $row1['id'];?>"><?php echo $row1['comboName']; ?></a></h3>
-							<div class="price">Rs.<?php echo ($row1['comboPrice']+$row1['shippingCharge']); ?>*<?php echo $_SESSION['combo'][$row1['id']]['quantity']; ?></div>
+							<div class="price">₹<?php echo ($row1['comboPrice']+$row1['shippingCharge']); ?>*<?php echo $_SESSION['combo'][$row1['id']]['quantity']; ?></div>
 						</div>
 						
 					</div>
 				</div><!-- /.cart-item -->
 			
-				<?php } } }?>
+				<?php } } }
+				$totalprice = $totalprice + 40; ?>
+			<li>
+				<div class="cart-item product-summary">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="image">
+								
+							</div>
+						</div>
+						<div class="col-xs-7">
+							
+							<h3 class="name">Shipping</h3>
+							<div class="price">₹40</div>
+						</div>
+						
+					</div>
+				</div><!-- /.cart-item -->
+				
 				<div class="clearfix"></div>
 			<hr>
 		
 			<div class="clearfix cart-total">
 				<div class="pull-right">
 					
-						<span class="text">Total :</span><span class='price'>Rs.<?php echo $_SESSION['tp']="$totalprice". ".00"; ?></span>
+						<span class="text">Total :</span><span class='price'>₹<?php echo $_SESSION['tp']="$totalprice". ".00"; ?></span>
 						
 				</div>
 			
@@ -154,7 +172,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 				<div class="total-price-basket">
 					<span class="lbl">cart -</span>
 					<span class="total-price">
-						<span class="sign">Rs.</span>
+						<span class="sign">₹</span>
 						<span class="value"><?php echo $_SESSION['tp']; ?></span>
 					</span>
 				</div>
@@ -174,7 +192,7 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 				<div class="total-price-basket">
 					<span class="lbl">cart -</span>
 					<span class="total-price">
-						<span class="sign">Rs.</span>
+						<span class="sign">₹</span>
 						<span class="value">00.00</span>
 					</span>
 				</div>

@@ -274,7 +274,28 @@ $against_order = 0;
 											// $_SESSION['cid'] = $cmbId;
 											// $_SESSION['cQty'] = $cQty;
 										}
+										$totalprice = $totalprice + 40;
 										?>
+										<tr>
+											<td class="romove-item"></td>
+											<td class="cart-image"></td>
+											<td class="cart-product-name-info">
+												<h4 class='cart-combo-description'>Shipping Charge</h4>
+											</td>
+											<td class="cart-product-quantity">
+												
+											</td>
+											<td class="cart-product-sub-total"><span class="cart-sub-total-price">
+												₹ 0.00
+												</span></td>
+											<td class="cart-product-sub-total"><span class="cart-sub-total-price">
+												₹ 40.00
+												</span></td>
+
+											<td class="cart-product-grand-total"><span class="cart-grand-total-price">
+												₹ 40.00
+												</span></td>
+										</tr>
 									</tbody><!-- /tbody -->
 								</table><!-- /table -->
 							</form>

@@ -227,32 +227,31 @@ if (strlen($_SESSION['alogin']) == 0) {
 				$('.datatable-1').DataTable();
 				
 				let minDate;
- 
-				// Custom filtering function which will search data in column four between two values
-				DataTable.ext.search.push( function(settings, data, dataIndex) {
-					let min = minDate.val();
-					var newmin = moment(min).format("YYYY-MM-DD");
-
-					var mydate = moment(data[2], 'DD-MM-YYYY'); 
-					var newdate = moment(mydate).format("YYYY-MM-DD");
-				
-					if (newmin == newdate) {
-						return true;
-					}
-					return false;
-				});
 				
 				// Create date inputs
 				minDate = new DateTime('#min', {
 					format: 'MMMM Do YYYY'
 				});
 				
-				// DataTables initialisation
-				let table = new DataTable('#table-to-pdf');
-				
-				// Refilter the table
-				document.querySelectorAll('#min, #max').forEach((el) => {
-					el.addEventListener('change', () => table.draw());
+				$("#min").change(function(){
+					DataTable.ext.search.push( function(settings, data, dataIndex) {
+						let min = minDate.val();
+						
+						var newmin = moment(min).format("YYYY-MM-DD");
+
+						var mydate = moment(data[2], 'DD-MM-YYYY'); 
+						var newdate = moment(mydate).format("YYYY-MM-DD");
+						
+						if (newmin == newdate) {
+							return true;
+						}
+						return false;
+					});
+					
+					// DataTables initialisation
+					let table = new DataTable('#table-to-pdf');
+
+					table.draw();
 				});
 			});
 

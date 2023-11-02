@@ -118,12 +118,12 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 					<div class="row">
 						<div class="col-xs-4">
 							<div class="image">
-								<a href="combo-details.php?pid=<?php echo $row1['id'];?>"><img  src="admin/comboimages/<?php echo $row1['id'];?>/<?php echo $row1['comboImage1'];?>" width="35" height="auto" style="max-height: 50px;" alt=""></a>
+								<a href="combo-details.php?cid=<?php echo $row1['id'];?>"><img  src="admin/comboimages/<?php echo $row1['id'];?>/<?php echo $row1['comboImage1'];?>" width="35" height="auto" style="max-height: 50px;" alt=""></a>
 							</div>
 						</div>
 						<div class="col-xs-7">
 							
-							<h3 class="name"><a href="combo-details.php?pid=<?php echo $row1['id'];?>"><?php echo $row1['comboName']; ?></a></h3>
+							<h3 class="name"><a href="combo-details.php?cid=<?php echo $row1['id'];?>"><?php echo $row1['comboName']; ?></a></h3>
 							<div class="price">₹<?php echo ($row1['comboPrice']+$row1['shippingCharge']); ?>*<?php echo $_SESSION['combo'][$row1['id']]['quantity']; ?></div>
 						</div>
 						

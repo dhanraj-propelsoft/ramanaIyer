@@ -6,16 +6,30 @@ include('includes/config.php');
 
 if (isset($_COOKIE['qi_id'])) {
 	$qi_id = intval($_COOKIE['qi_id']);
+	$qi_qty = intval($_COOKIE['qi_qty']);
 	if ($qi_id > 0)
-		$_SESSION['product'][$qi_id]['quantity']++;
+	{
+		if($qi_qty > 0)
+			$_SESSION['product'][$qi_id]['quantity']+=$qi_qty;
+		else
+			$_SESSION['product'][$qi_id]['quantity']++;
+	}
 	setcookie("qi_id", "", time() -3600);
+	setcookie("qi_qty", "", time() -3600);
 }
 
 if (isset($_COOKIE['cqi_id'])) {
 	$cqi_id = intval($_COOKIE['cqi_id']);
+	$cqi_qty = intval($_COOKIE['cqi_qty']);
 	if ($cqi_id > 0)
-		$_SESSION['combo'][$cqi_id]['quantity']++;
+	{
+		if($cqi_qty > 0)
+			$_SESSION['combo'][$cqi_id]['quantity']+=$cqi_qty;
+		else
+			$_SESSION['combo'][$cqi_id]['quantity']++;
+	}
 	setcookie("cqi_id", "", time() -3600);
+	setcookie("cqi_qty", "", time() -3600);
 }
 	
 mysqli_query($con, "DELETE FROM orders WHERE userId='" . $_SESSION['id'] . "' AND paymentId IS NULL");
@@ -208,14 +222,14 @@ $against_order = 0;
 																value="<?php echo htmlentities($row2['id']); ?>" /></td>
 														<td class="cart-image">
 															<a class="entry-thumbnail"
-																href="combo-details.php?pid=<?php echo $row2['id']; ?>">
+																href="combo-details.php?cid=<?php echo $row2['id']; ?>">
 																<img src="admin/comboimages/<?php echo $row2['id']; ?>/<?php echo $row2['comboImage1']; ?>"
 																	alt="" style="width: auto; height: 100px; max-width: 130px">
 															</a>
 														</td>
 														<td class="cart-product-name-info">
 															<h4 class='cart-combo-description'><a
-																	href="combo-details.php?pid=<?php echo htmlentities($pd = $row2['id']); ?>"><?php echo $row2['comboName'];
+																	href="combo-details.php?cid=<?php echo htmlentities($pd = $row2['id']); ?>"><?php echo $row2['comboName'];
 
 																		$_SESSION['sid'] = $pd;
 																		?></a></h4>

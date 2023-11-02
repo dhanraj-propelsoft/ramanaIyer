@@ -113,7 +113,7 @@ include('includes/header.php'); ?>
 								<div class="product text-center">
 									<div class="product-image" style="width: 100%; height: 300px; display: table;">
 										<div class="image" style="display: table-cell; vertical-align: middle;">
-											<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><img
+											<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><img
 													src="assets/images/blank.gif"
 													data-echo="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"
 													style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"
@@ -127,7 +127,7 @@ include('includes/header.php'); ?>
 									<div class="product-info text-center">
 										<h3 class="name"
 											style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
-											<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
+											<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
 										<?php
 										for ($jctr = 0; $jctr < 5; $jctr++) {
 											if ($jctr < $rating)
@@ -248,7 +248,7 @@ include('includes/header.php'); ?>
 													</div>
 												</div>
 												<div id="ack"></div>
-												<?php if (($row['productAvailability'] == 'Out of Stock') || (($row['prod_avail'] == '0') && ($row['allow_ao'] != '1'))) { ?>
+												<?php if (($row['productAvailability'] == 'Out of Stock') || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) != 1))) { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>

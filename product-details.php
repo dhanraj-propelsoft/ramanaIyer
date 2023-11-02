@@ -430,7 +430,7 @@
 															<div class="arrow minus gradient"><span class="ir"><i
 																		class="icon fa fa-sort-desc"></i></span></div>
 														</div>
-														<input type="text" value="1" required>
+														<input type="text" id="pQuantity" name="pQuantity" value="1" required>
 													</div>
 												</div>
 											</div>
@@ -440,8 +440,7 @@
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<a id="CartList" onclick="CartList('<?php echo $pid; ?>')"
-														class="btn-upper btn btn-primary"><i
+													<a id="add-quantity" class="btn-upper btn btn-primary"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } ?>
 											</div>
@@ -745,7 +744,22 @@
 	</div>
 	<?php include('includes/footer.php'); ?>
 	<!-- For demo purposes – can be removed on production : End -->
+	<script>
+		
+		$('#add-quantity').click(function (e) {
+			e.preventDefault();
+			jQuery.ajax({
+				url: "cart-quantity.php",
+				data: {pId: <?=$pid?>, pQuantity: $('#pQuantity').val()},
+				type: "POST",
+				success: function (data) {
+					$("#ack").html(data);
+				},
+				error: function () { }
+			});
+		});
 
+	</script>
 	<style>
 		.owl-item {
 			width: 360px;

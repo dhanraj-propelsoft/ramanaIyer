@@ -108,14 +108,14 @@ if (strlen($_SESSION['login']) == 0) {
 														<?php echo $cnt; ?>
 													</td>
 													<td class="cart-image">
-														<a class="entry-thumbnail" href="combo-details.php?pid=<?php echo $row1['opid']; ?>">
+														<a class="entry-thumbnail" href="combo-details.php?cid=<?php echo $row1['opid']; ?>">
 															<img src="admin/comboimages/<?php echo $row1['c']; ?>/<?php echo $row1['cimg1']; ?>"
 																alt="" width="84" height="auto">
 														</a>
 													</td>
 													<td class="cart-product-name-info">
 														<h4 class='cart-product-description'><a
-																href="combo-details.php?pid=<?php echo $row1['opid']; ?>">
+																href="combo-details.php?cid=<?php echo $row1['opid']; ?>">
 																<?php echo $row1['cname']; ?></a></h4>
 
 

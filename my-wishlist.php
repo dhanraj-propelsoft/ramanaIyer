@@ -117,13 +117,13 @@ if (strlen($_SESSION['login']) == 0) {
 
 											<tr>
 												<td class="col-md-2" style="text-align: center;"><a
-														href="combo-details.php?pid=<?php echo htmlentities($row1['cid']); ?>"><img
+														href="combo-details.php?cid=<?php echo htmlentities($row1['cid']); ?>"><img
 															src="admin/comboimages/<?php echo htmlentities($row1['cid']); ?>/<?php echo htmlentities($row1['cimage']); ?>"
 															alt="<?php echo htmlentities($row1['cname']); ?>"
 															style="width: auto; height: 100px; max-width: 130px" /></a></td>
 												<td class="col-md-6">
 													<div class="combo-name"><a
-															href="combo-details.php?pid=<?php echo htmlentities($pd = $row1['cid']); ?>"><?php echo htmlentities($row1['cname']); ?></a></div>
+															href="combo-details.php?cid=<?php echo htmlentities($pd = $row1['cid']); ?>"><?php echo htmlentities($row1['cname']); ?></a></div>
 													<?php $rt = mysqli_query($con, "select * from comboreviews where comboId='$pd'");
 													$num = mysqli_num_rows($rt); {
 														?>

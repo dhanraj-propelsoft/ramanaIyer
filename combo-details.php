@@ -5,7 +5,7 @@
 	include('includes/config.php');
 	include('includes/header.php'); 
 
-	$pid = intval($_GET['pid']);
+	$cid = intval($_GET['cid']);
 	if (isset($_POST['submit'])) {
 		$qty = $_POST['quality'];
 		$price = $_POST['price'];
@@ -13,7 +13,7 @@
 		$name = $_POST['name'];
 		$summary = $_POST['summary'];
 		$review = $_POST['review'];
-		mysqli_query($con, "insert into productreviews(productId,quality,price,value,name,summary,review) values('$pid','$qty','$price','$value','$name','$summary','$review')");
+		mysqli_query($con, "insert into productreviews(productId,quality,price,value,name,summary,review) values('$cid','$qty','$price','$value','$name','$summary','$review')");
 	}
 	?>
 	<style>
@@ -127,7 +127,7 @@
 		<div class="container">
 			<div class="breadcrumb-inner">
 				<?php
-				$ret = mysqli_query($con, "select products.productName as pname from products where products.id='$pid'");
+				$ret = mysqli_query($con, "select products.productName as pname from products where products.id='$cid'");
 				while ($rw = mysqli_fetch_array($ret)) {
 
 					?>
@@ -182,7 +182,7 @@
 					</div>
 				</div><!-- /.sidebar -->
 				<?php
-				$ret = mysqli_query($con, "select * from combo where id='$pid'");
+				$ret = mysqli_query($con, "select * from combo where id='$cid'");
 				while ($row = mysqli_fetch_array($ret)) {
 
 					?>
@@ -282,7 +282,7 @@
 									<h1 class="name">
 										<?php echo htmlentities($row['comboName']); ?>
 									</h1>
-									<?php $rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='$pid'");
+									<?php $rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='$cid'");
 									$row1 = mysqli_fetch_array($rt);
 
 									$rowCnt = 0;
@@ -393,7 +393,7 @@
 											<div class="col-sm-6 col-xs-3">
 												<div class="favorite-button m-t-10">
 													<a class="btn btn-primary" data-toggle="tooltip"
-														onclick="comboWish('<?php echo $pid; ?>')" data-placement="right"
+														onclick="comboWish('<?php echo $cid; ?>')" data-placement="right"
 														id="WishList" title="Wishlist">
 														<i class="fa fa-heart"></i>
 													</a>
@@ -426,7 +426,7 @@
 															<div class="arrow minus gradient"><span class="ir"><i
 																		class="icon fa fa-sort-desc"></i></span></div>
 														</div>
-														<input type="text" value="1" required>
+														<input type="text" id="cQuantity" name="cQuantity" value="1" required>
 													</div>
 												</div>
 											</div>
@@ -436,8 +436,7 @@
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
-													<a id="CartList" onclick="comboCart('<?php echo $pid; ?>')"
-														class="btn-upper btn btn-primary"><i
+													<a id="add-quantity" class="btn-upper btn btn-primary"><i
 															class="fa fa-shopping-cart inner-right-vs"></i> Add to Cart</a>
 												<?php } ?>
 											</div>
@@ -475,7 +474,7 @@
 
 												<div class="product-reviews">
 													<h4 class="title">Customer Reviews</h4>
-													<?php $qry = mysqli_query($con, "select * from productreviews where productId='$pid'");
+													<?php $qry = mysqli_query($con, "select * from productreviews where productId='$cid'");
 													while ($rvw = mysqli_fetch_array($qry)) {
 														?>
 
@@ -637,7 +636,7 @@
 
 				<?php
 				$rating = 0;
-				$qry = mysqli_query($con, "select * from combo where id<>'$pid'");
+				$qry = mysqli_query($con, "select * from combo where id<>'$cid'");
 				while ($rw = mysqli_fetch_array($qry)) {
 					/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
 								$row2 = mysqli_fetch_array($rt);
@@ -658,7 +657,7 @@
 							<div class="product">
 								<div class="product-image" style="width: 100%; height: 300px; display: table;">
 									<div class="image" style="display: table-cell; vertical-align: middle;">
-										<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><img
+										<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><img
 												src="assets/images/blank.gif"
 												data-echo="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"
 												style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"
@@ -672,7 +671,7 @@
 								<div class="product-info text-left">
 									<h3 class="name"
 										style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
-										<a href="combo-details.php?pid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
+										<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
 									<?php
 									for ($jctr = 0; $jctr < 5; $jctr++) {
 										if ($jctr < $rating)
@@ -740,6 +739,22 @@
 	<?php include('includes/footer.php'); ?>
 	<!-- For demo purposes – can be removed on production : End -->
 
+	<script>
+		
+		$('#add-quantity').click(function (e) {
+			e.preventDefault();
+			jQuery.ajax({
+				url: "cart-quantity.php",
+				data: {cId: <?=$cid?>, cQuantity: $('#cQuantity').val()},
+				type: "POST",
+				success: function (data) {
+					$("#ack").html(data);
+				},
+				error: function () { }
+			});
+		});
+
+	</script>
 	<style>
 		.owl-item {
 			width: 360px;

@@ -39,8 +39,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                 if ($row3 = mysqli_fetch_array($query3)) {
                     $productName = $row3['productName'];
                     $productAvailability = $row3['productAvailability'];
-                    $prod_avail = $row3['prod_avail'];
-                    $allow_ao = $row3['allow_ao'];
+                    $prod_avail = intval($row3['prod_avail']);
+                    $allow_ao = intval($row3['allow_ao']);
 
                     if($productAvailability == "Out of Stock") {
                         $errorText .= "<BR/><b>$productName - </b>Out of Stock!!!";

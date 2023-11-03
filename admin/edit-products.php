@@ -9,11 +9,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_POST['submit'])) {
 		$category = $_POST['category'];
 		$subcat = $_POST['subcategory'];
-		$productname = $_POST['productName'];
-		$productcompany = $_POST['productCompany'];
+		$productname = str_replace("'","''", $_POST['productName']);
+		$productcompany = str_replace("'","''", $_POST['productCompany']);
 		$productprice = $_POST['productprice'];
 		$productpricebd = $_POST['productpricebd'];
-		$productdescription = $_POST['productDescription'];
+		$productdescription = str_replace("'","''", $_POST['productDescription']);
 		$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
 		$allow_ao = $_POST['allow_ao'];
@@ -168,6 +168,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													Discount</label>
 												<div class="controls">
 													<input type="text" name="productpricebd" placeholder="Enter Product Price"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														value="<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>"
 														class="span8 tip" required>
 												</div>
@@ -177,6 +178,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<label class="control-label" for="basicinput">Product Price</label>
 												<div class="controls">
 													<input type="text" name="productprice" placeholder="Enter Product Price"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														value="<?php echo htmlentities($row['productPrice']); ?>"
 														class="span8 tip" required>
 												</div>
@@ -196,6 +198,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<label class="control-label" for="basicinput">Product Shipping Charge</label>
 												<div class="controls">
 													<input type="text" name="productShippingcharge"
+														onkeypress="return event.charCode >= 48 && event.charCode <= 57"
 														placeholder="Enter Product Shipping Charge"
 														value="<?php echo htmlentities($row['shippingCharge']); ?>"
 														class="span8 tip" required>

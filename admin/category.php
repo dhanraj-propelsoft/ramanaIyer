@@ -10,8 +10,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 	if (isset($_POST['submit'])) {
-		$category = $_POST['category'];
-		$description = $_POST['description'];
+		$category = str_replace("'","''", $_POST['category']);
+		$description = str_replace("'","''", $_POST['description']);
 		$result = mysqli_query($con, "SELECT id from category where categoryName = '" . $category . "'");
 		$row_cnt = mysqli_num_rows($result);
 		if ($row_cnt > 0) {

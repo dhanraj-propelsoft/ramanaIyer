@@ -10,8 +10,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 	if (isset($_POST['submit'])) {
-		$category = $_POST['category'];
-		$description = $_POST['description'];
+		$category = str_replace("'","''", $_POST['category']);
+		$description = str_replace("'","''", $_POST['description']);
 		$id = intval($_GET['id']);
 		$sql = mysqli_query($con, "update category set categoryName='$category',categoryDescription='$description',updationDate='$currentTime' where id='$id'");
 		$_SESSION['msg'] = "Category Updated !!";

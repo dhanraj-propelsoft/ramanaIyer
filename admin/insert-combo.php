@@ -8,10 +8,10 @@ if (strlen($_SESSION['alogin']) == 0) {
     $comboimage2 = "";
     $comboimage3 = "";
     if (isset($_POST['submit'])) {
-        $comboname = $_POST['comboName'];
+        $comboname = str_replace("'","''", $_POST['comboName']);
         $comboprice = $_POST['comboprice'];
         $combopricebd = $_POST['combopricebd'];
-        $combodescription = $_POST['comboDescription'];
+        $combodescription = str_replace("'","''", $_POST['comboDescription']);
         $comboscharge = $_POST['comboShippingcharge'];
         $comboavailability = $_POST['comboAvailability'];
         $comborating = $_POST['comboRating'];

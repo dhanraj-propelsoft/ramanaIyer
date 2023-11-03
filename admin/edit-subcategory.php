@@ -11,7 +11,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	if (isset($_POST['submit'])) {
 		$category = $_POST['category'];
-		$subcat = $_POST['subcategory'];
+		$subcat = str_replace("'","''", $_POST['subcategory']);
 		$id = intval($_GET['id']);
 		$sql = mysqli_query($con, "update subcategory set categoryid='$category',subcategory='$subcat',updationDate='$currentTime' where id='$id'");
 		$_SESSION['msg'] = "Sub-Category Updated !!";

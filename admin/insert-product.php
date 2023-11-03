@@ -10,11 +10,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_POST['submit'])) {
 		$category = $_POST['category'];
 		$subcat = $_POST['subcategory'];
-		$productname = $_POST['productName'];
-		$productcompany = $_POST['productCompany'];
+		$productname = str_replace("'","''", $_POST['productName']);
+		$productcompany = str_replace("'","''", $_POST['productCompany']);
 		$productprice = $_POST['productprice'];
 		$productpricebd = $_POST['productpricebd'];
-		$productdescription = $_POST['productDescription'];
+		$productdescription = str_replace("'","''", $_POST['productDescription']);
 		$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
 		$allow_ao = $_POST['allow_ao'];
@@ -24,7 +24,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			$productimage2 = $_FILES["productimage2"]["name"];
 		if (isset($_FILES["productimage3"]["name"]))
 			$productimage3 = $_FILES["productimage3"]["name"];
-
+		
 		$sql = mysqli_query($con, "insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount,allow_ao) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd','$allow_ao')");
 
 		//for getting product id

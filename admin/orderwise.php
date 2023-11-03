@@ -24,8 +24,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
 		<link type="text/css" href="css/jquery.dataTables.min.css" rel="stylesheet">
 		<link type="text/css" href="css/dataTables.dateTime.min.css" rel="stylesheet">
-		<script src="assets\js\jspdf.min.js_1.5.3\cdnjs\jspdf.min.js"></script>
-		<script src="assets\js\jspdf.plugin.autotable.min.js_3.5.6\cdnjs\jspdf.plugin.autotable.min.js"></script>
 		<script language="javascript" type="text/javascript">
 			var popUpWin = 0;
 			function popUpWindow(URLStr, left, top, width, height) {
@@ -69,7 +67,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<td>Date Filter:</td>
 											<td><input type="text" id="min" name="min" placeholder="Choose Date"></td>
 											<td><a class="btn btn-ri" onclick="window.location.reload();">Reset Filters</a></td>
-											<td><button id="download-pdf-button" style="float:right" class="btn btn-ri">Download PDF</button></td>
 										</tr>
 									</tbody></table>
 									<table cellpadding="0" id="table-to-pdf" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display table-responsive" style="width:100%;padding:5px;">
@@ -181,19 +178,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 					table.draw();
 				});
-			});
-
-			document.getElementById("download-pdf-button").addEventListener("click", () => {
-				const table = document.getElementById("table-to-pdf");
-				const pdf = new jsPDF();
-
-				// Convert the HTML table to PDF
-				pdf.autoTable({
-					html: table
-				});
-
-				// Save the PDF with a filename
-				pdf.save("order-wise.pdf");
 			});
 		</script>
 	</body>

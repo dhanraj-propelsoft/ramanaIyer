@@ -10,7 +10,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$errmsg = "";
 		$delmsg = "";
 		$category = $_POST['category'];
-		$subcat = $_POST['subcategory'];
+		$subcat = str_replace("'","''", $_POST['subcategory']);
 		$result = mysqli_query($con, "SELECT id from subcategory where subcategory = '" . $subcat . "'");
 		$row_cnt = mysqli_num_rows($result);
 		if ($row_cnt > 0) {

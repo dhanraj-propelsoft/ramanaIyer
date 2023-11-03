@@ -7,10 +7,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
     $pid = intval($_GET['id']); // combo id
     if (isset($_POST['submit'])) {
-        $comboname = $_POST['comboName'];
+        $comboname = str_replace("'","''", $_POST['comboName']);
         $comboprice = $_POST['comboprice'];
         $combopricebd = $_POST['combopricebd'];
-        $combodescription = $_POST['comboDescription'];
+        $combodescription = str_replace("'","''", $_POST['comboDescription']);
         $comboscharge = $_POST['comboShippingcharge'];
         $comboavailability = $_POST['comboAvailability'];
         $comborating = $_POST['comboRating'];
@@ -113,7 +113,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     Discount</label>
                                                 <div class="controls">
                                                     <input type="text" name="combopricebd" placeholder="Enter Combo Price"
-                                                        value="<?php echo htmlentities($row['comboPriceBeforeDiscount']); ?>"
+                                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														value="<?php echo htmlentities($row['comboPriceBeforeDiscount']); ?>"
                                                         class="span8 tip" required>
                                                 </div>
                                             </div>
@@ -122,7 +123,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <label class="control-label" for="basicinput">Combo Price</label>
                                                 <div class="controls">
                                                     <input type="text" name="comboprice" placeholder="Enter Combo Price"
-                                                        value="<?php echo htmlentities($row['comboPrice']); ?>"
+                                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														value="<?php echo htmlentities($row['comboPrice']); ?>"
                                                         class="span8 tip" required>
                                                 </div>
                                             </div>
@@ -141,7 +143,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 <label class="control-label" for="basicinput">Combo Shipping Charge</label>
                                                 <div class="controls">
                                                     <input type="text" name="comboShippingcharge"
-                                                        placeholder="Enter Combo Shipping Charge"
+                                                        onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+														placeholder="Enter Combo Shipping Charge"
                                                         value="<?php echo htmlentities($row['shippingCharge']); ?>"
                                                         class="span8 tip" required>
                                                 </div>

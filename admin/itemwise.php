@@ -167,15 +167,43 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
 				const table = document.getElementById("table-to-pdf");
-				const pdf = new jsPDF();
+				var doc = new jsPDF('p', 'pt', 'letter');
+
+				const d = new Date();
+				const pageSize = doc.internal.pageSize;
+				const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+				const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
 
 				// Convert the HTML table to PDF
-				pdf.autoTable({
+				doc.autoTable({
+					startY: 60,
 					html: table
 				});
 
+				doc.setFontSize(12);
+
+				const filDate = 'Filtered Date - '+$("#min").val();
+
+				if($("#min").val() != "")
+					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
+
+				const pageCount = doc.internal.getNumberOfPages();
+				for(let i = 1; i <= pageCount; i++) {
+					doc.setPage(i);
+					const headerL = 'Ramana Iyer Sweets & Snacks';
+					const headerR = 'Item Wise Order List';
+					const footerL = `PDF downloaded at: ${d}`;
+					const footerR = `Page ${i} of ${pageCount}`;
+
+					doc.text(headerL, 40, 15, { align: 'left', baseline: 'top' });
+					doc.text(headerR, pageWidth - 40, 15, { align: 'right', baseline: 'top' });
+					doc.text(footerL, 40, pageHeight - 25, { align: 'left', baseline: 'top' });
+					doc.text(footerR, pageWidth - 40, pageHeight - 25, { align: 'right', baseline: 'top' });
+					//doc.text(footerR, pageWidth / 2 - (doc.getTextWidth(footer) / 2), pageHeight - 15, { baseline: 'bottom' });
+				}
+
 				// Save the PDF with a filename
-				pdf.save("item-wise.pdf");
+				doc.save("item-wise.pdf");
 			});
 		</script>
 	</body>

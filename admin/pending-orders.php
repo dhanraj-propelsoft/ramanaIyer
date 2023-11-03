@@ -114,7 +114,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
-													<td class="wrap_td_100">
+													<td class="wrap_td_50">
 														<?php echo htmlentities($row['orderId']); ?>
 													</td>
 													<td class="wrap_td_50">
@@ -161,7 +161,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<td>
 														<?php echo htmlentities($cnt); ?>
 													</td>
-													<td class="wrap_td_100">
+													<td class="wrap_td_50">
 														<?php echo htmlentities($row1['orderId']); ?>
 													</td>
 													<td class="wrap_td_50">
@@ -257,15 +257,68 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
 				const table = document.getElementById("table-to-pdf");
-				const pdf = new jsPDF();
+				var doc = new jsPDF('p', 'pt', 'letter');
+
+				const d = new Date();
+				const pageSize = doc.internal.pageSize;
+				const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+				const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
 
 				// Convert the HTML table to PDF
-				pdf.autoTable({
-					html: table
+				doc.autoTable({
+					startY: 60,
+					html: table, 
+					columns: 
+					[
+						{header: 'header1', dataKey: 'dataKey1'},
+						{header: 'header2', dataKey: 'dataKey2'},
+						{header: 'header3', dataKey: 'dataKey3'},
+						{header: 'header4', dataKey: 'dataKey4'},
+						{header: 'header5', dataKey: 'dataKey5'},
+						{header: 'header6', dataKey: 'dataKey6'},
+						{header: 'header7', dataKey: 'dataKey7'},
+						{header: 'header8', dataKey: 'dataKey8'},
+						{header: 'header9', dataKey: 'dataKey9'},
+						{header: 'header10', dataKey: 'dataKey10'},
+					],
+					columnStyles: {
+					0: {columnWidth: 20},
+					1: {columnWidth: 50},
+					2: {columnWidth: 60},
+					3: {columnWidth: 60},
+					4: {columnWidth: 90},
+					5: {columnWidth: 60},
+					6: {columnWidth: 50},
+					7: {columnWidth: 30},
+					8: {columnWidth: 60},
+					9: {columnWidth: 55},
+					}
 				});
 
+				doc.setFontSize(12);
+
+				const filDate = 'Filtered Date - '+$("#min").val();
+
+				if($("#min").val() != "")
+					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
+
+				const pageCount = doc.internal.getNumberOfPages();
+				for(let i = 1; i <= pageCount; i++) {
+					doc.setPage(i);
+					const headerL = 'Ramana Iyer Sweets & Snacks';
+					const headerR = 'Order Request List';
+					const footerL = `PDF downloaded at: ${d}`;
+					const footerR = `Page ${i} of ${pageCount}`;
+
+					doc.text(headerL, 40, 15, { align: 'left', baseline: 'top' });
+					doc.text(headerR, pageWidth - 40, 15, { align: 'right', baseline: 'top' });
+					doc.text(footerL, 40, pageHeight - 25, { align: 'left', baseline: 'top' });
+					doc.text(footerR, pageWidth - 40, pageHeight - 25, { align: 'right', baseline: 'top' });
+					//doc.text(footerR, pageWidth / 2 - (doc.getTextWidth(footer) / 2), pageHeight - 15, { baseline: 'bottom' });
+				}
+
 				// Save the PDF with a filename
-				pdf.save("order-request.pdf");
+				doc.save("order-request.pdf");
 			});
 		</script>
 	</body>

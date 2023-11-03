@@ -282,16 +282,16 @@ if (strlen($_SESSION['alogin']) == 0) {
 						{header: 'header10', dataKey: 'dataKey10'},
 					],
 					columnStyles: {
-					0: {columnWidth: 20},
-					1: {columnWidth: 50},
-					2: {columnWidth: 60},
-					3: {columnWidth: 60},
-					4: {columnWidth: 90},
-					5: {columnWidth: 60},
-					6: {columnWidth: 50},
-					7: {columnWidth: 30},
-					8: {columnWidth: 60},
-					9: {columnWidth: 55},
+					0: {cellWidth: 20},
+					1: {cellWidth: 50},
+					2: {cellWidth: 60},
+					3: {cellWidth: 60},
+					4: {cellWidth: 90},
+					5: {cellWidth: 60},
+					6: {cellWidth: 50},
+					7: {cellWidth: 30},
+					8: {cellWidth: 60},
+					9: {cellWidth: 55},
 					}
 				});
 

@@ -436,7 +436,7 @@
 											</div>
 
 											<div class="col-sm-7 col-xs-6">
-												<?php if ($row['productAvailability'] == 'Out of Stock') { ?>
+												<?php if (($row['productAvailability'] == 'Out of Stock') || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) != 1))) { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>
@@ -704,7 +704,7 @@
 									<div class="action">
 										<ul class="list-unstyled">
 											<li class="add-cart-button btn-group">
-												<?php if ($rw['productAvailability'] == 'Out of Stock') { ?>
+												<?php if (($rw['productAvailability'] == 'Out of Stock') || ((intval($rw['prod_avail']) == 0) && (intval($rw['allow_ao']) != 1))) { ?>
 													<div class="action" style="color:red">Out of Stock
 													</div>
 												<?php } else { ?>

@@ -7,6 +7,14 @@ if (isset($_POST['pQuantity'])) {
     $popupText = "";
     $pQty = $_POST["pQuantity"];
     $pId = $_POST["pId"];
+    $cart_qty = 0;
+    $new_pQty = $pQty;
+    if (isset($_SESSION['product'][$pId]))
+    {
+        $cart_qty = intval($_SESSION['product'][$pId]['quantity']);
+        $new_pQty += $cart_qty;
+    }
+
     $query3 = mysqli_query($con, "SELECT productName,productAvailability,prod_avail,allow_ao from products where id='" . $pId . "'");
     if ($row3 = mysqli_fetch_array($query3)) {
         $productName = $row3['productName'];
@@ -19,8 +27,19 @@ if (isset($_POST['pQuantity'])) {
         } else if($productAvailability == "In Stock") {
             if(($allow_ao == 0) && ($prod_avail == 0))
                 $popupText .= "<b>$productName - </b>Out of Stock!!!<BR/>";
-            else if(($allow_ao == 0) && ($prod_avail < $pQty))
-                $popupText .= "<b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b><BR/>";
+            else if(($allow_ao == 0) && ($prod_avail < $new_pQty))
+            {
+                if ($cart_qty > 0)
+                {
+                    $new_qty = $prod_avail - $cart_qty;
+                    if($prod_avail == $cart_qty)
+                        $popupText .= "<b>$productName - </b>Available quantity is <b>[$prod_avail]</b>, Product Already in Cart with maximum quantity of <b>[$cart_qty]</b><BR/>";
+                    else
+                        $popupText .= "<b>$productName - </b>Available quantity is <b>[$prod_avail]</b>, Product Already in Cart with quantity of <b>[$cart_qty]</b> so you can add max <b>[$new_qty]</b> only<BR/>";
+                } else {
+                    $popupText .= "<b>$productName - </b>Please order the product within the available quantity of <b>[$prod_avail]</b><BR/>";
+                }
+            }
         }
     }
     

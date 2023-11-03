@@ -147,7 +147,7 @@ $pid = intval($_GET['pid']);
 														<div class="action">
 															<ul class="list-unstyled">
 																<li class="add-cart-button btn-group">
-																	<?php if ($row['productAvailability'] == 'Out of Stock') { ?>
+																	<?php if (($row['productAvailability'] == 'Out of Stock') || ((intval($row['prod_avail']) == 0) && (intval($row['allow_ao']) != 1))) { ?>
 																		<div class="action" style="color:red">Out of Stock
 																		</div>
 																	<?php } else { ?>

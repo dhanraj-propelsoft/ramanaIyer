@@ -49,13 +49,14 @@
 					<!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 <?php
 $totalprice=0;
+$totalqunty=0;
 if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 	?>
 	<div class="dropdown dropdown-cart">
 		<ul class="dropdown-menu">
 		
 		 <?php 
-			if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
+		 	if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
 		 
 		 	$sql = "SELECT * FROM products WHERE id IN(";
 			foreach($_SESSION['product'] as $id => $value){
@@ -64,13 +65,12 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 			$sql=substr($sql,0,-1) . ") ORDER BY id ASC";
 			$query = mysqli_query($con, $sql);
 			
-			$totalqunty=0;
 			if(!empty($query)){
 			while($row = mysqli_fetch_array($query)){
 				$quantity=$_SESSION['product'][$row['id']]['quantity'];
 				$subtotal= (int)$_SESSION['product'][$row['id']]['quantity'] * (int)$row['productPrice'] + (int)$row['shippingCharge'];
 				$totalprice += $subtotal;
-				$_SESSION['qnty'] = $totalqunty += (int)$quantity;
+				$totalqunty += (int)$quantity;
 
 	?>
 		
@@ -102,14 +102,12 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 					$sql1=substr($sql1,0,-1) . ") ORDER BY id ASC";
 					$query1 = mysqli_query($con, $sql1);
 					
-					$cTotalqunty=0;
 					if(!empty($query1)){
 					while($row1 = mysqli_fetch_array($query1)){
 						$cQuantity=$_SESSION['combo'][$row1['id']]['quantity'];
 						$cSubtotal= (int)$_SESSION['combo'][$row1['id']]['quantity'] * (int)$row1['comboPrice'] + (int)$row1['shippingCharge'];
 						$totalprice += $cSubtotal;
-						$_SESSION['qnty'] = $cTotalqunty += (int)$cQuantity;
-
+						$totalqunty += (int)$cQuantity;
 			?>
 		
 		
@@ -131,7 +129,8 @@ if((!empty($_SESSION['product'])) || (!empty($_SESSION['combo']))){
 				</div><!-- /.cart-item -->
 			
 				<?php } } }
-				$totalprice = $totalprice + 40; ?>
+				$totalprice = $totalprice + 40;
+				$_SESSION['qnty'] = $totalqunty; ?>
 			<li>
 				<div class="cart-item product-summary">
 					<div class="row">

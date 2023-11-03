@@ -91,7 +91,9 @@ $against_order = 0;
 										</tr>
 									</tfoot>
 									<tbody>
-										<?php
+										<?php 
+										$totalprice = 0;
+										$totalqunty = 0;
 										if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
 											$pdtid = array();
 											$pQty = array();
@@ -101,8 +103,6 @@ $against_order = 0;
 											}
 											$sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
 											$query = mysqli_query($con, $sql);
-											$totalprice = 0;
-											$totalqunty = 0;
 											if (!empty($query)) {
 												$rating = 0;
 												while ($row = mysqli_fetch_array($query)) {
@@ -111,7 +111,7 @@ $against_order = 0;
 													$quantity = $_SESSION['product'][$row['id']]['quantity'];
 													$subtotal = (int) $_SESSION['product'][$row['id']]['quantity'] * (int) $row['productPrice'] + (int) $row['shippingCharge'];
 													$totalprice += $subtotal;
-													$_SESSION['qnty'] = $totalqunty += (int) $quantity;
+													$totalqunty += (int) $quantity;
 
 													array_push($pdtid, $row['id']);
 													array_push($pQty, $quantity);
@@ -209,7 +209,7 @@ $against_order = 0;
 													$quantity = $_SESSION['combo'][$row2['id']]['quantity'];
 													$subtotal = (int) $_SESSION['combo'][$row2['id']]['quantity'] * (int) $row2['comboPrice'] + (int) $row2['shippingCharge'];
 													$totalprice += $subtotal;
-													$_SESSION['qnty'] = $totalqunty += (int) $quantity;
+													$totalqunty += (int) $quantity;
 
 													array_push($cmbId, $row2['id']);
 													array_push($cQty, $quantity);
@@ -289,6 +289,7 @@ $against_order = 0;
 											// $_SESSION['cQty'] = $cQty;
 										}
 										$totalprice = $totalprice + 40;
+										$_SESSION['qnty'] = $totalqunty;
 										?>
 										<tr>
 											<td class="romove-item"></td>

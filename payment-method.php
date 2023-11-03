@@ -12,22 +12,22 @@ if (strlen($_SESSION['login']) == 0) {
 		//echo "<script>$('#loaderIcon').css('visibility', 'visible'); $('#loaderIcon').show();</script>";
 		$prodid = array();
         $prodQt = array();
-        if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
+        $totalprice = 0;
+		$totalqunty = 0;
+		if((isset($_SESSION['product'])) && (!empty($_SESSION['product']))){
 			$sql = "SELECT * FROM products WHERE id IN(";
             foreach ($_SESSION['product'] as $id => $pVal) {
                 $sql .= $id . ",";
             }
             $sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
             $query = mysqli_query($con, $sql);
-            $totalprice = 0;
-            $totalqunty = 0;
             if (!empty($query)) {
                 $rating = 0;
                 while ($row = mysqli_fetch_array($query)) {
                     $quantity = $_SESSION['product'][$row['id']]['quantity'];
                     $subtotal = (int) $_SESSION['product'][$row['id']]['quantity'] * (int) $row['productPrice'] + (int) $row['shippingCharge'];
                     $totalprice += $subtotal;
-                    $_SESSION['qnty'] = $totalqunty += (int) $quantity;
+                    $totalqunty += (int) $quantity;
 
                     array_push($prodid, $row['id']);
                     array_push($prodQt, $quantity);
@@ -48,15 +48,13 @@ if (strlen($_SESSION['login']) == 0) {
             }
             $sql = substr($sql, 0, -1) . ") ORDER BY id ASC";
             $query = mysqli_query($con, $sql);
-            $totalprice = 0;
-            $totalqunty = 0;
             if (!empty($query)) {
                 $rating = 0;
                 while ($row = mysqli_fetch_array($query)) {
                     $quantity = $_SESSION['combo'][$row['id']]['quantity'];
                     $subtotal = (int) $_SESSION['combo'][$row['id']]['quantity'] * (int) $row['comboPrice'] + (int) $row['shippingCharge'];
                     $totalprice += $subtotal;
-                    $_SESSION['qnty'] = $totalqunty += (int) $quantity;
+                    $totalqunty += (int) $quantity;
 
                     array_push($comboid, $row['id']);
                     array_push($comboQt, $quantity);
@@ -65,6 +63,7 @@ if (strlen($_SESSION['login']) == 0) {
             // $_SESSION['pid'] = $comboid;
             // $_SESSION['comboQt'] = $comboQt;
         }
+		$_SESSION['qnty'] = $totalqunty;
 
         $comboVal = array_combine($comboid, $comboQt);
 

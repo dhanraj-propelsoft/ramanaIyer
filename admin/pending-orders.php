@@ -285,14 +285,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 					startY: 60,
 					headStyles:{ valign: 'middle', halign : 'center'},
 					columnStyles: {
-						0: {cellWidth: 20, valign: 'middle', halign: 'center'},
-						1: {cellWidth: 120, valign: 'middle', halign: 'center'},	//p-80
-						2: {cellWidth: 110, valign: 'middle', halign: 'center'},	//p-60
-						3: {cellWidth: 115, valign: 'middle', halign: 'center'},	//p-90
-						4: {cellWidth: 115, valign: 'middle', halign: 'center'},	//p-80
-						5: {cellWidth: 50, valign: 'middle', halign: 'center'},	//p-80
-						6: {cellWidth: 120, valign: 'middle', halign: 'center'},	//p-60
-						7: {cellWidth: 65, valign: 'middle', halign: 'center'}
+						0: {cellWidth: 20, valign: 'middle'},
+						1: {cellWidth: 120, valign: 'middle'},	//p-80
+						2: {cellWidth: 110, valign: 'middle'},	//p-60
+						3: {cellWidth: 115, valign: 'middle'},	//p-90
+						4: {cellWidth: 115, valign: 'middle'},	//p-80
+						5: {cellWidth: 50, valign: 'middle'},	//p-80
+						6: {cellWidth: 120, valign: 'middle'},	//p-60
+						7: {cellWidth: 65, valign: 'middle'}
 					}
 				});
 

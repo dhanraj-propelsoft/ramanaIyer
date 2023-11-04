@@ -11,11 +11,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$category = $_POST['category'];
 		$subcat = $_POST['subcategory'];
 		$productname = str_replace("'","''", $_POST['productName']);
-		$productcompany = str_replace("'","''", $_POST['productCompany']);
+		//$productcompany = str_replace("'","''", $_POST['productCompany']);
 		$productprice = $_POST['productprice'];
 		$productpricebd = $_POST['productpricebd'];
 		$productdescription = str_replace("'","''", $_POST['productDescription']);
-		$productscharge = $_POST['productShippingcharge'];
+		//$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
 		$allow_ao = $_POST['allow_ao'];
 		$productrating = $_POST['productRating'];
@@ -25,7 +25,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		if (isset($_FILES["productimage3"]["name"]))
 			$productimage3 = $_FILES["productimage3"]["name"];
 		
-		$sql = mysqli_query($con, "insert into products(category,subCategory,productName,productCompany,productPrice,productDescription,shippingCharge,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount,allow_ao) values('$category','$subcat','$productname','$productcompany','$productprice','$productdescription','$productscharge','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd','$allow_ao')");
+		$sql = mysqli_query($con, "insert into products(category,subCategory,productName,productPrice,productDescription,productAvailability,productRating,productImage1,productImage2,productImage3,productPriceBeforeDiscount,allow_ao) values('$category','$subcat','$productname','$productprice','$productdescription','$productavailability','$productrating','$productimage1','$productimage2','$productimage3','$productpricebd','$allow_ao')");	//,productCompany,shippingCharge,'$productcompany','$productscharge'
 
 		//for getting product id
 		$query1 = mysqli_query($con, "select max(id) as pid from products");
@@ -166,13 +166,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 										</div>
 
-										<div class="control-group">
+										<?php /*<div class="control-group">
 											<label class="control-label" for="basicinput">Product Company <span>*</span></label>
 											<div class="controls">
 												<input type="text" name="productCompany"
 													placeholder="Enter Product Comapny Name" class="span8 tip" required>
 											</div>
-										</div>
+										</div>*/ ?>
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Product Price Before
 												Discount <span>*</span></label>
@@ -204,7 +204,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 										</div>
 
-										<div class="control-group">
+										<?php /*<div class="control-group">
 											<label class="control-label" for="basicinput">Product Shipping Charge <span>*</span></label>
 											<div class="controls">
 												<input type="text"
@@ -212,7 +212,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													name="productShippingcharge" placeholder="Enter Product Shipping Charge"
 													class="span8 tip" required>
 											</div>
-										</div>
+										</div>*/ ?>
 
 										<div class="control-group">
 											<label class="control-label" for="basicinput">Product Status <span>*</span></label>

@@ -82,8 +82,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Product Name</th>
 												<th>Category </th>
 												<th>Subcategory</th>
-												<th>Company Name</th>
-												<th>Product Creation Date</th>
+												<th>Selling Price</th>
+												<th>Product Status</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -107,10 +107,20 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['subcategory']); ?>
 													</td>
 													<td class="wrap_td_100">
-														<?php echo htmlentities($row['productCompany']); ?>
+														<?php echo htmlentities($row['productPrice']); ?>
 													</td>
 													<td class="wrap_td_100">
-														<?php echo date("d-m-Y h:i:s A", strtotime($row['postingDate'])); ?>
+														<?php if($row['productAvailability'] == "In Stock") {
+															if((intval($row['allow_ao']) == 0) && (intval($row['prod_avail']) == 0)) { 
+																echo 'Out of Stock';
+															} else if((intval($row['allow_ao']) == 1) && (intval($row['prod_avail']) == 0)) { 
+																echo 'Against Order';
+															} else {
+																echo $row['productAvailability']; 
+															}
+														} else { 
+															echo $row['productAvailability']; 
+														} ?>
 													</td>
 													<td>
 														<a href="edit-products.php?id=<?php echo $row['id'] ?>"><i

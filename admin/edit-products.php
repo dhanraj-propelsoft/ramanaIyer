@@ -10,16 +10,16 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$category = $_POST['category'];
 		$subcat = $_POST['subcategory'];
 		$productname = str_replace("'","''", $_POST['productName']);
-		$productcompany = str_replace("'","''", $_POST['productCompany']);
+		//$productcompany = str_replace("'","''", $_POST['productCompany']);
 		$productprice = $_POST['productprice'];
 		$productpricebd = $_POST['productpricebd'];
 		$productdescription = str_replace("'","''", $_POST['productDescription']);
-		$productscharge = $_POST['productShippingcharge'];
+		//$productscharge = $_POST['productShippingcharge'];
 		$productavailability = $_POST['productAvailability'];
 		$allow_ao = $_POST['allow_ao'];
 		$productrating = $_POST['productRating'];
 
-		$sql = mysqli_query($con, "update  products set category='$category',subCategory='$subcat',productName='$productname',productCompany='$productcompany',productPrice='$productprice',productDescription='$productdescription',shippingCharge='$productscharge',productAvailability='$productavailability',productRating='$productrating',productPriceBeforeDiscount='$productpricebd',allow_ao='$allow_ao' where id='$pid' ");
+		$sql = mysqli_query($con, "update  products set category='$category',subCategory='$subcat',productName='$productname',productPrice='$productprice',productDescription='$productdescription',productAvailability='$productavailability',productRating='$productrating',productPriceBeforeDiscount='$productpricebd',allow_ao='$allow_ao' where id='$pid' ");	//,productCompany='$productcompany',shippingCharge='$productscharge'
 		$_SESSION['msg'] = "Product Updated Successfully !!";
 
 	}
@@ -154,7 +154,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 											</div>
 
-											<div class="control-group">
+											<?php /*<div class="control-group">
 												<label class="control-label" for="basicinput">Product Company</label>
 												<div class="controls">
 													<input type="text" name="productCompany"
@@ -162,7 +162,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														value="<?php echo htmlentities($row['productCompany']); ?>"
 														class="span8 tip" required>
 												</div>
-											</div>
+											</div>*/ ?>
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Product Price Before
 													Discount</label>
@@ -194,7 +194,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 											</div>
 
-											<div class="control-group">
+											<?php /*<div class="control-group">
 												<label class="control-label" for="basicinput">Product Shipping Charge</label>
 												<div class="controls">
 													<input type="text" name="productShippingcharge"
@@ -203,7 +203,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														value="<?php echo htmlentities($row['shippingCharge']); ?>"
 														class="span8 tip" required>
 												</div>
-											</div>
+											</div>*/ ?>
 
 											<div class="control-group">
 												<label class="control-label" for="basicinput">Product Status</label>

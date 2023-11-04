@@ -91,7 +91,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Order Number</th>
 												<th>Delivery Date & Time</th>
 												<th>Customer Name</th>
-												<th>Customer Mobile No / Email</th>
+												<th>Customer Email / Mobile No</th>
 												<th>Shipping Address</th>
 												<th>Product</th>
 												<th>Quantity</th>
@@ -257,7 +257,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
 				const table = document.getElementById("table-to-pdf");
-				var doc = new jsPDF('l', 'pt', 'letter');
+				var doc = new jsPDF('p', 'pt', 'letter');
 
 				const d = new Date();
 				const pageSize = doc.internal.pageSize;
@@ -271,35 +271,28 @@ if (strlen($_SESSION['alogin']) == 0) {
 				if($("#min").val() != "")
 					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
 
+				var res = doc.autoTableHtmlToJson(document.getElementById("table-to-pdf"));
+				var columns = [res.columns[0], res.columns[1], res.columns[2], res.columns[3], res.columns[6], res.columns[7], res.columns[8], res.columns[9]];
+				var resData = [];
+				var res_data = res.data;
+				
+				res_data.forEach(item => {
+					resData.push([item[0]['content'], item[1]['content'],item[2]['content'],item[3]['content'],item[6]['content'],item[7]['content'],item[8]['content'],item[9]['content']]);
+				});
+				
 				// Convert the HTML table to PDF
-				doc.autoTable({
+				doc.autoTable(columns, resData, {
 					startY: 60,
-					html: table, 
-					columns: 
-					[
-						{header: 'header1', dataKey: 'dataKey1'},
-						{header: 'header2', dataKey: 'dataKey2'},
-						{header: 'header3', dataKey: 'dataKey3'},
-						{header: 'header4', dataKey: 'dataKey4'},
-						{header: 'header5', dataKey: 'dataKey5'},
-						{header: 'header6', dataKey: 'dataKey6'},
-						{header: 'header7', dataKey: 'dataKey7'},
-						{header: 'header8', dataKey: 'dataKey8'},
-						{header: 'header9', dataKey: 'dataKey9'},
-						{header: 'header10', dataKey: 'dataKey10'}
-					],
 					headStyles:{ valign: 'middle', halign : 'center'},
 					columnStyles: {
-					0: {cellWidth: 20, valign: 'middle', halign: 'center'},
-					1: {cellWidth: 80, valign: 'middle', halign: 'center'},
-					2: {cellWidth: 60, valign: 'middle', halign: 'center'},
-					3: {cellWidth: 90, valign: 'middle', halign: 'center'},
-					4: {cellWidth: 120, valign: 'middle', halign: 'center'},
-					5: {cellWidth: 140, valign: 'middle', halign: 'center'},
-					6: {cellWidth: 60, valign: 'middle', halign: 'center'},
-					7: {cellWidth: 30, valign: 'middle', halign: 'center'},
-					8: {cellWidth: 60, valign: 'middle', halign: 'center'},
-					9: {cellWidth: 55, valign: 'middle', halign: 'center'}
+						0: {cellWidth: 20, valign: 'middle', halign: 'center'},
+						1: {cellWidth: 80, valign: 'middle', halign: 'center'},
+						2: {cellWidth: 60, valign: 'middle', halign: 'center'},
+						3: {cellWidth: 90, valign: 'middle', halign: 'center'},
+						4: {cellWidth: 80, valign: 'middle', halign: 'center'},
+						5: {cellWidth: 80, valign: 'middle', halign: 'center'},
+						6: {cellWidth: 60, valign: 'middle', halign: 'center'},
+						7: {cellWidth: 65, valign: 'middle', halign: 'center'}
 					}
 				});
 

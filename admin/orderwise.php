@@ -107,7 +107,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <?php echo htmlentities($row1['username']); ?>
                                                     </td>
                                                     <td class="wrap_td_50">
-                                                        <?php echo htmlentities($row1['useremail']."/".$row1['usercontact']); ?>
+                                                        <?php echo htmlentities($row1['usercontact']." / ".$row1['useremail']); ?>
                                                     </td>
                                                     <td class="wrap_td_50">
                                                         <?php echo htmlentities($row1['shippingaddress'].", ".$row1['shippingstate'].", ".$row1['shippingcity'].", ".$row1['shippingpincode']); ?>
@@ -116,7 +116,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         <?php echo htmlentities($row1['billingaddress'].", ".$row1['billingstate'].", ".$row1['billingcity'].", ".$row1['billingpincode']); ?>
                                                     </td>
                                                     <td class="wrap_td_50">
-                                                        <?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
+                                                        <?php echo date("d-m-Y h:i A", strtotime($row1['orderdate'])); ?>
                                                     </td>
                                                     <td>
                                                         <a href="view-orderwise.php?oid=<?=$row1['orderId']?>"

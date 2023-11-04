@@ -136,7 +136,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </tr>
                                                 <?php 
                                                 $cnt++;
-                                                } ?>
+                                                }
+                                                $totAmt += 40; //shipping charges ?>
                                                 
                                             </tbody>
                                         </table>
@@ -145,11 +146,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         style="width:100%;padding:5px;">
                                             <tbody>
                                                 <tr>
-                                                    <td>Delivery Date & Time - <input type="datetime-local" readonly required name="dateTime" placeholder="Choose date and time" value="<?=$dtSupply?>"
+                                                    <td>Delivery Date - <input type="datetime-local" readonly required name="dateTime" placeholder="Choose date and time" value="<?=$dtSupply?>"
                                                     class="span8 tip" step="any" min="<?= date('Y-m-d', strtotime('tomorrow'))."T".date('H:i:s'); ?>"></td>
                                                     <td><input type="text" name="remarks" readonly placeholder="Enter remarks if any" value="<?=$remarks?>"
                                                     class="span8 tip"></td>
-                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt"><?=$totAmt;?></span></div></td>
+                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt"><?=$totAmt;?></span>*</div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">* including shipping charges ₹ 40</td>
                                                 </tr>
                                             </tbody>
                                         </table>

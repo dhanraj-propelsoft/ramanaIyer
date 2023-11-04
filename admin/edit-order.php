@@ -102,6 +102,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                 mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','".$cmbArr["comboId"]."','".$cmbArr["quantity"]."','".$cmbArr["price"]."','$dateTime','$remarks','ADMIN','$oid','Admin')");
             }
             
+            mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('$uid','ADMIN','ADMIN','$oid','Admin','40','$dateTime','Shipping Charge')");
+			
             header("Location: pending-orders.php");
             exit;
         }
@@ -293,7 +295,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                 </tr>
                                                 <?php 
                                                 $cnt++;
-                                                } ?>
+                                                }
+                                                $totAmt += 40; //shipping charges?>
                                                 <tr style="display: none;" id="prodRow">
                                                     <td>
                                                         <select name="productId[]" class="productId span8 tip"  onchange="pushPrice(this, this.options[this.selectedIndex].getAttribute('price'), this.options[this.selectedIndex].getAttribute('table'))">
@@ -348,8 +351,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     class="span8 tip" step="any" min="<?= date('Y-m-d', strtotime('tomorrow'))."T".date('H:i:s'); ?>"></td>
                                                     <td><input type="text" name="remarks" placeholder="Enter remarks if any" value="<?=$remarks;?>"
                                                     class="span8 tip"></td>
-                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt"><?=$totAmt;?></span></div></td>
+                                                    <td><div style="font-weight: bold;">Total Amount ₹<span id="totAmt"><?=$totAmt;?></span>*</div></td>
                                                     <input type="hidden" name="userId" value="<?=$uId;?>">
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">* including shipping charges ₹ 40</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -463,6 +469,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                     let amount = parseInt($(amountInp[j]).val());
                     totAmt = Math.round(totAmt + amount);
                 }
+                totAmt = totAmt + 40;
                 $('#totAmt').html(totAmt);
             }
 		</script>

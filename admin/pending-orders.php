@@ -127,11 +127,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['username']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row['useremail']); ?>/
+														<?php echo htmlentities($row['useremail']); ?> /<BR/>
 														<?php echo htmlentities($row['usercontact']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?>
+														<?php echo htmlentities($row['shippingaddress'] . ", " . $row['shippingcity'] . ", " . $row['shippingstate'] . " - " . $row['shippingpincode']); ?>
 													</td>
 													<td class="wrap_td_50">
 														<?php echo htmlentities($row['productname']); ?>
@@ -140,7 +140,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row['quantity']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo date("d-m-Y h:i:s A", strtotime($row['orderdate'])); ?>
+														<?php echo date("d-m-Y h:i A", strtotime($row['orderdate'])); ?>
 													</td>
 													<td>
 														<?php echo htmlentities($row['orderBy']); ?>
@@ -174,11 +174,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row1['username']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row1['useremail']); ?>/
+														<?php echo htmlentities($row1['useremail']); ?> /<BR/>
 														<?php echo htmlentities($row1['usercontact']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo htmlentities($row1['shippingaddress'] . "," . $row1['shippingcity'] . "," . $row1['shippingstate'] . "-" . $row1['shippingpincode']); ?>
+														<?php echo htmlentities($row1['shippingaddress'] . ", " . $row1['shippingcity'] . ", " . $row1['shippingstate'] . " - " . $row1['shippingpincode']); ?>
 													</td>
 													<td class="wrap_td_50">
 														<?php echo htmlentities($row1['comboname']); ?>
@@ -187,7 +187,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php echo htmlentities($row1['quantity']); ?>
 													</td>
 													<td class="wrap_td_50">
-														<?php echo date("d-m-Y h:i:s A", strtotime($row1['orderdate'])); ?>
+														<?php echo date("d-m-Y h:i A", strtotime($row1['orderdate'])); ?>
 													</td>
 													<td>
 														<?php echo htmlentities($row1['orderBy']); ?>
@@ -257,12 +257,19 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
 				const table = document.getElementById("table-to-pdf");
-				var doc = new jsPDF('p', 'pt', 'letter');
+				var doc = new jsPDF('l', 'pt', 'letter');
 
 				const d = new Date();
 				const pageSize = doc.internal.pageSize;
 				const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
 				const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+
+				doc.setFontSize(12);
+
+				const filDate = 'Filtered Date - '+$("#min").val();
+
+				if($("#min").val() != "")
+					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
 
 				// Convert the HTML table to PDF
 				doc.autoTable({
@@ -283,24 +290,17 @@ if (strlen($_SESSION['alogin']) == 0) {
 					],
 					columnStyles: {
 					0: {cellWidth: 20},
-					1: {cellWidth: 50},
+					1: {cellWidth: 80},
 					2: {cellWidth: 60},
-					3: {cellWidth: 60},
-					4: {cellWidth: 90},
-					5: {cellWidth: 60},
-					6: {cellWidth: 50},
+					3: {cellWidth: 90},
+					4: {cellWidth: 120},
+					5: {cellWidth: 140},
+					6: {cellWidth: 60},
 					7: {cellWidth: 30},
 					8: {cellWidth: 60},
 					9: {cellWidth: 55},
 					}
 				});
-
-				doc.setFontSize(12);
-
-				const filDate = 'Filtered Date - '+$("#min").val();
-
-				if($("#min").val() != "")
-					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
 
 				const pageCount = doc.internal.getNumberOfPages();
 				for(let i = 1; i <= pageCount; i++) {

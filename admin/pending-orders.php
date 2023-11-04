@@ -257,7 +257,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 			document.getElementById("download-pdf-button").addEventListener("click", () => {
 				const table = document.getElementById("table-to-pdf");
-				var doc = new jsPDF('p', 'pt', 'letter');
+				var doc = new jsPDF('l', 'pt', 'letter');
 
 				const d = new Date();
 				const pageSize = doc.internal.pageSize;
@@ -286,12 +286,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 					headStyles:{ valign: 'middle', halign : 'center'},
 					columnStyles: {
 						0: {cellWidth: 20, valign: 'middle', halign: 'center'},
-						1: {cellWidth: 80, valign: 'middle', halign: 'center'},
-						2: {cellWidth: 60, valign: 'middle', halign: 'center'},
-						3: {cellWidth: 90, valign: 'middle', halign: 'center'},
-						4: {cellWidth: 80, valign: 'middle', halign: 'center'},
-						5: {cellWidth: 80, valign: 'middle', halign: 'center'},
-						6: {cellWidth: 60, valign: 'middle', halign: 'center'},
+						1: {cellWidth: 120, valign: 'middle', halign: 'center'},	//p-80
+						2: {cellWidth: 110, valign: 'middle', halign: 'center'},	//p-60
+						3: {cellWidth: 115, valign: 'middle', halign: 'center'},	//p-90
+						4: {cellWidth: 115, valign: 'middle', halign: 'center'},	//p-80
+						5: {cellWidth: 50, valign: 'middle', halign: 'center'},	//p-80
+						6: {cellWidth: 120, valign: 'middle', halign: 'center'},	//p-60
 						7: {cellWidth: 65, valign: 'middle', halign: 'center'}
 					}
 				});

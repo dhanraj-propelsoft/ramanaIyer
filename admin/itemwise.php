@@ -174,18 +174,18 @@ if (strlen($_SESSION['alogin']) == 0) {
 				const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
 				const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
 
-				// Convert the HTML table to PDF
-				doc.autoTable({
-					startY: 60,
-					html: table
-				});
-
 				doc.setFontSize(12);
 
 				const filDate = 'Filtered Date - '+$("#min").val();
 
 				if($("#min").val() != "")
 					doc.text(pageWidth / 2 - (doc.getTextWidth(filDate) / 2), 45, filDate);
+
+				// Convert the HTML table to PDF
+				doc.autoTable({
+					startY: 60,
+					html: table
+				});
 
 				const pageCount = doc.internal.getNumberOfPages();
 				for(let i = 1; i <= pageCount; i++) {

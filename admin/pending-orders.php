@@ -286,19 +286,20 @@ if (strlen($_SESSION['alogin']) == 0) {
 						{header: 'header7', dataKey: 'dataKey7'},
 						{header: 'header8', dataKey: 'dataKey8'},
 						{header: 'header9', dataKey: 'dataKey9'},
-						{header: 'header10', dataKey: 'dataKey10'},
+						{header: 'header10', dataKey: 'dataKey10'}
 					],
+					headStyles:{ valign: 'middle', halign : 'center'},
 					columnStyles: {
-					0: {cellWidth: 20},
-					1: {cellWidth: 80},
-					2: {cellWidth: 60},
-					3: {cellWidth: 90},
-					4: {cellWidth: 120},
-					5: {cellWidth: 140},
-					6: {cellWidth: 60},
-					7: {cellWidth: 30},
-					8: {cellWidth: 60},
-					9: {cellWidth: 55},
+					0: {cellWidth: 20, valign: 'middle', halign: 'center'},
+					1: {cellWidth: 80, valign: 'middle', halign: 'center'},
+					2: {cellWidth: 60, valign: 'middle', halign: 'center'},
+					3: {cellWidth: 90, valign: 'middle', halign: 'center'},
+					4: {cellWidth: 120, valign: 'middle', halign: 'center'},
+					5: {cellWidth: 140, valign: 'middle', halign: 'center'},
+					6: {cellWidth: 60, valign: 'middle', halign: 'center'},
+					7: {cellWidth: 30, valign: 'middle', halign: 'center'},
+					8: {cellWidth: 60, valign: 'middle', halign: 'center'},
+					9: {cellWidth: 55, valign: 'middle', halign: 'center'}
 					}
 				});
 

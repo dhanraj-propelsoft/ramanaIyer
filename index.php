@@ -3,6 +3,31 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 include('includes/header.php'); ?>
+<style>
+	/* Lazy Load Styles */
+	.card-image {
+		display: block;
+		min-height: 20rem;
+		/* layout hack */
+		background: #fff center center no-repeat;
+		background-size: cover;
+		filter: blur(3px);
+		/* blur the lowres image */
+	}
+
+	.card-image>img {
+		display: block;
+		width: 100%;
+		opacity: 0;
+		/* visually hide the img element */
+	}
+
+	.card-image.is-loaded {
+		filter: none;
+		/* remove the blur on fullres image */
+		transition: filter 1s;
+	}
+</style>
 <div class="body-content outer-top-xs" id="top-banner-and-menu">
 	<div class="container">
 		<div class="furniture-container homepage-container">
@@ -95,15 +120,15 @@ include('includes/header.php'); ?>
 					$qry = mysqli_query($con, "select * from combo");
 					while ($rw = mysqli_fetch_array($qry)) {
 						/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$rw['id']."'");
-									$row2 = mysqli_fetch_array($rt);
+						$row2 = mysqli_fetch_array($rt);
 
-									$rowCnt = 0;
-									$rating = 0;
-									//echo $row2['idCnt'];
-									if($row2['idCnt'] > 0) {
-										$rowCnt = $row2['idCnt'];
-										$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-									}*/
+						$rowCnt = 0;
+						$rating = 0;
+						//echo $row2['idCnt'];
+						if($row2['idCnt'] > 0) {
+							$rowCnt = $row2['idCnt'];
+							$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+						}*/
 						$rating = $rw['comboRating'];
 						?>
 
@@ -113,7 +138,10 @@ include('includes/header.php'); ?>
 								<div class="product text-center">
 									<div class="product-image" style="width: 100%; height: 300px; display: table;">
 										<div class="image" style="display: table-cell; vertical-align: middle;">
-											<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><img
+											<a class="card-image"
+												href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"
+												style="background-image: url(admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>);"
+												data-image-full="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"><img
 													src="assets/images/blank.gif"
 													data-echo="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"
 													style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"
@@ -127,7 +155,10 @@ include('includes/header.php'); ?>
 									<div class="product-info text-center">
 										<h3 class="name"
 											style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
-											<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"><?php echo htmlentities($rw['comboName']); ?></a></h3>
+											<a href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>">
+												<?php echo htmlentities($rw['comboName']); ?>
+											</a>
+										</h3>
 										<?php
 										for ($jctr = 0; $jctr < 5; $jctr++) {
 											if ($jctr < $rating)
@@ -140,10 +171,10 @@ include('includes/header.php'); ?>
 
 										<div class="product-price">
 											<span class="price">
-												₹ 
+												₹
 												<?php echo htmlentities($rw['comboPrice']); ?>
 											</span>
-											<span class="price-before-discount">₹ 
+											<span class="price-before-discount">₹
 												<?php echo htmlentities($rw['comboPriceBeforeDiscount']); ?>
 											</span>
 
@@ -155,12 +186,11 @@ include('includes/header.php'); ?>
 										</div>
 									<?php } else { ?>
 										<div class="action">
-											<a onclick="comboCart('<?php echo $rw['id']; ?>')"
-												class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+											<a onclick="comboCart('<?php echo $rw['id']; ?>')" class="lnk btn btn-primary"><i
+													class="fa fa-shopping-cart"></i> &nbsp;
 												Add to Cart</a> &nbsp;
 											<a class="btn btn-primary" onclick="comboWish('<?php echo $rw['id']; ?>')"
-												data-toggle="tooltip" data-placement="top" id="WishList"
-												title="Wishlist">
+												data-toggle="tooltip" data-placement="top" id="WishList" title="Wishlist">
 												<i class="fa fa-heart"></i>
 											</a>
 										</div>
@@ -198,15 +228,15 @@ include('includes/header.php'); ?>
 								$ret = mysqli_query($con, "select * from products where category='" . $row1['categoryid'] . "' and subCategory='" . $row1['id'] . "'");
 								while ($row = mysqli_fetch_array($ret)) {
 									/*$rt = mysqli_query($con, "select COUNT(id) as idCnt, SUM(quality) AS qulSum, SUM(price) AS priSum, SUM(value) AS valSum from productreviews where productId='".$row['id']."'");
-																							 $row2 = mysqli_fetch_array($rt);
+									$row2 = mysqli_fetch_array($rt);
 
-																							 $rowCnt = 0;
-																							 $rating = 0;
-																							 //echo $row2['idCnt'];
-																							 if($row2['idCnt'] > 0) {
-																								 $rowCnt = $row2['idCnt'];
-																								 $rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
-																							 }*/
+									$rowCnt = 0;
+									$rating = 0;
+									//echo $row2['idCnt'];
+									if($row2['idCnt'] > 0) {
+										$rowCnt = $row2['idCnt'];
+										$rating = round(round($row2['qulSum'] / $rowCnt) + round($row2['priSum'] / $rowCnt) + round($row2['valSum'] / $rowCnt)) / 3;
+									}*/
 									$rating = $row['productRating'];
 									?>
 									<div class="item item-carousel">
@@ -214,9 +244,11 @@ include('includes/header.php'); ?>
 											<div class="product text-center">
 												<div class="product-image" style="width: 100%; height: 300px; display: table;">
 													<div class="image" style="display: table-cell; vertical-align: middle;">
-														<a
+														<a class="card-image"
+															style="background-image: url(admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>);"
+															data-image-full="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
 															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img
-																src="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
+																src="background-image: url(assets/images/blank.gif);"
 																data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
 																style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
 													</div><!-- /.image -->
@@ -225,7 +257,9 @@ include('includes/header.php'); ?>
 													<h3 class="name"
 														style="overflow: hidden; max-width: 100%; text-overflow: ellipsis; white-space: nowrap;">
 														<a
-															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><?php echo htmlentities($row['productName']); ?></a>
+															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>">
+															<?php echo htmlentities($row['productName']); ?>
+														</a>
 													</h3>
 													<?php
 													for ($jctr = 0; $jctr < 5; $jctr++) {
@@ -239,10 +273,10 @@ include('includes/header.php'); ?>
 
 													<div class="product-price">
 														<span class="price">
-															₹ 
+															₹
 															<?php echo htmlentities($row['productPrice']); ?>
 														</span>
-														<span class="price-before-discount">₹ 
+														<span class="price-before-discount">₹
 															<?php echo htmlentities($row['productPriceBeforeDiscount']); ?>
 														</span>
 													</div>
@@ -253,15 +287,15 @@ include('includes/header.php'); ?>
 													</div>
 												<?php } else { ?>
 													<div class="action">
-													<a onclick="CartList('<?php echo $row['id']; ?>')"
-														class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
-														Add to Cart</a> &nbsp;
-													<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')"
-														data-toggle="tooltip" data-placement="top" id="WishList"
-														title="Wishlist">
-														<i class="fa fa-heart"></i>
-													</a>
-												</div>
+														<a onclick="CartList('<?php echo $row['id']; ?>')"
+															class="lnk btn btn-primary"><i class="fa fa-shopping-cart"></i> &nbsp;
+															Add to Cart</a> &nbsp;
+														<a class="btn btn-primary" onclick="WishList('<?php echo $row['id']; ?>')"
+															data-toggle="tooltip" data-placement="top" id="WishList"
+															title="Wishlist">
+															<i class="fa fa-heart"></i>
+														</a>
+													</div>
 												<?php } ?>
 											</div>
 										</div>
@@ -287,3 +321,26 @@ include('includes/header.php'); ?>
 			</div>
 		</div>
 		<?php include('includes/footer.php'); ?>
+		<script>
+			window.addEventListener('load', function () {
+				setTimeout(lazyLoad, 500);
+			});
+
+			function lazyLoad() {
+				var card_images = document.querySelectorAll('.card-image');
+
+				card_images.forEach(function (card_image) {
+					var image_url = card_image.getAttribute('data-image-full');
+					var content_image = card_image.querySelector('img');
+
+					content_image.src = image_url;
+
+					content_image.addEventListener('load', function () {
+						card_image.style.backgroundImage = 'url(' + image_url + ')';
+						card_image.className = card_image.className + ' is-loaded';
+					});
+
+				});
+
+			}
+		</script>

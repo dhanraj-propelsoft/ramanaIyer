@@ -65,7 +65,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<tbody>
 										<?php
 										$cnt = 1;
-										$query1 = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,users.billingAddress AS billingaddress,users.billingCity AS billingcity,users.billingState AS billingstate,users.billingPincode AS billingpincode,orders.orderDate AS orderdate,orders.id AS id,orders.orderId AS orderId,orders.dtSupply AS dtSupply  FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
+										$query1 = mysqli_query($con, "SELECT users.name AS username,users.email AS useremail,users.contactno AS usercontact,users.shippingAddress AS shippingaddress,users.shippingCity AS shippingcity,users.shippingState AS shippingstate,users.shippingPincode AS shippingpincode,users.billingAddress AS billingaddress,users.billingCity AS billingcity,users.billingState AS billingstate,users.billingPincode AS billingpincode,orders.orderDate AS orderdate,orders.id AS id,orders.orderId AS orderId,orders.dtSupply AS dtSupply  FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND orders.remarks!='Shipping Charge' AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
 
 										while ($row1 = mysqli_fetch_array($query1)) {
 											?>

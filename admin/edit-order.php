@@ -90,14 +90,14 @@ if (strlen($_SESSION['alogin']) == 0) {
             foreach ($pdtArray as $pdtArr) {
                 //echo $pdtArr["productId"].",".$pdtArr["quantity"].",".$pdtArr["price"].",".$pdtArr["new_prod_avail"];
                 mysqli_query($con, "UPDATE products SET prod_avail='" . $pdtArr["new_prod_avail"] . "' WHERE id='" . $pdtArr["productId"] . "'");
-                mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','" . $pdtArr["productId"] . "','" . $pdtArr["quantity"] . "','" . $pdtArr["price"] . "','$dateTime','$remarks','ADMIN','$oid','Admin')");
+                mysqli_query($con, "INSERT INTO orders (`userId`,`productId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$userId','" . $pdtArr["productId"] . "','" . $pdtArr["quantity"] . "','" . $pdtArr["price"] . "','$dateTime','$remarks','ADMIN','$oid','Admin')");
             }
             foreach ($cmbArray as $cmbArr) {
                 //echo $cmbArr["comboId"].",".$cmbArr["quantity"].",".$cmbArr["price"];
-                mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$uid','" . $cmbArr["comboId"] . "','" . $cmbArr["quantity"] . "','" . $cmbArr["price"] . "','$dateTime','$remarks','ADMIN','$oid','Admin')");
+                mysqli_query($con, "INSERT INTO orders (`userId`,`comboId`,`quantity`,`price`,`dtSupply`,`remarks`,`paymentMethod`,`orderId`,`orderBy`) VALUES ('$userId','" . $cmbArr["comboId"] . "','" . $cmbArr["quantity"] . "','" . $cmbArr["price"] . "','$dateTime','$remarks','ADMIN','$oid','Admin')");
             }
 
-            mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('$uid','ADMIN','ADMIN','$oid','Admin','40','$dateTime','Shipping Charge')");
+            mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('$userId','ADMIN','ADMIN','$oid','Admin','40','$dateTime','Shipping Charge')");
 
             header("Location: pending-orders.php");
             exit;

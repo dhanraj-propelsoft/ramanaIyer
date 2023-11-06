@@ -75,7 +75,7 @@
 							Order Wise
 							<?php
 							$status = 'Delivered';
-							$rt2 = mysqli_query($con, "SELECT orders.orderId AS orderId FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
+							$rt2 = mysqli_query($con, "SELECT orders.orderId AS orderId FROM orders JOIN users ON  orders.userId=users.id WHERE orders.paymentMethod IS NOT NULL AND orders.orderId IS NOT NULL AND orders.remarks!='Shipping Charge' AND (orders.orderStatus!='$status' OR orders.orderStatus IS NULL) GROUP BY orderId");
 							$num2 = mysqli_num_rows($rt2); { ?><b class="label brown pull-right">
 									<?php echo htmlentities($num2); ?>
 								</b>

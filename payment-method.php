@@ -213,10 +213,10 @@ if (strlen($_SESSION['login']) == 0) {
 			$_SESSION['receiptNo']=$orderId;
 
 			foreach ($value as $qty => $val34) {
-				mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$receiptNo','$orderId','Customer','$dtSupply')");
+				mysqli_query($con, "INSERT into orders(userId,productId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$qty','$val34','".$_POST['paymethod']."','$orderId','$orderId','Customer','$dtSupply')");
 			}
 			foreach ($comboVal as $cQty => $cVal) {
-				mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$cQty','$cVal','".$_POST['paymethod']."','$receiptNo','$orderId','Customer','$dtSupply')");
+				mysqli_query($con, "INSERT into orders(userId,comboId,quantity,paymentMethod,receiptNo,orderId,orderBy,dtSupply) values('" . $_SESSION['id'] . "','$cQty','$cVal','".$_POST['paymethod']."','$orderId','$orderId','Customer','$dtSupply')");
 			}
 			mysqli_query($con, "INSERT into orders(userId,paymentMethod,paymentId,orderId,orderBy,price,dtSupply,remarks) values('" . $_SESSION['id'] . "','".$_POST['paymethod']."','".$_POST['paymethod']."','$orderId','Customer','40','$dtSupply','Shipping Charge')");
 			//echo "<script>$('#loaderIcon').css('visibility', 'hidden'); $('#loaderIcon').hide();</script>";

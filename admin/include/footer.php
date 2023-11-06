@@ -14,3 +14,15 @@
 
 	</div>
 </div>
+
+<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+<!-- <script src="scripts/datatables/jquery.dataTables.js"></script> -->
+<script src="scripts/datatables/jquery.dataTables.min.js"></script>
+<script src="scripts/moment.min.js"></script>
+<script src="scripts/datatables/dataTables.dateTime.min.js"></script>
+
+</body>
+</html>

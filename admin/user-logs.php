@@ -7,21 +7,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
 
 	?>
-	<!DOCTYPE html>
-	<html lang="en">
-
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin | Users log</title>
-		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link type="text/css" href="css/theme.css" rel="stylesheet">
-		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
-	</head>
-
-	<body>
 		<?php include('include/header.php'); ?>
 
 		<div class="wrapper">
@@ -116,11 +101,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<script src="scripts/datatables/jquery.dataTables.js"></script>
 		<script>
 			$(document).ready(function () {
-				$('.datatable-1').dataTable();
-				$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-				$('.dataTables_paginate > a').wrapInner('<span />');
-				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+				$('.datatable-1').DataTable();
+				// $('.dataTables_paginate').addClass("btn-group datatable-pagination");
+				// $('.dataTables_paginate > a').wrapInner('<span />');
+				// $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+				// $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 			});
 		</script>
 	</body>

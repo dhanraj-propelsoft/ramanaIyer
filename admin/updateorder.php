@@ -7,6 +7,7 @@ if (strlen($_SESSION['alogin']) == 0) {
   header('location:index.php');
 } else {
   $oid = trim($_GET['oid']);
+  include('include/header.php');
   if (isset($_POST['submit2'])) {
     $status = $_POST['status'];
     $remark = $_POST['remark']; //space char
@@ -29,7 +30,6 @@ if (strlen($_SESSION['alogin']) == 0) {
   }
 
   ?>
-  <?php include('include/header.php'); ?>
 
   <div class="wrapper">
     <div class="container">
@@ -121,7 +121,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <tr>
                           <td colspan="4"><input class="btn btn-primary" type="button" value="Back"
                               onclick="window.history.go(-1); return false;" />
-                            <input type="submit" name="submit2" value="Update" class="btn" />
+                            <input type="submit" name="submit2" value="Update" class="btn btn-ri" />
                           </td>
                         <?php } ?>
                     </tbody>

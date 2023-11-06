@@ -7,6 +7,68 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
     $comboimage2 = "";
     $comboimage3 = "";
+
+	define("MAX_SIZE", "3000");
+	function getExtension($str)
+	{
+		$i = strrpos($str, ".");
+		if (!$i) {
+			return "";
+		}
+		$l = strlen($str) - $i;
+		$ext = substr($str, $i + 1, $l);
+		return $ext;
+	}
+
+	function imageUpload($image, $uploadedfile, $comboid)
+	{
+		if ($image) {
+
+			$filename = stripslashes($image);
+
+			$extension = getExtension($filename);
+			$extension = strtolower($extension);
+
+
+			if (($extension != "jpg") && ($extension != "jpeg") && ($extension != "png") && ($extension != "gif")) {
+				//echo "Unknown Extension..!";
+			} else {
+
+				$size = filesize($uploadedfile);
+
+				if ($size > MAX_SIZE * 1024) {
+					//echo "File Size Excedeed..!!";
+				}
+
+				if ($extension == "jpg" || $extension == "jpeg") {
+					$src = imagecreatefromjpeg($uploadedfile);
+				} else if ($extension == "png") {
+					$src = imagecreatefrompng($uploadedfile);
+				} else {
+					$src = imagecreatefromgif($uploadedfile);
+				}
+
+				list($width, $height) = getimagesize($uploadedfile);
+
+
+				$newwidth = 1280;
+				$newheight = ($height / $width) * $newwidth;
+				$tmp = imagecreatetruecolor($newwidth, $newheight);
+
+				imagecopyresampled($tmp, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+
+				$filename = "comboimages/$comboid/" . $image;
+
+				move_uploaded_file($uploadedfile, "comboimages/$comboid/ORG_ " . $image);
+
+				imagejpeg($tmp, $filename, 100);
+
+				imagedestroy($src);
+				imagedestroy($tmp);
+			}
+		}
+	}
     if (isset($_POST['submit'])) {
         $comboname = str_replace("'","''", $_POST['comboName']);
         $comboprice = $_POST['comboprice'];
@@ -33,12 +95,26 @@ if (strlen($_SESSION['alogin']) == 0) {
         if (!is_dir($dir)) {
             mkdir("comboimages/" . $comboid);
         }
+
+		$image1 = $_FILES["comboimage1"]["name"];
+		$uploadedfile1 = $_FILES["comboimage1"]["tmp_name"];
+		imageUpload($image1, $uploadedfile1, $comboid);
+		if (isset($_FILES["comboimage2"]["name"])) {
+			$image2 = $_FILES["comboimage2"]["name"];
+			$uploadedfile2 = $_FILES["comboimage2"]["tmp_name"];
+			imageUpload($image2, $uploadedfile2, $comboid);
+		}
+		if (isset($_FILES["comboimage3"]["name"])) {
+			$image3 = $_FILES["comboimage3"]["name"];
+			$uploadedfile3 = $_FILES["comboimage3"]["tmp_name"];
+			imageUpload($image3, $uploadedfile3, $comboid);
+		}
       
-        move_uploaded_file($_FILES["comboimage1"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage1"]["name"]);
-        if (isset($_FILES["comboimage2"]["name"]))
-            move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage2"]["name"]);
-        if (isset($_FILES["comboimage3"]["name"]))
-            move_uploaded_file($_FILES["comboimage3"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage3"]["name"]);
+        // move_uploaded_file($_FILES["comboimage1"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage1"]["name"]);
+        // if (isset($_FILES["comboimage2"]["name"]))
+        //     move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage2"]["name"]);
+        // if (isset($_FILES["comboimage3"]["name"]))
+        //     move_uploaded_file($_FILES["comboimage3"]["tmp_name"], "comboimages/$comboid/" . $_FILES["comboimage3"]["name"]);
 
         $ictr=0;
         foreach($productIds as $productId){

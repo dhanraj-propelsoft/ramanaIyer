@@ -6,15 +6,76 @@ if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
 	$pid = intval($_GET['id']); // combo id
+
+	define("MAX_SIZE", "3000");
+	function getExtension($str)
+	{
+		$i = strrpos($str, ".");
+		if (!$i) {
+			return "";
+		}
+		$l = strlen($str) - $i;
+		$ext = substr($str, $i + 1, $l);
+		return $ext;
+	}
+
+	function imageUpload($image, $uploadedfile, $productid)
+	{
+		if ($image) {
+
+			$filename = stripslashes($image);
+
+			$extension = getExtension($filename);
+			$extension = strtolower($extension);
+
+
+			if (($extension != "jpg") && ($extension != "jpeg") && ($extension != "png") && ($extension != "gif")) {
+				//echo "Unknown Extension..!";
+			} else {
+
+				$size = filesize($uploadedfile);
+
+				if ($size > MAX_SIZE * 1024) {
+					//echo "File Size Excedeed..!!";
+				}
+
+				if ($extension == "jpg" || $extension == "jpeg") {
+					$src = imagecreatefromjpeg($uploadedfile);
+				} else if ($extension == "png") {
+					$src = imagecreatefrompng($uploadedfile);
+				} else {
+					$src = imagecreatefromgif($uploadedfile);
+				}
+
+				list($width, $height) = getimagesize($uploadedfile);
+
+
+				$newwidth = 1280;
+				$newheight = ($height / $width) * $newwidth;
+				$tmp = imagecreatetruecolor($newwidth, $newheight);
+
+				imagecopyresampled($tmp, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+
+				$filename = "comboimages/$productid/" . $image;
+
+				move_uploaded_file($uploadedfile, "comboimages/$productid/ORG_ " . $image);
+
+				imagejpeg($tmp, $filename, 100);
+
+				imagedestroy($src);
+				imagedestroy($tmp);
+			}
+		}
+	}
 	if (isset($_POST['submit'])) {
 		$comboname = $_POST['comboName'];
 		$comboimage2 = $_FILES["comboimage2"]["name"];
 
-		//dir="comboimages";
-//unlink($dir.'/'.$pimage);
+		$uploadedfile2 = $_FILES["comboimage2"]["tmp_name"];
+		imageUpload($comboimage2, $uploadedfile2, $pid);
 
-
-		move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$pid/" . $_FILES["comboimage2"]["name"]);
+		//move_uploaded_file($_FILES["comboimage2"]["tmp_name"], "comboimages/$pid/" . $_FILES["comboimage2"]["name"]);
 		$sql = mysqli_query($con, "update  combo set comboImage2='$comboimage2' where id='$pid' ");
 		$_SESSION['msg'] = "Combo Image Updated Successfully !!";
 
@@ -112,7 +173,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 
 											<div class="control-group">
-												<label class="control-label" for="basicinput">Current Combo Image1</label>
+												<label class="control-label" for="basicinput">Current Combo Image2</label>
 												<div class="controls">
 													<?php if (!empty($row['comboImage2'])) { ?>
 													<img src="comboimages/<?php echo htmlentities($pid); ?>/<?php echo htmlentities($row['comboImage2']); ?>"

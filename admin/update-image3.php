@@ -6,13 +6,76 @@ if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
 	$pid = intval($_GET['id']); // product id
+
+	define("MAX_SIZE", "3000");
+	function getExtension($str)
+	{
+		$i = strrpos($str, ".");
+		if (!$i) {
+			return "";
+		}
+		$l = strlen($str) - $i;
+		$ext = substr($str, $i + 1, $l);
+		return $ext;
+	}
+
+	function imageUpload($image, $uploadedfile, $productid)
+	{
+		if ($image) {
+
+			$filename = stripslashes($image);
+
+			$extension = getExtension($filename);
+			$extension = strtolower($extension);
+
+
+			if (($extension != "jpg") && ($extension != "jpeg") && ($extension != "png") && ($extension != "gif")) {
+				//echo "Unknown Extension..!";
+			} else {
+
+				$size = filesize($uploadedfile);
+
+				if ($size > MAX_SIZE * 1024) {
+					//echo "File Size Excedeed..!!";
+				}
+
+				if ($extension == "jpg" || $extension == "jpeg") {
+					$src = imagecreatefromjpeg($uploadedfile);
+				} else if ($extension == "png") {
+					$src = imagecreatefrompng($uploadedfile);
+				} else {
+					$src = imagecreatefromgif($uploadedfile);
+				}
+
+				list($width, $height) = getimagesize($uploadedfile);
+
+
+				$newwidth = 1280;
+				$newheight = ($height / $width) * $newwidth;
+				$tmp = imagecreatetruecolor($newwidth, $newheight);
+
+				imagecopyresampled($tmp, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+
+				$filename = "productimages/$productid/" . $image;
+
+				move_uploaded_file($uploadedfile, "productimages/$productid/ORG_ " . $image);
+
+				imagejpeg($tmp, $filename, 100);
+
+				imagedestroy($src);
+				imagedestroy($tmp);
+			}
+		}
+	}
 	if (isset($_POST['submit'])) {
 		$productname = $_POST['productName'];
 		$productimage3 = $_FILES["productimage3"]["name"];
 
+		$uploadedfile3 = $_FILES["productimage3"]["tmp_name"];
+		imageUpload($productimage3, $uploadedfile3, $pid);
 
-
-		move_uploaded_file($_FILES["productimage3"]["tmp_name"], "productimages/$pid/" . $_FILES["productimage3"]["name"]);
+		//move_uploaded_file($_FILES["productimage3"]["tmp_name"], "productimages/$pid/" . $_FILES["productimage3"]["name"]);
 		$sql = mysqli_query($con, "update  products set productImage3='$productimage3' where id='$pid' ");
 		$_SESSION['msg'] = "Product Image Updated Successfully !!";
 

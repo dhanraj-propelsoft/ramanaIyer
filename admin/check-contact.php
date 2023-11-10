@@ -11,13 +11,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_POST['submit'])) {
 		$contactno = $_POST['contactno'];
 
-		mysqli_query($con, "insert into users(contactno) values('$contactno')");
+		// mysqli_query($con, "insert into users(contactno) values('$contactno')");
 
-		$query1 = mysqli_query($con, "select max(id) as pid from users");
-		$result1 = mysqli_fetch_array($query1);
-		$userid = $result1['pid'];
+		// $query1 = mysqli_query($con, "select max(id) as pid from users");
+		// $result1 = mysqli_fetch_array($query1);
+		// $userid = $result1['pid'];
 
-		header("Location: profile-sec.php?id=$userid&ut=Offline_User");
+		header("Location: profile-sec.php?mob=$contactno&ut=Offline_User");
 		exit;
 	}
 	?>

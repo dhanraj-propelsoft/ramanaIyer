@@ -15,14 +15,17 @@
 	</div>
 </div>
 
-<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-<!-- <script src="scripts/datatables/jquery.dataTables.js"></script> -->
-<script src="scripts/datatables/jquery.dataTables.min.js"></script>
-<script src="scripts/moment.min.js"></script>
-<script src="scripts/datatables/dataTables.dateTime.min.js"></script>
+<script src="assets/js/sweetalert.js" type="text/javascript"></script>
+<script src="assets/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<!-- <script src="assets/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> -->
+<script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- <script src="js/flot/jquery.flot.js" type="text/javascript"></script> -->
+<!-- <script src="js/datatables/jquery.dataTables.js"></script> -->
+<script src="assets/js/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/js/datatables/dataTables.dateTime.min.js"></script>
+<script src="assets/js/jspdf.min.js_1.5.3/cdnjs/jspdf.min.js"></script>
+<script src="assets/js/jspdf.plugin.autotable.min.js_3.5.6/cdnjs/jspdf.plugin.autotable.min.js"></script>
 
 </body>
 </html>

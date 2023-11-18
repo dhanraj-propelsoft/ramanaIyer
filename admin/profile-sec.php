@@ -225,6 +225,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 					});
 				}
 			})
+
 		}
 	</script>
 <?php } ?>

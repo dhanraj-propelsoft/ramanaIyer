@@ -285,9 +285,9 @@ $(document).ready(function(){
 /*  RATING
 /*===================================================================================*/
 
-$(document).ready(function(){
-    $('.rating').rateit({max: 5, step: 1, value : 4, resetable : false , readonly : true});
-});
+// $(document).ready(function(){
+//     $('.rating').rateit({max: 5, step: 1, value : 4, resetable : false , readonly : true});
+// });
 
 /*===================================================================================*/
 /* PRICE SLIDER

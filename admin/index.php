@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
-	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href="css/font-awesome.css" rel="stylesheet">
 	<link type="text/css" href='css/opensans.css' rel='stylesheet'>
 </head>
 

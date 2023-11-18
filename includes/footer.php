@@ -166,9 +166,9 @@
 <script src="assets/js/owl.carousel.min.js"></script>
 
 <script src="assets/js/echo.min.js"></script>
-<script src="assets/js/jquery.easing-1.3.min.js"></script>
+<!-- <script src="assets/js/jquery.easing-1.3.min.js"></script> -->
 <script src="assets/js/bootstrap-slider.min.js"></script>
-<script src="assets/js/jquery.rateit.min.js"></script>
+<!-- <script src="assets/js/jquery.rateit.min.js"></script> -->
 <script type="text/javascript" src="assets/js/lightbox.min.js"></script>
 <script src="assets/js/bootstrap-select.min.js"></script>
 <script src="assets/js/wow.min.js"></script>
@@ -254,21 +254,21 @@
 	}
 
     function pull_st_ct(ele) {
-        $.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
-            if (data[0].PostOffice && data[0].PostOffice.length) {
-                for (var i = 0; i < data[0].PostOffice.length; i++) {
-                    $(ele).parent().next().find("input").val(data[0].PostOffice[i].State);
-                    $(ele).parent().next().next().find("input").val(data[0].PostOffice[i].District);
-                    return;
-                }
-            }
-            else {
-                $(ele).next().html("<div class='alert alert-danger'><strong>Attention!</strong> Enter Valid Pincode</div>");
-                $(ele).next().fadeTo(5000, 500).slideUp(500, function(){
-                    $(ele).next().slideUp(500);
-                });
-            }
-        })
+        // $.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
+        //     if (data[0].PostOffice && data[0].PostOffice.length) {
+        //         for (var i = 0; i < data[0].PostOffice.length; i++) {
+        //             $(ele).parent().next().find("input").val(data[0].PostOffice[i].State);
+        //             $(ele).parent().next().next().find("input").val(data[0].PostOffice[i].District);
+        //             return;
+        //         }
+        //     }
+        //     else {
+        //         $(ele).next().html("<div class='alert alert-danger'><strong>Attention!</strong> Enter Valid Pincode</div>");
+        //         $(ele).next().fadeTo(5000, 500).slideUp(500, function(){
+        //             $(ele).next().slideUp(500);
+        //         });
+        //     }
+        // })
     }
 </script>
 </body>

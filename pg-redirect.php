@@ -1,12 +1,14 @@
 <?php
 session_start();
-require_once('vendor/razorpay/razorpay/Razorpay.php');
-use Razorpay\Api\Api;
+//require_once('vendor/instamojo/instamojo-php/src/Instamojo.php');
+require_once('vendor/autoload.php');
 error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
+	$_SESSION['lastSeen'] = 'pg-redirect.php';
 	header('location:login.php');
     exit;
 } else {
+    $_SESSION['lastSeen'] = '';
     include('includes/config.php');
 
     $total_amt = "0";
@@ -30,6 +32,7 @@ if (strlen($_SESSION['login']) == 0) {
         $order_id .= $row['id']."_";
         $quantity .= $row['quantity']."_";
     }
+    $total_amt = $total_amt + 40;
     $_SESSION['receiptNo']=$receiptNo;
     $_SESSION['total_amt']=$total_amt;
     
@@ -46,8 +49,31 @@ if (strlen($_SESSION['login']) == 0) {
     {
         header('location:index.php');
     } else {
-        //session_start();
-        $keyId = 'rzp_test_TIvjJmBIbM2Kci';
+        $authType = "app";
+        $api = Instamojo\Instamojo::init($authType,[
+            "client_id" =>  'test_QTuPhgAiEgLlyK8MsRjbszmR87c4bRbjRzI',
+            "client_secret" => 'test_gSV2H7LHSKPz1YpnDnYFmRQvpv4MnoJ3qLFBOKz76xEUW5YqQSH8SKzpytEKrsd9N8uXvsvWEROCeBOQJOzMkhroioKa7NJrDuKy5tZbZ5cL4ywFl7R2adjCnVS',
+        ],true);
+
+        try {
+            $response = $api->createPaymentRequest(array(
+                "purpose" => $receiptNo,
+                "amount" => $total_amt,
+                "send_email" => false,
+                "send_sms" => false,
+                "email" => $cust_mail,
+                "phone" => $cust_mob,
+                "buyer_name" => $cust_name,
+                "redirect_url" => "http://localhost/phpProjects/ramanaIyer/pg-redirect.php",
+                "webhook" => "http://localhost/phpProjects/ramanaIyer/payment-status.php"
+                ));
+            print_r($response);
+        }
+        catch (Exception $e) {
+            print('Error: ' . $e->getMessage());
+        }
+
+        /*$keyId = 'rzp_test_TIvjJmBIbM2Kci';
         $keySecret = 'grIOrCY9qMtAsAeBrylYyYPi';
         // $keyId = 'rzp_test_mCBWr5F7S9wokz';        
         // $keySecret = '0GpW3L1LWUfnTURo5HmuB8Iu';
@@ -109,7 +135,7 @@ if (strlen($_SESSION['login']) == 0) {
             $data['display_currency']  = $displayCurrency;
             $data['display_amount']    = $displayAmount;
         }
-        $json = json_encode($data);
+        $json = json_encode($data);*/
         include('includes/header.php');
     }
 }
@@ -129,12 +155,12 @@ if (strlen($_SESSION['login']) == 0) {
         vertical-align: middle;
     }
 </style>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li class='active'>Payment Status</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
@@ -143,12 +169,12 @@ if (strlen($_SESSION['login']) == 0) {
 <div id="ack" align="center"><h1>Please wait while you are redirected to the gateway to make payment.<BR/>Please do not go back.</h1></div>
 <script>
     // Checkout details as a json
-    const options = <?=$json?>;
+    //const options = <?/*=$json*/?>;
     /**
     * The entire list of Checkout fields is available at
     * https://docs.razorpay.com/docs/checkout-form#checkout-fields
     */
-    options.handler = function (response){
+    /*options.handler = function (response){
         //console.log(response);
         const formData = new FormData();
         formData.append('razorpay_payment_id', response.razorpay_payment_id);
@@ -225,7 +251,7 @@ if (strlen($_SESSION['login']) == 0) {
                 console.error(error);
             },
         });
-    });
+    });*/
     // document.getElementById('rzp-button1').onclick = function(e){
     //     rzp.open();
     //     e.preventDefault();

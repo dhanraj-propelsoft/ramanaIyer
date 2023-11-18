@@ -138,14 +138,12 @@ include('includes/header.php'); ?>
 								<div class="product text-center">
 									<div class="product-image" style="width: 100%; height: 300px; display: table;">
 										<div class="image" style="display: table-cell; vertical-align: middle;">
-											<a class="card-image"
+											<a style="background-image: url(admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>);"
 												href="combo-details.php?cid=<?php echo htmlentities($rw['id']); ?>"
-												style="background-image: url(admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>);"
-												data-image-full="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"><img
-													src="assets/images/blank.gif"
+												data-image-full="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>">
+												<img src="assets/images/ajax.gif"
 													data-echo="admin/comboimages/<?php echo htmlentities($rw['id']); ?>/<?php echo htmlentities($rw['comboImage1']); ?>"
-													style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"
-													alt=""></a>
+													style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
 										</div><!-- /.image -->
 
 
@@ -244,11 +242,10 @@ include('includes/header.php'); ?>
 											<div class="product text-center">
 												<div class="product-image" style="width: 100%; height: 300px; display: table;">
 													<div class="image" style="display: table-cell; vertical-align: middle;">
-														<a class="card-image"
-															style="background-image: url(admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>);"
+														<a style="background-image: url(admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>);"
 															data-image-full="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
-															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>"><img
-																src="background-image: url(assets/images/blank.gif);"
+															href="product-details.php?pid=<?php echo htmlentities($row['id']); ?>">
+															<img src="assets/images/ajax.gif"
 																data-echo="admin/productimages/<?php echo htmlentities($row['id']); ?>/<?php echo htmlentities($row['productImage1']); ?>"
 																style="height: auto; max-width: 100%; max-height: 300px; object-fit: contain;"></a>
 													</div><!-- /.image -->
@@ -322,25 +319,25 @@ include('includes/header.php'); ?>
 		</div>
 		<?php include('includes/footer.php'); ?>
 		<script>
-			window.addEventListener('load', function () {
-				setTimeout(lazyLoad, 500);
-			});
+			// window.addEventListener('load', function () {
+			// 	setTimeout(lazyLoad, 500);
+			// });
 
-			function lazyLoad() {
-				var card_images = document.querySelectorAll('.card-image');
+			// function lazyLoad() {
+			// 	var card_images = document.querySelectorAll('.card-image');
 
-				card_images.forEach(function (card_image) {
-					var image_url = card_image.getAttribute('data-image-full');
-					var content_image = card_image.querySelector('img');
+			// 	card_images.forEach(function (card_image) {
+			// 		var image_url = card_image.getAttribute('data-image-full');
+			// 		var content_image = card_image.querySelector('img');
 
-					content_image.src = image_url;
+			// 		content_image.src = image_url;
 
-					content_image.addEventListener('load', function () {
-						card_image.style.backgroundImage = 'url(' + image_url + ')';
-						card_image.className = card_image.className + ' is-loaded';
-					});
+			// 		content_image.addEventListener('load', function () {
+			// 			card_image.style.backgroundImage = "url('" + image_url + "')";
+			// 			card_image.className = card_image.className + ' is-loaded';
+			// 		});
 
-				});
+			// 	});
 
-			}
+			// }
 		</script>

@@ -5,17 +5,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Admin | Ramana Iyer</title>
-		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link type="text/css" href="css/theme.css" rel="stylesheet">
-		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='css/opensans.css' rel='stylesheet'>
-		<link rel="stylesheet" href="css/sweetalert2.min.css">
-		<link type="text/css" href="css/jquery.dataTables.min.css" rel="stylesheet">
-		<link type="text/css" href="css/dataTables.dateTime.min.css" rel="stylesheet">
-		<script type="text/javascript" src="assets/js/sweetalert.js"></script>
-		<script src="assets\js\jspdf.min.js_1.5.3\cdnjs\jspdf.min.js"></script>
-		<script src="assets\js\jspdf.plugin.autotable.min.js_3.5.6\cdnjs\jspdf.plugin.autotable.min.js"></script>
+		<link type="text/css" href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link type="text/css" href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link type="text/css" href="assets/css/theme.css" rel="stylesheet">
+		<link type="text/css" href="assets/css/font-awesome.css" rel="stylesheet">
+		<link type="text/css" href='assets/css/opensans.css' rel='stylesheet'>
+		<link rel="stylesheet" href="assets/css/sweetalert2.min.css">
+		<link type="text/css" href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link type="text/css" href="assets/css/dataTables.dateTime.min.css" rel="stylesheet">
 	</head>
 
 	<body>
@@ -37,7 +34,7 @@
 								</a></li>
 							<li class="nav-user dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<img src="images/user.png" class="nav-avatar" />
+									<img src="assets/images/user.png" class="nav-avatar" />
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">

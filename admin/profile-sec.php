@@ -210,21 +210,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 		
 
 		function pull_st_dt(ele) {
-			$.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
-				if (data[0].PostOffice && data[0].PostOffice.length) {
-					for (var i = 0; i < data[0].PostOffice.length; i++) {
-						$(ele).parent().parent().next().find("input").val(data[0].PostOffice[i].State);
-						$(ele).parent().parent().next().next().find("input").val(data[0].PostOffice[i].District);
-						return;
-					}
-				}
-				else {
-					$(ele).next().html("<div class='alert alert-danger'><strong>Attention!</strong> Enter Valid Pincode</div>");
-					$(ele).next().fadeTo(5000, 500).slideUp(500, function(){
-						$(ele).next().slideUp(500);
-					});
-				}
-			})
+			// $.getJSON("https://api.postalpincode.in/pincode/" + $(ele).val(), function (data) {
+			// 	if (data[0].PostOffice && data[0].PostOffice.length) {
+			// 		for (var i = 0; i < data[0].PostOffice.length; i++) {
+			// 			$(ele).parent().parent().next().find("input").val(data[0].PostOffice[i].State);
+			// 			$(ele).parent().parent().next().next().find("input").val(data[0].PostOffice[i].District);
+			// 			return;
+			// 		}
+			// 	}
+			// 	else {
+			// 		$(ele).next().html("<div class='alert alert-danger'><strong>Attention!</strong> Enter Valid Pincode</div>");
+			// 		$(ele).next().fadeTo(5000, 500).slideUp(500, function(){
+			// 			$(ele).next().slideUp(500);
+			// 		});
+			// 	}
+			// })
 
 		}
 	</script>

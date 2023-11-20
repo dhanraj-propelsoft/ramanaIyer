@@ -35,11 +35,11 @@ if (isset($_POST['submit'])) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Ramana Iyer | Admin login</title>
-	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link type="text/css" href="css/theme.css" rel="stylesheet">
-	<link type="text/css" href="css/font-awesome.css" rel="stylesheet">
-	<link type="text/css" href='css/opensans.css' rel='stylesheet'>
+	<link type="text/css" href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="assets/css/theme.css" rel="stylesheet">
+	<link type="text/css" href="assets/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='assets/css/opensans.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -129,7 +129,7 @@ if (isset($_POST['submit'])) {
 			</div>
 		</div>
 	</div>
-	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="assets/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<!-- <script src="assets/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> -->
+	<script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>

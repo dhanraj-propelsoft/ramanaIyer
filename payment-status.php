@@ -66,8 +66,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 
         if (($_SESSION['receiptNo'] != "") && ($_SESSION['total_amt'] != "0")) {
-            // You can get the 'salt' from Instamojo's developers page(make sure to log in first): https://www.instamojo.com/developers
-            // Pass the 'salt' without <>
+           // Pass the 'salt' without <>
             $mac_calculated = hash_hmac("sha1", implode("|", $data), "bfcbd3a642b84b658e2c1fbce3a3f107");
             if ($mac_provided == $mac_calculated) {
 

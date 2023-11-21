@@ -126,19 +126,19 @@
                     <div class="module-body outer-top-xs">
                         <ul class="toggle-footer" style="">
                             <li class="">
-                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/privacy" target="_blank">Privacy Policy</a>
+                                <a href="policy.php#Privacy">Privacy Policy</a>
                             </li>
                             <li class="">
-                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/terms" target="_blank">Terms & Conditions</a>
+                                <a href="policy.php#Terms">Terms & Conditions</a>
                             </li>
                             <li class="">
-                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/refund" target="_blank">Cancellation & Refund Policy</a>
+                                <a href="policy.php#Refund">Cancellation & Refund Policy</a>
                             </li>
                             <li class="">
-                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/shipping" target="_blank">Shipping & Delivery Policy</a>
+                                <a href="policy.php#Shipping">Shipping & Delivery Policy</a>
                             </li>
                             <li class="">
-                                <a href="https://merchant.razorpay.com/policy/Mk7iX6rRyeqkpQ/contact_us" target="_blank">Contact us</a>
+                                <a href="policy.php#Contact">Contact us</a>
                             </li>
                         </ul>
                     </div>

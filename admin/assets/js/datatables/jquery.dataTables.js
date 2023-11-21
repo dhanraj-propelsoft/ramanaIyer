@@ -1,27 +1,3 @@
-/**
- * @summary     DataTables
- * @description Paginate, search and sort HTML tables
- * @version     1.10.0-dev
- * @file        jquery.dataTables.js
- * @author      Allan Jardine (www.sprymedia.co.uk)
- * @contact     www.sprymedia.co.uk/contact
- *
- * @copyright Copyright 2008-2012 Allan Jardine, all rights reserved.
- *
- * This source file is free software, under either the GPL v2 license or a
- * BSD style license, available at:
- *   http://datatables.net/license_gpl2
- *   http://datatables.net/license_bsd
- *
- * This source file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
- *
- * For details please refer to: http://www.datatables.net
- */
-
-/*jslint evil: true, undef: true, browser: true */
-/*globals $,require,jQuery,define,_fnExternApiFunc,_fnInitialise,_fnInitComplete,_fnLanguageCompat,_fnAddColumn,_fnColumnOptions,_fnAddData,_fnCreateTr,_fnGatherData,_fnBuildHead,_fnDrawHead,_fnDraw,_fnReDraw,_fnAjaxUpdate,_fnAjaxParameters,_fnAjaxUpdateDraw,_fnAddOptionsHtml,_fnFeatureHtmlTable,_fnScrollDraw,_fnAdjustColumnSizing,_fnFeatureHtmlFilter,_fnFilterComplete,_fnFilterCustom,_fnFilterColumn,_fnFilter,_fnBuildSearchArray,_fnBuildSearchRow,_fnFilterCreateSearch,_fnDataToSearch,_fnSort,_fnSortAttachListener,_fnSortingClasses,_fnFeatureHtmlPaginate,_fnPageChange,_fnFeatureHtmlInfo,_fnUpdateInfo,_fnFeatureHtmlLength,_fnFeatureHtmlProcessing,_fnProcessingDisplay,_fnVisibleToColumnIndex,_fnColumnIndexToVisible,_fnNodeToDataIndex,_fnVisbleColumns,_fnCalculateEnd,_fnConvertToWidth,_fnCalculateColumnWidths,_fnScrollingWidthAdjust,_fnGetWidestNode,_fnGetMaxLenString,_fnStringToCss,_fnDetectType,_fnSettingsFromNode,_fnGetDataMaster,_fnGetTrNodes,_fnGetTdNodes,_fnEscapeRegex,_fnDeleteIndex,_fnColumnOrdering,_fnLog,_fnClearTable,_fnSaveState,_fnLoadState,_fnDetectHeader,_fnGetUniqueThs,_fnScrollBarWidth,_fnApplyToChildren,_fnMap,_fnGetRowData,_fnGetCellData,_fnSetCellData,_fnGetObjectDataFn,_fnSetObjectDataFn,_fnApplyColumnDefs,_fnBindAction,_fnCallbackReg,_fnCallbackFire,_fnNodeToColumnIndex,_fnInfoMacros,_fnBrowserDetect,_fnGetColumns,_fnHungarianMap,_fnCamelToHungarian,_fnBuildAjax,_fnAjaxDataSrc*/
 
 (/** @lends <global> */function( window, document, undefined ) {
 
@@ -44,38 +20,7 @@
 (/** @lends <global> */function( $ ) {
 	"use strict";
 
-	/**
-	 * DataTables is a plug-in for the jQuery Javascript library. It is a highly
-	 * flexible tool, based upon the foundations of progressive enhancement,
-	 * which will add advanced interaction controls to any HTML table. For a
-	 * full list of features please refer to
-	 * [DataTables.net](href="http://datatables.net).
-	 *
-	 * Note that the `DataTable` object is not a global variable but is aliased
-	 * to `jQuery.fn.DataTable` and `jQuery.fn.dataTable` through which it may
-	 * be  accessed.
-	 *
-	 *  @class
-	 *  @param {object} [init={}] Configuration object for DataTables. Options
-	 *    are defined by {@link DataTable.defaults}
-	 *  @requires jQuery 1.3+
-	 *
-	 *  @example
-	 *    // Basic initialisation
-	 *    $(document).ready( function {
-	 *      $('#example').dataTable();
-	 *    } );
-	 *
-	 *  @example
-	 *    // Initialisation with configuration options - in this case, disable
-	 *    // pagination and sorting.
-	 *    $(document).ready( function {
-	 *      $('#example').dataTable( {
-	 *        "paginate": false,
-	 *        "sort": false
-	 *      } );
-	 *    } );
-	 */
+	
 	var DataTable;
 
 	
@@ -6779,14 +6724,7 @@
 	};
 	
 
-	/**
-	 * Version string for plug-ins to check compatibility. Allowed format is
-	 * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
-	 * only for non-release builds. See http://semver.org/ for more information.
-	 *  @member
-	 *  @type string
-	 *  @default Version number
-	 */
+	
 	DataTable.version = "1.10.0-dev";
 
 	/**
@@ -7796,158 +7734,7 @@
 		"aaSortingFixed": null,
 	
 	
-		/**
-		 * DataTables can be instructed to load data to display in the table from a
-		 * Ajax source. This option defines how that Ajax call is made and where to.
-		 *
-		 * The `ajax` property has three different modes of operation, depending on
-		 * how it is defined. These are:
-		 *
-		 * * `string` - Set the URL from where the data should be loaded from.
-		 * * `object` - Define properties for `jQuery.ajax`.
-		 * * `function` - Custom data get function
-		 *
-		 * `string`
-		 * --------
-		 *
-		 * As a string, the `ajax` property simply defines the URL from which
-		 * DataTables will load data.
-		 *
-		 * `object`
-		 * --------
-		 *
-		 * As an object, the parameters in the object are passed to
-		 * [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) allowing fine control
-		 * of the Ajax request. DataTables has a number of default parameters which
-		 * you can override using this option. Please refer to the jQuery
-		 * documentation for a full description of the options available, although
-		 * the following parameters provide additional options in DataTables or
-		 * require special consideration:
-		 *
-		 * * `data` - As with jQuery, `data` can be provided as an object or array
-		 *   of name/value pairs, but it can also be used as a function to
-		 *   manipulate the data DataTables sends to the server. The function takes
-		 *   a single parameter, an array of name/value pairs that DataTables has
-		 *   readied for sending. An object or array can be returned which will be
-		 *   merged into the DataTables defaults, or you can add the items to the
-		 *   array passed in. This supersedes `fnServerParams` from DataTables 1.9-.
-		 *
-		 * * `dataSrc` - By default DataTables will look for the property 'aaData'
-		 *   when obtaining data from an Ajax source or for server-side processing -
-		 *   this parameter allows that property to be changed. You can use
-		 *   Javascript dotted object notation to get a data source for multiple
-		 *   levels of nesting, or it my be used as a function. As a function it
-		 *   takes a single parameter, the JSON returned from the server, which can
-		 *   be manipulated as required, with the returned value being that used by
-		 *   DataTables as the data source for the table. This supersedes
-		 *   `sAjaxDataProp` from DataTables 1.9-.
-		 *
-		 * * `success` - Should not be overridden it is used internally in
-		 *   DataTables. To manipulate the data returned by the server use
-		 *   `ajax.dataSrc`, or use `ajax` as a function (see below).
-		 *
-		 * `function`
-		 * ----------
-		 *
-		 * As a function, making the Ajax call is left up to yourself allowing
-		 * complete control of the Ajax request. Indeed, if desired, a method other
-		 * than Ajax could be used to obtain the required data, such as Web storage
-		 * or an AIR database.
-		 *
-		 * The function is given four parameters and no return is required. The
-		 * parameters are:
-		 *
-		 * 1. _object_ - Data to send to the server
-		 * 2. _function_ - Callback function that must be executed when the required
-		 *    data has been obtained. That data should be passed into the callback
-		 *    as the only parameter
-		 * 3. _object_ - DataTables settings object for the table
-		 *
-		 * Note that this supersedes `fnServerData` from DataTables 1.9-.
-		 *
-		 *  @type string|object|function
-		 *  @default null
-		 *
-		 *  @dtopt Option
-		 *  @name DataTable.defaults.ajax
-		 *  @since 1.10.0
-		 *
-		 * @example
-		 *   // Get JSON data from a file via Ajax.
-		 *   // Note DataTables expects data in the form `{ aaData: [ ...data... ] }` by default).
-		 *   $('#example').dataTable( {
-		 *     "ajax": "data.json"
-		 *   } );
-		 *
-		 * @example
-		 *   // Get JSON data from a file via Ajax, using `dataSrc` to change
-		 *   // `aaData` to `tableData` (i.e. `{ aaData: [ ...data... ] }`)
-		 *   $('#example').dataTable( {
-		 *     "ajax": {
-		 *       "url": "data.json",
-		 *       "dataSrc": "tableData"
-		 *     }
-		 *   } );
-		 *
-		 * @example
-		 *   // Get JSON data from a file via Ajax, using `dataSrc` to read data
-		 *   // from a plain array rather than an array in an object
-		 *   $('#example').dataTable( {
-		 *     "ajax": {
-		 *       "url": "data.json",
-		 *       "dataSrc": ""
-		 *     }
-		 *   } );
-		 *
-		 * @example
-		 *   // Manipulate the data returned from the server - add a link to data
-		 *   // (note this can, should, be done using `render` for the column - this
-		 *   // is just a simple example of how the data can be manipulated).
-		 *   $('#example').dataTable( {
-		 *     "ajax": {
-		 *       "url": "data.json",
-		 *       "dataSrc": function ( json ) {
-		 *         for ( var i=0, ien=json.length ; i<ien ; i++ ) {
-		 *           json[i][0] = '<a href="/message/'+json[i][0]+'>View message</a>';
-		 *         }
-		 *         return json;
-		 *       }
-		 *     }
-		 *   } );
-		 *
-		 * @example
-		 *   // Add data to the request
-		 *   $('#example').dataTable( {
-		 *     "ajax": {
-		 *       "url": "data.json",
-		 *       "data": function ( d ) {
-		 *         return {
-		 *           "extra_search": $('#extra').val()
-		 *         };
-		 *       }
-		 *     }
-		 *   } );
-		 *
-		 * @example
-		 *   // Send request as POST
-		 *   $('#example').dataTable( {
-		 *     "ajax": {
-		 *       "url": "data.json",
-		 *       "type": "POST"
-		 *     }
-		 *   } );
-		 *
-		 * @example
-		 *   // Get the data from localStorage (could interface with a form for
-		 *   // adding, editing and removing rows).
-		 *   $('#example').dataTable( {
-		 *     "ajax": function (data, callback, settings) {
-		 *       callback(
-		 *       	JSON.parse( localStorage.getItem('dataTablesData') )
-		 *       );
-		 *     }
-		 *   } );
-		 */
+		
 		"ajax": null,
 	
 	
@@ -9541,28 +9328,7 @@
 			"sSearch": "Search:",
 		
 		
-			/**
-			 * All of the language information can be stored in a file on the
-			 * server-side, which DataTables will look up if this parameter is passed.
-			 * It must store the URL of the language file, which is in a JSON format,
-			 * and the object has the same properties as the oLanguage object in the
-			 * initialiser object (i.e. the above parameters). Please refer to one of
-			 * the example language files to see how this works in action.
-			 *  @type string
-			 *  @default <i>Empty string - i.e. disabled</i>
-			 *
-			 *  @dtopt Language
-			 *  @name DataTable.defaults.language.url
-			 * 
-			 *  @example
-			 *    $(document).ready( function() {
-			 *      $('#example').dataTable( {
-			 *        "language": {
-			 *          "url": "http://www.sprymedia.co.uk/dataTables/lang.txt"
-			 *        }
-			 *      } );
-			 *    } );
-			 */
+			
 			"sUrl": "",
 		
 		
